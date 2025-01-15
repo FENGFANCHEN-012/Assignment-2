@@ -1,0 +1,30 @@
+.panel{
+    width:45vw;
+    height:60vh;
+    background-color: beige;
+    display: none;
+    z-index: 20000;
+}
+.log{
+    width:95%;
+    margin-left: 2.5%;
+    border: 2px solid #000000;
+    color:black;
+}
+.lgif{
+    
+    border-radius: 2vw;
+    margin-top: 2vw;
+   width:90%;
+   height:35vw;
+   display: flex;
+   justify-content: space-around;
+   background-color:azure;
+   
+}
+hr{
+    color:black;
+    width:80%;
+    z-index: 100;
+    position: fixed;
+}

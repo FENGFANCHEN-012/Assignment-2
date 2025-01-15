@@ -1,16 +1,150 @@
 <!DOCTYPE html>
 <head>
     <title>FindSell HomePage</title>
+    <style></style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="css.css">
+   <link rel="stylesheet" href="style.css">
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <script src="js.js"></script>
   <header>
-    <div class="container">
-        <h1>Welcome to Bootstrap</h1>
-        <p>This is a simple Bootstrap template.</p>
-    </div>sdsassd
+  
+    <div class="head" >
+        <img class="logo"src= "Selling_transparent-.png" alt="Find Sell">
+        
+         <input type="text" class="search" >
+         <button class="bt">Search</button>
+        <button class="set">Login</button>
+        <button class="set" style="margin-left:0">Sign Up</button>
+        <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
+    </div>
   </header>
+  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+  <div class="down" style="margin-left:28vw;margin-top:10vh">
 
+    <section class="panel" >
+        <p class="log" style="border:none">Login in</p>
+        <button class="log">Google</button>
+        <button class="log">FaceBook</button>
+        <p class="log">New user? Sign up <a href=''>here</a></p>
+
+    </section>
+    <section class="panel" >
+        <p>You have'nt sign up yet</p>
+        <p>log Up here</p>
+
+    </section>
+    <section class="panel" >
+        <p>You have'nt sign up yet</p>
+        <p>log Up here</p>
+
+    </section>
+  </div>
+  <main >
+    <section class="main" style="   margin-top:10vh;"> 
+    <div class="ct">
+        <a href="">
+            <img class="pic"src="Selling_transparent-.png">
+        </a>
+        <a href="">
+            <img class="pic"src="Selling_transparent-.png">
+        </a>
+    </div>
+</section>
+<h1>Opportunity</h1>
+<hr>
+<section class="main" style="height:35vw"> 
+    <div class="box">Hi</div>
+   
+</section>
+<hr>
+<h1 style="margin-top:1vw">Category</h1>
+<section class="main">
+    <section class="ct">
+    <div class="smbox">
+
+    </div>
+    <div class="smbox">
+
+    </div>
+    <div class="smbox">
+
+    </div>
+    <div class="smbox">
+
+    </div>
+    <div class="smbox">
+
+    </div>
+    <div class="smbox">
+
+    </div>
+   
+</section>
+</section>
+<h1 style="margin-top:1vw">Trusetd Seller</h1>
+<section class="main">
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+
+</div>
+
+</section>
+<h1 style="margin-top:10vh">Recommend for you</h1>
+<section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
+
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+
+
+</section>
+<section class="main" style="height:10vh">
+<button class="bt" >More</button>
+</section>
+  </main>
+  <footer>
+    <section class="footer">
+
+    </section>
+  </footer>
+<hr>
+<script>
+    let pan = document.getElementsByClassName("panel"); 
+    
+    const p = document.getElementsByClassName("set");
+    const m = document.getElementsByClassName("bt");
+    
+    
+    p[1].addEventListener("click", function() {
+      
+        pan[1].style.display = 'block';
+    });
+    p[1].addEventListener('mouseout', function() {
+        panel.style.display = 'none';
+    });
+   
+    
+    p[0].addEventListener("click", function() {
+       
+        pan[0].style.display = 'block';
+    });
+    p[0].addEventListener('mouseout', function() {
+        panel.style.display = 'none';
+    });
+    
+
+    
+    
+   
+    ;
+ 
+</script>
 </body>

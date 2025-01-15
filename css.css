@@ -1,0 +1,128 @@
+h1{
+    margin-top:9vh;
+    
+}
+.head{
+    width:90%;
+    margin-left:2.5%;
+    height:12vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    
+}
+img :hover{
+    transform:scale(0.9);
+    transition: box-shadow 0.3s ease;
+}
+button:active {
+transform:scale(0.9);
+background-color: red;
+transition: box-shadow 0.3s ease;
+}
+.down{
+    position: fixed;
+    margin-top:2.5vw;
+}
+.box-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:hover{
+    transform:scale(1.1);
+}
+.main{
+   margin-top:9vh;
+    width:90%;
+    margin-left:5%;
+    height:37vh;
+    display:flex;
+    justify-content: center;
+flex-wrap: wrap;
+align-items: center;
+}
+.nav{
+    margin-left:1vw;
+    display: flex;
+    justify-content: center;
+   gap:4vw;
+    flex-grow:2;
+}
+
+.logo{
+    margin-left:2vw;
+    height:25vh;
+    width:15vw;
+}
+.search{
+    margin-left:5vw;
+    width:45vw;
+    height:3.1vw;
+    background-color:  #B2B5B5;
+
+}
+.bt{
+   width:5vw;
+   height:6vh;
+   background-color:  #FFCB77;
+   color:#4A4A4A ;
+}
+.inbt{
+    width:5vw;
+    height:4.7vh;
+    background-color:#FFCB77
+    ;color:#4A4A4A ;
+}
+.set{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    margin-left:10vw;
+    width:5vw;
+    font-size:1.6vw;
+    color:#FFFFFF;
+    background-color: #B2B5B5;
+    height:3vw;
+}
+.ct{
+    
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height:20vh;
+    gap:2vw;
+    flex-wrap: warp;
+
+}
+.pic{
+    width:42vw;
+    height:30vh;
+    border:2px solid #000000;
+}
+.box{
+    width:100%;
+    border:2px solid  #000000;
+    height:30vw;
+}
+.smbox{
+    width:15vw;
+    height:30vh;
+    background-color: #B2B5B5;
+}
+.pd{
+  
+    width:21.5vw;
+    height:50vh;
+    background-color: gray;
+}
+.footer{
+    margin-left:2.5%;
+   width:95%;
+   height:80vh;
+   display: flex;
+   justify-content: center;
+   background-color: aquamarine;
+}
+.footer2{
+
+}

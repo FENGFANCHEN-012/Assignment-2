@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="css.css">
    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style2.css">
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -13,7 +14,7 @@
   <header>
   
     <div class="head" >
-        <img class="logo"src= "Selling_transparent-.png" alt="Find Sell">
+        <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
         
          <input type="text" class="search" >
          <button class="bt">Search</button>
@@ -22,8 +23,11 @@
         <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
     </div>
   </header>
+  <script>
+  
+  </script>
   <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
-  <div class="down" style="margin-left:28vw;margin-top:10vh">
+  <div class="down" style="margin-left:28vw;margin-top:15vh">
 
     <section class="panel" >
         <p class="log" style="border:none">Login in</p>
@@ -37,16 +41,12 @@
         <p>log Up here</p>
 
     </section>
-    <section class="panel" >
-        <p>You have'nt sign up yet</p>
-        <p>log Up here</p>
-
-    </section>
+    
   </div>
   <main >
     <section class="main" style="   margin-top:10vh;"> 
     <div class="ct">
-        <a href="">
+        <a href="" style="">
             <img class="pic"src="Selling_transparent-.png">
         </a>
         <a href="">
@@ -54,44 +54,96 @@
         </a>
     </div>
 </section>
-<h1>Opportunity</h1>
+<h1 style="margin-top:5vw">Opportunity</h1>
 <hr>
-<section class="main" style="height:35vw"> 
-    <div class="box">Hi</div>
-   
+<section style="width:100vw;overflow:hidden" > 
+<section  id="game" style="height:35vw"> 
+    <div class="box" id="box1">
+    <button class="next">Click Here</button>
+</div>
+
+    <div class="box" id="box2">Hi
+        <button class="next">Click Here</button>
+    </div>
 </section>
+</section>
+
+<script>
+    const but = document.getElementsByClassName("next");
+    const box = document.getElementById("game");
+    let isBox1Visible = true;
+    
+    but[0].addEventListener("click", () => {
+        if (isBox1Visible) {
+            box.style.transform = "translateX(-95vw)";
+            isBox1Visible = false;  // Update visibility status
+        }
+    });
+    
+    but[1].addEventListener("click", () => {
+        if (!isBox1Visible) {
+            box.style.transform = "translateX(0)";
+            isBox1Visible = true;  // Update visibility status
+        }
+    });
+</script>
 <hr>
 <h1 style="margin-top:1vw">Category</h1>
-<section class="main">
+<section class="main" >
     <section class="ct">
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
+    <button class="smbox">
+       hi
+    </button>
+ 
+    <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
    
 </section>
 </section>
-<h1 style="margin-top:1vw">Trusetd Seller</h1>
-<section class="main">
+<h1 style="margin-top:5vw">Trusetd Seller</h1>
+<section style="width:100vw;overflow:hidden" > 
+    <button id="but2" >Click Me</button>
+<section  id="seller">
+    
 <div class="ct" style="background-color:antiquewhite;height:20vw">
-
+    
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
 </div>
 
 </section>
+</section>
+<script>
+    let start = 0;
+    let seller = document.getElementById("seller"); 
+    let step = 95; 
+    
+    let but2 = document.getElementById("but2");
+    
+    but2.addEventListener("click", function() {
+        start += 1;
+        if (start >= seller.children.length) {
+            start = 0;
+        }
+        seller.style.transform = `translateX(-${start * step}vw)`;
+        seller.style.transition = "transform 0.5s ease"; 
+    });
+</script>
 <h1 style="margin-top:10vh">Recommend for you</h1>
 <section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
 
@@ -103,8 +155,6 @@
 <div class="pd"></div>
 <div class="pd"></div>
 <div class="pd"></div>
-
-
 </section>
 <section class="main" style="height:10vh">
 <button class="bt" >More</button>
@@ -118,33 +168,32 @@
 <hr>
 <script>
     let pan = document.getElementsByClassName("panel"); 
-    
+
     const p = document.getElementsByClassName("set");
-    const m = document.getElementsByClassName("bt");
     
     
     p[1].addEventListener("click", function() {
-      
-        pan[1].style.display = 'block';
+        if (pan[0].style.display === 'block') {
+            pan[0].style.display = 'none';
+        } else {
+            pan[0].style.display = 'block';
+            
+        }
     });
-    p[1].addEventListener('mouseout', function() {
-        panel.style.display = 'none';
-    });
-   
-    
-    p[0].addEventListener("click", function() {
-       
-        pan[0].style.display = 'block';
-    });
-    p[0].addEventListener('mouseout', function() {
-        panel.style.display = 'none';
-    });
-    
 
-    
-    
-   
-    ;
- 
+    p[0].addEventListener("click", function() {
+        if (pan[0].style.display === 'block') {
+            pan[0].style.display = 'none';
+        } else {
+            pan[0].style.display = 'block';         
+        }
+    });
+document.addEventListener('click', function(event) {
+        for (let i = 0; i < pan.length; i++) {
+            if (!pan[i].contains(event.target) && !p[0].contains(event.target) && !p[1].contains(event.target)) {
+                pan[i].style.display = 'none';
+            }
+        }
+    });
 </script>
 </body>

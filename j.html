@@ -8,14 +8,29 @@
     <link rel="stylesheet" href="style.css">
    
 <body>
-      
-    <section class="main">
+    <header>
+  
+        <div class="head" style="position:absolute">
+            <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
+             <input type="text" class="search" >
+             <button class="bt">Search</button>
+            <button class="set">Login</button>
+            <button class="set" style="margin-left:0">Sign Up</button>
+            <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
+        </div>
+      </header>
+      <div >&nbsp  &nbsp  &nbsp  &nbsp </div>
+      <section class="main" style="height:60vw;align-items:start;margin-top:5vw">
+          
+        
         <div class="lgif">
             <hr style="margin-top: 3vw;">
            
-           <section style="margin-top: 10vw;">Welcome!</section> 
+           <section style="margin-top: 10vw;">
+            Welcome!</section> 
            
            <section style="margin-top: 10vw;">
+            <div>Log in FindSell</div>
                 <div>
                     <label>Email</label>
                     <input type="text">
@@ -24,8 +39,58 @@
                     <label>Password</label>
                     <input type="password">
                 </div>
-           </section>
+                <button style="margin-left:5vw">Submit</button>
+                <section>Are you new user ?<a href='http://127.0.0.1:5500/sign%20up.html'>sign Here</a></section>
+               
         </div>
     </section>
+
+</section>
+<footer class="footer">Hi</footer>
+<script>
+    APIKEY="8bf077026b4d45793de980e5a20c7bda48ac1"
+    let email = document.getElementById("email").value
+    let passwd = document.getElementById("password").value
+    let button = document.getElementById("submit")
+
+    let settings = {
+        method:"GET",
+        headers:{
+          "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache",
+            
+        },body: JSON.stringify(message),
+      };
+      fetch("https://jackie2-b185.restdb.io/rest/dashboard", settings)
+      .then((response)=>response.json())
+      .then((response => {
+    
+        
+        
+        getContacts();
+      }
+     
+      ))
+      .catch(error=>{
+        console.warn("Error occur pls try again!")
+        
+      })
+      .then(data => {
+          const user = data.find( user.email === email  && user.passwd === passwd
+          )
+        
+          if(user){
+            window.location.href=""
+          }
+          else{
+            console.warn("sorry, emial or passwd wrong")
+          }
+        });
+
+          
+      
+</script>
+
 </body>
 </html>

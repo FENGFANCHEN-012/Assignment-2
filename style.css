@@ -1,4 +1,5 @@
 .panel{
+    
     width:45vw;
     height:60vh;
     background-color: beige;
@@ -12,7 +13,6 @@
     color:black;
 }
 .lgif{
-    
     border-radius: 2vw;
     margin-top: 2vw;
    width:90%;
@@ -20,11 +20,54 @@
    display: flex;
    justify-content: space-around;
    background-color:azure;
-   
+   z-index: 10;
+   position: relative;
 }
 hr{
     color:black;
-    width:80%;
+    width:100%;
     z-index: 100;
-    position: fixed;
+    position: absolute;
+}
+.opa{
+    width:100vw;
+    height:100vh;
+  overflow:hidden;
+  opacity: 1;
+  color:aquamarine;
+  z-index: 0;
+  position: relative;
+}
+.dropd {
+        width: 19vw;
+        height: 3vw;
+        background-color: orange;
+        
+        align-items: center;
+        margin-left: 2vw;
+        margin-bottom: 0;
+        border: 2px solid #FFFFFF;
+        position: relative;}
+.dropdown{
+    position: absolute;
+    width: 20vw;
+    height: 10vw;
+    color: orange;
+    background-color: aquamarine;
+    display: none;
+    
+  top:1vw;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border: 2px solid #FFFFFF;
+    
+}
+.tag{
+    width:20vw;
+    margin-left:  7vw;
+
+}
+.tag :hover{
+    transform: scale(1.1);
 }

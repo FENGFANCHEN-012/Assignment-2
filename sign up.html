@@ -3,132 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in/sign up</title>
+    <title>Log in/Sign up</title>
     <link rel="stylesheet" href="css.css">
     <link rel="stylesheet" href="style.css">
-   
+</head>
 <body>
-    <header >
-  
+    <header>
         <div class="head" style="position:absolute">
-            <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
-            
-             <input type="text" class="search" >
-             <button class="bt">Search</button>
+            <a href="http://127.0.0.1:5500/index.html">
+                <img class="logo" src="Selling_transparent-.png" alt="Find Sell">
+            </a>
+            <input type="text" class="search" placeholder="Search">
+            <button class="bt">Search</button>
             <button class="set">Login</button>
             <button class="set" style="margin-left:0">Sign Up</button>
-            <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
+            <div class="set" style="width:7vw;margin-left:1vw">
+                <button class="inbt">Sell</button>
+            </div>
         </div>
-      </header>
-      <div >&nbsp  &nbsp  &nbsp  &nbsp </div>
-    <section class="main" style="height:60vw;align-items:start;margin-top:5vw">
-        
+    </header>
+    <div >&nbsp  &nbsp  &nbsp  &nbsp </div>
+    <div style="margin-top: 5vw;"></div>
+    <section class="main" style="height:60vw;align-items:start;">
         <div class="lgif">
             <hr style="margin-top: 3vw;">
-           
-           <section style="margin-top: 10vw;">
-            Welcome!</section> 
-           
-           <section style="margin-top: 10vw;">
-            <div>Sign Up FindSell</div>
-            <form>
-                <div>
-                    <label>Email</label>
-                    <input type="text" id="email">
-                </div>
-                <div style="margin-top: 10px;">
-                    <label>Password</label>
-                    <input type="password" id="password">
-                </div>
-            </form>
-                <button style="margin-left:5vw" id="submit">Submit</button>
-                <section>Do you have account ?<a href='http://127.0.0.1:5500/j.html'>Log in here</a></section>
-          
+            <section style="margin-top: 10vw;">Welcome!</section>
+            <section style="margin-top: 10vw;">
+                <div>Sign Up FindSell</div>
+                <form id="signup">
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="text" id="email" placeholder="Enter your email">
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" id="submit" style="margin-left:5vw;">Submit</button>
+                </form>
+                <section>
+                    Do you have an account? <a href="http://127.0.0.1:5500/login.html">Log in here</a>
+                </section>
+            </section>
         </div>
     </section>
     <footer class="footer">Hi</footer>
-</section>
-<script>
-    APIKEY="8bf077026b4d45793de980e5a20c7bda48ac1"
-    let email = document.getElementById("email").value
-    let passwd = document.getElementById("password").value
-    let button = document.getElementById("submit")
-   button.addEventListener("click",function(){
 
-    var count;
-      let setting = {
-        method:"GET",
-        headers:{
-          "Content-Type": "application/json",
-            "x-apikey": APIKEY,
-            "Cache-Control": "no-cache",
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const APIKEY = "678a218029bb6d26abc56bd3";
+            const signupForm = document.getElementById("signup");
+
             
-        },
-      };
-      fetch("https://jackm-ff5c.restdb.io/rest/account", setting)
-      .then((response)=>response.json())
-      .then((response => {
-      console.warn("excuse me")
-        
-        
-      
-      }
-     
-      ))
-      .catch(error=>{
-        console.warn("Error occur pls try again!")
-        
-      })
-      .then( data =>{
-         count =  data.length;
-         let message =  {
-            "email":email,
-            "passwd":passwd,
-            "id":count +1,
-         
-            }; let settings = {
-                method:"POST",
-                headers:{
-                  "Content-Type": "application/json",
-                    "x-apikey": APIKEY,
-                    "Cache-Control": "no-cache",
-                    
-                },body: JSON.stringify(message),
-              };
-              fetch("https://jackm-ff5c.restdb.io/rest/account", settings)
-              .then((response)=>response.json())
-              .then((response => {
+            signupForm.addEventListener("submit", async function (event)  {
+                event.preventDefault(); 
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value.trim();
+
               
-                console.warn("Sign Up successfully");
-                
-                transfer();
-              }
-             
-              ))
-              .catch(error=>{
-                console.warn("Error occur pls try again!")
-                
-              })
-           }
-      )
-      })
+                if (!email || !password) {
+                    alert("Email and Password cannot be empty!");
+                    return;
+                }
 
-      
-     
-     
-    
-    function transfer(){
-       
+               
+                const message = {"email": email, 
+                "passwd": password,
+              };
+const set = {
+  method:"GET",
+  headers: {
+    "Content-Type": "application/json",
+    "x-apikey": APIKEY,
+    "Cache-Control": "no-cache",
+},
+}
+                const settings = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                    body: JSON.stringify(message),
+                };
+                const  check = await  fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+               
+                const data= await check.json();
                 
+                    for (let i of data) {
+                        if (i.email === email) { 
+                            alert("This email has been registered!");
+                            return ;
+                        }
+                    }
+                  
                 
-                console.log('Sign Up successfully');
-        
-                
-                window.location.assign('http://127.0.0.1:5500/j.html');
             
-        
-    }
-      
-</script>
+           
+                try {
+                   
+                    const response = await fetch("https://jackm-ff5c.restdb.io/rest/account", settings);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const result = await response.json();
+                    alert("Sign Up successfully:", result);
+
+                   
+                    window.location.assign("http://127.0.0.1:5500/login.html");
+                } catch (error) {
+                    console.error("Error occurred while signing up:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

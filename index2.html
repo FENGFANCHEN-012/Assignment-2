@@ -15,9 +15,10 @@
             <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
-            <section class="dropd" style="width:20vw">Welcome! <span></span>
+         
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
                 <section class="dropdown" >
-                    <div class="tag">My Account</div>
+                    <div class="tag"><a href=''>My Account</a></div>
                     <div class="tag">My Products</div>
                     <div class="tag">My Friends</div>
                     <div class="tag">Award</div>
@@ -27,7 +28,12 @@
             <div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div>
         </div>
     </header>
- 
+    <script>
+        let usrmail = localStorage.getItem("usremail")
+        let passwd = localStorage.getItem("usrpasswd")
+        let idnum = localStorage.getItem("usrid")
+        document.getElementById("usrem").innerHTML= usrmail;
+    </script>
   <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
 <script>
     const dropd = document.querySelector('.dropd');

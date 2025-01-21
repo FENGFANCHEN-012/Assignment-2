@@ -31,15 +31,20 @@
            
            <section style="margin-top: 10vw;">
             <div>Log in FindSell</div>
+
+
+            <form id="login">
                 <div>
-                    <label>Email</label>
-                    <input type="text">
+                    <label >Email</label>
+                    <input id="email" type="text">
                 </div>
                 <div style="margin-top: 10px;">
                     <label>Password</label>
-                    <input type="password">
+                    <input id="passwd" type="password">
                 </div>
-                <button style="margin-left:5vw">Submit</button>
+                <button  type="submit" style="margin-left:5vw">Submit</button>
+            </form>
+
                 <section>Are you new user ?<a href='http://127.0.0.1:5500/sign%20up.html'>sign Here</a></section>
                
         </div>
@@ -48,47 +53,69 @@
 </section>
 <footer class="footer">Hi</footer>
 <script>
-    APIKEY="8bf077026b4d45793de980e5a20c7bda48ac1"
-    let email = document.getElementById("email").value
-    let passwd = document.getElementById("password").value
-    let button = document.getElementById("submit")
-
-    let settings = {
-        method:"GET",
-        headers:{
-          "Content-Type": "application/json",
-            "x-apikey": APIKEY,
-            "Cache-Control": "no-cache",
-            
-        },body: JSON.stringify(message),
-      };
-      fetch("https://jackie2-b185.restdb.io/rest/dashboard", settings)
-      .then((response)=>response.json())
-      .then((response => {
     
-        
-        
-        getContacts();
-      }
-     
-      ))
-      .catch(error=>{
-        console.warn("Error occur pls try again!")
-        
-      })
-      .then(data => {
-          const user = data.find( user.email === email  && user.passwd === passwd
-          )
-        
-          if(user){
-            window.location.href=""
-          }
-          else{
-            console.warn("sorry, emial or passwd wrong")
-          }
-        });
+  document.addEventListener("DOMContentLoaded", function(){
+APIKEY="678a218029bb6d26abc56bd3";
 
-          
+
+let login = document.getElementById("login")
+login.addEventListener("submit",  async  function (event){
+event.preventDefault();
+let email = document.getElementById("email").value
+let passwd = document.getElementById("passwd").value
+
+if (!email || !passwd) {
+    alert("Email and Password cannot be empty!");
+    return;
+}
+let settings = {
+    method:"GET",
+    headers:{
+      "Content-Type": "application/json",
+        "x-apikey": APIKEY,
+        "Cache-Control": "no-cache",
+        
+    }
+  };
+  try{
+  let search = await fetch("https://jackm-ff5c.restdb.io/rest/account", settings)
+  
+  const data = await search.json();
+    let check = false;
+     for(let i of data){
+        if(i.email===email && i.passwd===passwd){
+            alert("log in successfullt")
+            alert("welcome!")
+            check=true;
+            localStorage.setItem("usrid",i.id)
+            localStorage.setItem("usremail",i.email)
+            localStorage.setItem("usrpasswd",i.passwd)
+            window.location.assign("http://127.0.0.1:5500/index2.html")
+            break;
+        }
+        
+
+     }
+     if(!check){
+        alert("Invalid email or password, try again.")
+     }
+  }
+catch(error){
+    alert("Error Occur during login,Pls  try again",error)
+}
+})
+
+
+}
+)
+    
+  
+  
+ 
+  
+  
+ 
+   
       
 </script>
 

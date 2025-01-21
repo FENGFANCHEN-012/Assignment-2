@@ -1,31 +1,191 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>FindSell HomePage</title>
-    <style></style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="css.css">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="css.css">
    <link rel="stylesheet" href="style.css">
    <link rel="stylesheet" href="style2.css">
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="my.css">
+    <style>
+        .add-product-form {
+         margin-top:50vw;
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-header h1 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <script src="js.js"></script>
-  <header>
-  
-    <div class="head" >
-        <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
-        
-         <input type="text" class="search" >
-         <button class="bt">Search</button>
-        <button class="set">Login</button>
-        <button class="set" style="margin-left:0">Sign Up</button>
-        <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
+    <header>
+      <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+            <section class="dropd" style="width:20vw">Welcome! <span></span>
+                <section class="dropdown" >
+                    <div class="tag">My Account</div>
+                    <div class="tag">My Products</div>
+                    <div class="tag">My Friends</div>
+                    <div class="tag">Award</div>
+                </section>
+            </section>
+            
+            <div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div>
+        </div>
+        <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+    </header>
+   
+    <div class="add-product-form" style="margin-top:10vw">
+      
+        <form id="addProductForm">
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" placeholder="Enter product name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Description</label>
+                <textarea id="productDescription" name="productDescription" placeholder="Enter product description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">Price </label>
+                <input type="number" id="productPrice" name="productPrice" placeholder="Enter product price" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productBrand">Brand</label>
+                <input type="text" id="productBrand" name="productBrand" placeholder="Enter product brand">
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Category</label>
+                <select id="productCategory" name="productCategory">
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="home">Home</option>
+                    <option value="sports">Sports</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Add Product</button>
+        </form>
     </div>
-  </header>
-  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
-  <section class="main" style="margin-top:20vw">
-    <div class="pic"><img src ="https://media.karousell.com/media/photos/products/2025/1/17/mountain_bicycle_1737083010_d4209d00_progressive.jpg"></div>
-    <section class="description">Hi</section>
-  </section>
-  </body>
+
+    <script>
+        const APIKEY =   "678a218029bb6d26abc56bd3";
+        let id = localStorage.getItem("usrid")
+        const form = document.getElementById('addProductForm');
+
+        form.addEventListener('submit',async function (e) {
+            e.preventDefault(); 
+
+            const formData = new FormData(form);
+            const product = {
+                url: formData.get('productImage'),
+                name: formData.get('productName'),
+                Description: formData.get('productDescription'),
+                price: formData.get('productPrice'),
+                Brand: formData.get('productBrand'),
+                tag: formData.get('productCategory'),
+                id: id,
+            };
+           
+            const set ={
+                method:"POST",
+                headers:{ 
+                    "Content-Type": "application/json",
+                    "x-apikey": APIKEY,
+                    "Cache-Control": "no-cache",
+                
+            },body:JSON.stringify(product)
+
+                
+            }
+            try{
+            const post= await fetch("https://jackm-ff5c.restdb.io/rest/product",set)
+            if(post.ok){
+                alert("Product added successfully")
+                window.location.href="http://127.0.0.1:5500/myproduct.html";
+            }
+          
+        }
+            catch(error){
+                alert("Some errors occur, Please try again" + response.error)
+                return;
+            }
+            
+        });
+    </script>
+</body>
+</html>

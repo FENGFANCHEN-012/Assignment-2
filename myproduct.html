@@ -1,0 +1,202 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in/Sign up</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="my.css">
+    
+</head>
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+            <section class="dropd" style="width:20vw">Welcome! <span></span>
+                <section class="dropdown" style="margin-top:2vw">
+                    <div class="tag">My Account</div>
+                    <div class="tag">My Products</div>
+                    <div class="tag">My Friends</div>
+                    <div class="tag">Award</div>
+                </section>
+            </section>
+            
+            <div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div>
+        </div>
+    </header>
+ 
+  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+<script>
+    const dropd = document.getElementsByClassName('dropd');
+    const dropdown = document.getElementsByClassName('dropdown');
+
+    
+    function toggleDropdown() {
+        if (dropdown[0].style.display === 'block') {
+            dropdown[0].style.display = 'none';
+        } else {
+            dropdown[0].style.display = 'block';
+        }
+    }
+
+    dropd[0].addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown[0].contains(event.target)) {
+            dropdown[0].style.display = 'none';
+        }
+    });
+
+    dropdown[0].addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+
+
+</script>
+    <div >&nbsp  &nbsp  &nbsp  &nbsp </div>
+    <div class="product-panel" style="margin-top:12vw">
+        <div class="product-header">
+            <h1>My product</h1>
+            <div class="product-controls">
+                <button class="btn" id="edit-products">Manage List</button>
+               
+                
+                
+
+                <input type="text" placeholder="Searching~~" class="product-search">
+                <section class="dropdown2" >
+                    <div class="tag" id="add">Add Product</div>
+                    <div class="tag" id="delete">Delete Product</div>
+                    
+                </section>
+            </div>
+        </div>
+        <div class="product-content" id="product-content">
+        
+    </div>
+    <script>
+       
+        const dropdown2 = document.getElementsByClassName('dropdown2')[0];
+        const bt = document.getElementById("edit-products");
+        const name = document.getElementsByClassName("name");
+        const info = document.getElementsByClassName("product-picture");
+        const price = document.getElementsByClassName("product-price");
+        const productContent = document.getElementById("product-content");
+     
+        
+        const APIKEY = "678a218029bb6d26abc56bd3";
+        const set = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache",
+            },
+        };
+        
+        async function loadProducts() {
+            try {
+                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", set);
+                const data = await response.json();
+                productContent.innerHTML='';
+                if (data.length === 0) {
+                    productContent.innerHTML = "<p>No products available.</p>";
+                    return;
+                }
+                data.forEach(product => {
+                    const productItem = document.createElement("div");
+                    productItem.className = "product-item";
+                    productItem.dataset.id = product._id; 
+                    
+                    
+                    const imageUrl = product.url
+                    ? `https://jackm-ff5c.restdb.io/media/${product.url}`
+                    : 'default.jpg';
+                    productItem.innerHTML = `
+                        <img src="${imageUrl}" alt="Product Image" class="product-image">
+                        <div class="product-info">
+                            <h3 class="name">${product.name || 'Unnamed Product'}</h3>
+                            <p class="product-price">Price: ¥${product.price || 0}</p>
+                            <p class="product-reviews">Comment: ${product.comments || 'No comments'}</p>
+                            <button class="delete-btn" data-id="${product._id}">Delete</button>
+                        </div>
+                    `;
+    
+                    console.log("imageUrl: " + imageUrl)
+                    productContent.appendChild(productItem);
+                    
+                });
+                deleteproduct();
+            } catch (error) {
+                console.error("Failed to load products:", error);
+            }
+        }
+        loadProducts();
+      
+        function deleteproduct(){
+      
+        document.querySelectorAll(".delete-btn").forEach((button)=>{
+            button.addEventListener("click",async function(event){
+                if (!confirm("Are you sure you want to delete this product?")) return;
+
+                const productdata = event.target.getAttribute("data-id")
+            const set2 = {
+                method: "DELETE",
+    headers: {
+    "Content-Type": "application/json",
+    "x-apikey": APIKEY,
+    "Cache-Control": "no-cache",
+    },
+            }
+            const  response = fetch(`https://jackm-ff5c.restdb.io/rest/product/${productdata}`,set2)
+           .then(response=>{ if(response.ok){
+                alert("Delete Successfully")
+                event.target.closest(".product-item").remove();
+                location.reload();}
+                else{
+                    alert(`error occur, try again later ${repsonse.error}`)
+                   }
+            })
+           
+        })  
+                       }) 
+        
+                    }
+        
+        function toggleDrop() {
+            if (dropdown2.style.display === 'block') {
+                dropdown2.style.display = 'none';
+            } else {
+                dropdown2.style.display = 'block';
+            }
+        }
+        
+        bt.addEventListener('click', function(event) {
+            event.stopPropagation(); 
+            toggleDrop();
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!dropdown2.contains(event.target)) {
+                dropdown2.style.display = 'none';
+            }
+        });
+        
+     
+
+   
+      
+
+      
+          
+
+          
+    </script>
+</body>

@@ -7,6 +7,8 @@
    <link rel="stylesheet" href="css.css">
    <link rel="stylesheet" href="style.css">
    <link rel="stylesheet" href="style2.css">
+   <link rel="stylesheet" href="my.css">
+   
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -20,7 +22,7 @@
          <button class="bt">Search</button>
         <button class="set">Login</button>
         <button class="set" style="margin-left:0">Sign Up</button>
-        <div class="set" style="width:7vw;margin-left:1vw" ><button class="inbt"  >Sell</button></div>
+        <div class="set" style="width:7vw;margin-left:1vw" id="sell"><button class="inbt"  >Sell</button></div>
     </div>
   </header>
   <script>
@@ -30,15 +32,16 @@
   <div class="down" style="margin-left:28vw;margin-top:15vh">
 
     <section class="panel" >
-        <p class="log" style="border:none">Login in</p>
+        <a href='http://127.0.0.1:5500/login.html'><p class="log" style="border:none">Login in</p></a>
         <button class="log">Google</button>
         <button class="log">FaceBook</button>
-        <p class="log">New user? Sign up <a href=''>here</a></p>
+        <p class="log">New user? Sign up <a href='http://127.0.0.1:5500/sign%20up.html'>here</a></p>
 
     </section>
-    <section class="panel" >
-        <p>You have'nt sign up yet</p>
-        <p>log Up here</p>
+    <section class="panel2" >
+        
+        <p>You have'nt Log In  yet</p>
+        <p>Log In <a href='http://127.0.0.1:5500/login.html'>here</a></p>
 
     </section>
     
@@ -71,6 +74,7 @@
 <script>
     const but = document.getElementsByClassName("next");
     const box = document.getElementById("game");
+    
     let isBox1Visible = true;
     
     but[0].addEventListener("click", () => {
@@ -167,11 +171,22 @@
   </footer>
 <hr>
 <script>
+ 
     let pan = document.getElementsByClassName("panel"); 
-
+    
+    let pan2 = document.getElementsByClassName("panel2")[0]; 
+    pan2.style.display='none';
     const p = document.getElementsByClassName("set");
-    
-    
+    const sell = document.getElementById("sell");
+    sell.addEventListener("click",function(){
+        if(pan2.style.display=='block'){
+            pan2.style.display ='none'
+        }
+        else{
+            pan2.style.display ='block';
+        }
+        
+    })
     p[1].addEventListener("click", function() {
         if (pan[0].style.display === 'block') {
             pan[0].style.display = 'none';
@@ -193,7 +208,11 @@ document.addEventListener('click', function(event) {
             if (!pan[i].contains(event.target) && !p[0].contains(event.target) && !p[1].contains(event.target)) {
                 pan[i].style.display = 'none';
             }
+            
+            
         }
+       if(!pan2.contains(event.target) && !sell.contains(event.target) ) {
+            pan2.style.display = 'none';}
     });
 </script>
 </body>

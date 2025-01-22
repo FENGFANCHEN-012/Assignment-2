@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<head>
+    <title>FindSell HomePage2</title>
+    <style></style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css.css">
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="css.css">
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style2.css">
+   <link rel="stylesheet" href="my.css">
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+         
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown" >
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                </section>
+            </section>
+            
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+        </div>
+    </header>
+    <script>
+        let usrmail = localStorage.getItem("usremail")
+        let passwd = localStorage.getItem("usrpasswd")
+        let idnum = localStorage.getItem("usrid")
+        document.getElementById("usrem").innerHTML= usrmail;
+    </script>
+  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+<script>
+    const dropd = document.querySelector('.dropd');
+    const dropdown = document.querySelector('.dropdown');
+
+    
+    function toggleDropdown() {
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+        } else {
+            dropdown.style.display = 'block';
+        }
+    }
+
+    dropd.addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    dropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+
+
+</script>
+</body>

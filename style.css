@@ -6,6 +6,14 @@
     display: none;
     z-index: 20000;
 }
+.panel2{
+
+    width:45vw;
+    height:60vh;
+    background-color: beige;
+  display: none;
+    z-index: 20000;
+}
 .log{
     width:95%;
     margin-left: 2.5%;

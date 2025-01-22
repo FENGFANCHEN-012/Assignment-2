@@ -49,24 +49,28 @@
 .product-content {
 
     display: flex;
-  
-    justify-content: space-between;
-    gap: 20px;
+    width:90vw;
+    flex-wrap: wrap;
+    justify-content: center;
+   gap:2vw
 }
 
 .product-item {
     
-    width: 48%;
+    width: 40%;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
     text-align: left;
+    flex-wrap: warp;
 }
 
 .product-image {
+    box-shadow: offset-x offset-y blur-radius spread-radius color;
     width: 100%;
-    height: auto;
+    background-position: center;
+    height: 20vw;
     border-radius: 8px;
 }
 

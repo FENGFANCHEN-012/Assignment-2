@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="css.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="my.css">
     
 </head>
 <body>
@@ -15,18 +19,26 @@
             <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
-            <section class="dropd" style="width:20vw">Welcome! <span></span>
-                <section class="dropdown" style="margin-top:2vw">
-                    <div class="tag">My Account</div>
-                    <div class="tag">My Products</div>
-                    <div class="tag">My Friends</div>
-                    <div class="tag">Award</div>
+         
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown" style="margin-top:2vw" >
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
                 </section>
             </section>
             
-            <div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div>
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
         </div>
     </header>
+    <script>
+        let usrmail = localStorage.getItem("usremail")
+        let passwd = localStorage.getItem("usrpasswd")
+        let idnum = localStorage.getItem("usrid")
+        document.getElementById("usrem").innerHTML= usrmail
+    </script>
+    
  
   <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
 <script>
@@ -65,17 +77,13 @@
         <div class="product-header">
             <h1>My product</h1>
             <div class="product-controls">
-                <button class="btn" id="edit-products">Manage List</button>
+                <a href=product.html><button class="btn" id="edit-products">Add Product</button></a>
                
                 
                 
 
                 <input type="text" placeholder="Searching~~" class="product-search">
-                <section class="dropdown2" >
-                    <div class="tag" id="add">Add Product</div>
-                    <div class="tag" id="delete">Delete Product</div>
-                    
-                </section>
+                
             </div>
         </div>
         <div class="product-content" id="product-content">
@@ -91,7 +99,7 @@
         const productContent = document.getElementById("product-content");
      
         
-        const APIKEY = "678a218029bb6d26abc56bd3";
+        const APIKEY = "67889bac188ac49ef5ec3e3b";;
         const set = {
             method: "GET",
             headers: {
@@ -103,8 +111,9 @@
         
         async function loadProducts() {
             try {
-                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", set);
+                const response = await fetch("https://jackie2-b185.restdb.io/rest/product", set);
                 const data = await response.json();
+                console.log("Data: " + JSON.stringify(data))
                 productContent.innerHTML='';
                 if (data.length === 0) {
                     productContent.innerHTML = "<p>No products available.</p>";
@@ -114,13 +123,34 @@
                     const productItem = document.createElement("div");
                     productItem.className = "product-item";
                     productItem.dataset.id = product._id; 
+                    const base64Data = `${product.url}`; 
+                    const contentType = "image/png"; 
+                    
+                   
+                    function base64ToBlob(base64, contentType) {
+                        const byteCharacters = atob(base64);
+                        const byteArrays = [];
+                        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                            const slice = byteCharacters.slice(offset, offset + 512);
+                            const byteNumbers = new Array(slice.length);
+                            for (let i = 0; i < slice.length; i++) {
+                                byteNumbers[i] = slice.charCodeAt(i);
+                            }
+                            byteArrays.push(new Uint8Array(byteNumbers));
+                        }
+                        return new Blob(byteArrays, { type: contentType });
+                    }
                     
                     
-                    const imageUrl = product.url
-                    ? `https://jackm-ff5c.restdb.io/media/${product.url}`
-                    : 'default.jpg';
+                    const blob = base64ToBlob(base64Data, contentType);
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    
+                  
                     productItem.innerHTML = `
-                        <img src="${imageUrl}" alt="Product Image" class="product-image">
+                       <section style="width:100%;height:20vw">
+                        <img src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
+                       </section>
                         <div class="product-info">
                             <h3 class="name">${product.name || 'Unnamed Product'}</h3>
                             <p class="product-price">Price: ¥${product.price || 0}</p>
@@ -129,7 +159,7 @@
                         </div>
                     `;
     
-                    console.log("imageUrl: " + imageUrl)
+                   
                     productContent.appendChild(productItem);
                     
                 });
@@ -155,7 +185,7 @@
     "Cache-Control": "no-cache",
     },
             }
-            const  response = fetch(`https://jackm-ff5c.restdb.io/rest/product/${productdata}`,set2)
+            const  response = fetch(`https://jackie2-b185.restdb.io/rest/product/${productdata}`,set2)
            .then(response=>{ if(response.ok){
                 alert("Delete Successfully")
                 event.target.closest(".product-item").remove();

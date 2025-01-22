@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindSell HomePage2</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="my.css">
+    <style>
+        .product-item {
+            width: 85%;
+        }
+
+        #img {
+            height: 10vw;
+            width: 10vw;
+            display: flex;
+            margin-right: 20vw;
+            justify-content: center;
+        }
+
+        .show {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown">
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                </section>
+            </section>
+
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+        </div>
+    </header>
+
+    <script>
+        let usrmail = localStorage.getItem("usremail");
+        document.getElementById("usrem").innerHTML = usrmail;
+    </script>
+    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+    <div class="main" style='margin-top:10vw;height:85vw;align-items:start'>
+        <div class="product-panel">
+            <div class="product-header">
+                <h1>Account Setting</h1>
+            </div>
+
+            <div class="product-content" style="align-items: center;justify-content:center">
+                <img id="img" src="" />
+                <input class="show" type="file" id="img2" accept="image/*" />
+
+                <div class="product-item" id='info' style="margin-bottom: 20px;">
+                    <h3>Your Information</h3>
+                    <p><strong>Name:</strong> <span class="sub" id="name-display"></span></p>
+                    <input type="text" class="show" id="name" placeholder="What is your Name?">
+                    <p><strong>Email:</strong> <span class="sub" id="email-display"></span></p>
+                    <p><strong>Account Bio:</strong> <span class="sub" id="bio-display"></span></p>
+                    <textarea class="show" id="bio" placeholder="Input your Description"></textarea>
+                </div>
+
+                <div class="product-item" style="margin-bottom: 20px;">
+                    <h3>Recent Activity</h3>
+                    <p>No recent activity.</p>
+                </div>
+
+                <div id='changepasswd' class="product-item" style="margin-bottom: 20px;background-color:rgb(204, 211, 210)">
+                    <h3>Change Password</h3>
+                </div>
+            </div>
+
+            <div class="product-controls" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <button class="btn" id="edit">Edit Profile</button>
+                <button id="submit" style="display:none;width:10vw" class="btn">Submit</button>
+                <button class="btn" id="logout" style="margin-left:0.1vw">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 My Company. All rights reserved.</p>
+    </div>
+
+    <script>
+        const APIKEY = '678fa7439bd0c87432ac8bee';
+        const set = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache",
+            },
+        };
+
+        fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+            .then((response) => response.json())
+            .then((data) => {
+                const userEmail = localStorage.getItem("usremail");
+                const user = data.find((w) => w.email === userEmail);
+               
+            const imgFile = document.getElementById('img2').files[0];
+            const base64Data = `${user.avatar}`; 
+            const contentType = "image/png"; 
+            
+           
+            function base64ToBlob(base64, contentType) {
+                const byteCharacters = atob(base64);
+                const byteArrays = [];
+                for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                    const slice = byteCharacters.slice(offset, offset + 512);
+                    const byteNumbers = new Array(slice.length);
+                    for (let i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+                    byteArrays.push(new Uint8Array(byteNumbers));
+                }
+                return new Blob(byteArrays, { type: contentType });
+            }
+            
+            
+            const blob = base64ToBlob(base64Data, contentType);
+            const blobUrl = URL.createObjectURL(blob);
+                localStorage.setItem("change", user._id);
+
+                document.getElementById('img').src = blobUrl;
+                document.getElementById('name-display').textContent = user.name || "Nil";
+                document.getElementById('email-display').textContent = user.email;
+                document.getElementById('bio-display').textContent = user.bio || "Nil";
+            });
+
+        const editButton = document.getElementById("edit");
+        const submitButton = document.getElementById("submit");
+
+        editButton.addEventListener("click", function () {
+            document.querySelectorAll('.show').forEach((el) => el.style.display = 'block');
+            editButton.style.display = 'none';
+            submitButton.style.display = 'block';
+        });
+
+        submitButton.addEventListener("click", async function (e) {
+            const imgFile = document.getElementById('img2').files[0];
+            let imgUrl = document.getElementById('img2').value; 
+            
+            if (imgFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imgUrl = e.target.result; 
+                };
+                reader.readAsDataURL(imgFile);
+            }
+                
+
+            const updatedUserData = {
+                'avatar': imgUrl,
+                'name': document.getElementById("name").value.trim(),
+                'bio': document.getElementById("bio").value.trim(),
+            };
+
+            try {
+                const response = await fetch(
+                    `https://jackm-ff5c.restdb.io/rest/account/${localStorage.getItem("change")}`,
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-apikey": APIKEY,
+                            "Cache-Control": "no-cache",
+                        },
+                        body: JSON.stringify(updatedUserData),
+                    }
+                );
+
+                if (response.ok) {
+                    alert("Update successful!");
+                    location.reload();
+                } else {
+                    throw new Error("Failed to update user data");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Error occurred. Please try again.");
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -46,7 +46,37 @@
             <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
         </div>
     </header>
-
+    <script>
+        const dropd = document.getElementsByClassName('dropd');
+        const dropdown = document.getElementsByClassName('dropdown');
+    
+        
+        function toggleDropdown() {
+            if (dropdown[0].style.display === 'block') {
+                dropdown[0].style.display = 'none';
+            } else {
+                dropdown[0].style.display = 'block';
+            }
+        }
+    
+        dropd[0].addEventListener('click', function(event) {
+            event.stopPropagation();
+            toggleDropdown();
+        });
+    
+        document.addEventListener('click', function(event) {
+            if (!dropdown[0].contains(event.target)) {
+                dropdown[0].style.display = 'none';
+            }
+        });
+    
+        dropdown[0].addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    
+    
+    
+    </script>
     <script>
         let usrmail = localStorage.getItem("usremail");
         document.getElementById("usrem").innerHTML = usrmail;
@@ -92,7 +122,7 @@
     <div class="footer">
         <p>&copy; 2025 My Company. All rights reserved.</p>
     </div>
-
+     
     <script>
         const APIKEY = '678fa7439bd0c87432ac8bee';
         const set = {
@@ -110,31 +140,52 @@
                 const userEmail = localStorage.getItem("usremail");
                 const user = data.find((w) => w.email === userEmail);
                
+
+
+
+
+
+                // get image file base64 link
             const imgFile = document.getElementById('img2').files[0];
             const base64Data = `${user.avatar}`; 
             const contentType = "image/png"; 
-            
-           
-            function base64ToBlob(base64, contentType) {
-                const byteCharacters = atob(base64);
+            function base64ToBlob(base64, contentType = "") {
+                const byteCharacters = atob(base64)
                 const byteArrays = [];
+            
                 for (let offset = 0; offset < byteCharacters.length; offset += 512) {
                     const slice = byteCharacters.slice(offset, offset + 512);
+            
                     const byteNumbers = new Array(slice.length);
                     for (let i = 0; i < slice.length; i++) {
                         byteNumbers[i] = slice.charCodeAt(i);
                     }
-                    byteArrays.push(new Uint8Array(byteNumbers));
+            
+                    const byteArray = new Uint8Array(byteNumbers);
+                    byteArrays.push(byteArray);
                 }
+            
                 return new Blob(byteArrays, { type: contentType });
             }
-            
-            
-            const blob = base64ToBlob(base64Data, contentType);
-            const blobUrl = URL.createObjectURL(blob);
+
+
+
+
+            const avatarBase64 = user.avatar ; //get the data of file image link
+            if (avatarBase64.startsWith("data:image")) {
+                const base64Data = avatarBase64.split(",")[1]; 
+                const blob = base64ToBlob(base64Data, "image/png");
+                const blobUrl = URL.createObjectURL(blob);
+                document.getElementById('img').src = blobUrl;
+            }
+             
+
+
+
+
                 localStorage.setItem("change", user._id);
 
-                document.getElementById('img').src = blobUrl;
+                
                 document.getElementById('name-display').textContent = user.name || "Nil";
                 document.getElementById('email-display').textContent = user.email;
                 document.getElementById('bio-display').textContent = user.bio || "Nil";
@@ -149,26 +200,45 @@
             submitButton.style.display = 'block';
         });
 
-        submitButton.addEventListener("click", async function (e) {
-            const imgFile = document.getElementById('img2').files[0];
-            let imgUrl = document.getElementById('img2').value; 
-            
-            if (imgFile) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    imgUrl = e.target.result; 
-                };
-                reader.readAsDataURL(imgFile);
+        submitButton.addEventListener("click", async function () {
+            const fileInput = document.getElementById("img2");
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a file before submitting.");
+                return;
             }
-                
+        
 
-            const updatedUserData = {
-                'avatar': imgUrl,
-                'name': document.getElementById("name").value.trim(),
-                'bio': document.getElementById("bio").value.trim(),
-            };
 
+          
+          
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+        
+                    reader.onload = () => resolve(reader.result); 
+                    reader.onerror = (error) => reject(error);   
+                    
+                    reader.readAsDataURL(file); 
+
+
+
+                });
+            }
+        
             try {
+                const base64String = await fileToBase64(file);
+                console.log("File converted to Base64:", base64String);
+        
+
+                             
+                const updatedUserData = {
+                    avatar: base64String,
+                    name: document.getElementById("name").value.trim(),
+                    bio: document.getElementById("bio").value.trim(),
+                };
+                localStorage.setItem("usrname",  document.getElementById("name").value.trim(),)
+        
                 const response = await fetch(
                     `https://jackm-ff5c.restdb.io/rest/account/${localStorage.getItem("change")}`,
                     {
@@ -181,7 +251,7 @@
                         body: JSON.stringify(updatedUserData),
                     }
                 );
-
+        
                 if (response.ok) {
                     alert("Update successful!");
                     location.reload();
@@ -189,10 +259,28 @@
                     throw new Error("Failed to update user data");
                 }
             } catch (error) {
-                console.error(error);
-                alert("Error occurred. Please try again.");
+                console.error("Error during file upload:", error);
+                alert("Failed to process file. Please try again.");
             }
         });
+    </script>
+    <script>
+        const logout = document.getElementById("logout")
+        logout.addEventListener("click",function(){
+           
+            localStorage.setItem("usremail",null)
+            
+            window.location.href="http://127.0.0.1:5500/index.html";
+      
+            
+
+        })
+    </script>
+    <script id="judgement">
+        
+        if(localStorage.getItem("usremail")===null){
+document.getElementById
+        }
     </script>
 </body>
 

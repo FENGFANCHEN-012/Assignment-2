@@ -1,73 +1,108 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <title>FindSell HomePage2</title>
-    <style></style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style2.css">
-   <link rel="stylesheet" href="my.css">
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>My Friends</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .friend-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+        .friend-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 250px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .friend-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .friend-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .friend-bio {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="head">
-            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
-            <input type="text" class="search" style="width:35vw">
-            <button class="bt">Search</button>
-         
-            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
-                <section class="dropdown" >
-                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
-                </section>
-            </section>
-            
-            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
-        </div>
+    <header class="bg-primary text-white p-3 text-center">
+        <h1>My Friends</h1>
     </header>
+    <div class="friend-list" id="friend-content">
+        <!-- Friends will be dynamically loaded here -->
+    </div>
+
     <script>
-        let usrmail = localStorage.getItem("usremail")
-        let passwd = localStorage.getItem("usrpasswd")
-        let idnum = localStorage.getItem("usrid")
-        document.getElementById("usrem").innerHTML= usrmail;
+        const APIKEY = "678fa7439bd0c87432ac8bee"; //67889bac188ac49ef5ec3e3b
+        const baseUrl = "https://jackm-ff5c.restdb.io/rest/account"; //https://jackie2-b185.restdb.io/rest
+        const userId = localStorage.getItem("usrid"); 
+
+        async function loadFriends() {
+            try {
+                const response = await fetch(`${baseUrl}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                    },
+                });
+
+                const friends = await response.json();
+                const friendContent = document.getElementById("friend-content");
+                friendContent.innerHTML = ""; 
+
+                if (friends.length === 0) {
+                    friendContent.innerHTML = "<p>No friends found.</p>";
+                    return;
+                }
+
+                friends.forEach(friend => {
+                    if (friend.usrid === userId) {
+                        const friendItem = document.createElement("div");
+                        friendItem.className = "friend-item";
+
+                        const avatar = friend.img || "default-avatar.png"; 
+                        const name = friend.name || "Unnamed Friend"; 
+                        const bio = friend.bio || "No bio provided."; 
+
+                        friendItem.innerHTML = `
+                            <img class="friend-avatar" src="${avatar}" alt="Avatar">
+                            <h3 class="friend-name">${name}</h3>
+                            <p class="friend-bio">${bio}</p>
+                        `;
+
+                        friendContent.appendChild(friendItem);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to load friends:", error);
+            }
+        }
+
+     
+        loadFriends();
     </script>
-  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
-<script>
-    const dropd = document.querySelector('.dropd');
-    const dropdown = document.querySelector('.dropdown');
-
-    
-    function toggleDropdown() {
-        if (dropdown.style.display === 'block') {
-            dropdown.style.display = 'none';
-        } else {
-            dropdown.style.display = 'block';
-        }
-    }
-
-    dropd.addEventListener('click', function(event) {
-        event.stopPropagation();
-        toggleDropdown();
-    });
-
-    document.addEventListener('click', function(event) {
-        if (!dropdown.contains(event.target)) {
-            dropdown.style.display = 'none';
-        }
-    });
-
-    dropdown.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
-
-
-
-</script>
 </body>
+</html>

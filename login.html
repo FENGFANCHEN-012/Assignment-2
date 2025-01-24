@@ -87,9 +87,10 @@ let settings = {
             alert("log in successfullt")
             alert("welcome!")
             check=true;
-            localStorage.setItem("usrid",i.id)
+            localStorage.setItem("usrid",i.usrid)
             localStorage.setItem("usremail",i.email)
             localStorage.setItem("usrpasswd",i.passwd)
+         
             window.location.assign("http://127.0.0.1:5500/index2.html")
             break;
         }

@@ -8,6 +8,100 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="my.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+
+        .container {
+            width: 90vw;
+            height: 30vw;
+            margin: 2vw auto;
+            background-color: #fff8e1;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 2vw;
+        }
+
+        .logos{
+            width: 15vw;
+            height: 15vw;
+            background-color: #ffcc00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 3vw;
+        }
+
+        .logos img {
+            width: 80%;
+            height: 80%;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .header {
+            font-size: 2.5vw;
+            color: #ff7043;
+            margin-bottom: 1vw;
+        }
+
+        .description {
+            font-size: 1.5vw;
+            color: #4caf50;
+            margin-bottom: 2vw;
+        }
+
+        .button {
+            padding: 1vw 3vw;
+            background-color: #ff7043;
+            color: white;
+            font-size: 1.5vw;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff5722;
+        }
+
+        .game-section {
+            width: 90vw;
+            height: 30vw;
+            background-color: #ffeb3b;
+            margin: 3vw auto;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-button {
+            padding: 1.5vw 4vw;
+            background-color: #ff5722;
+            color: white;
+            font-size: 1.5vw;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .game-button:hover {
+            background-color: #ff3d00;
+        }
+    </style>
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -72,55 +166,127 @@
   
    
   
-  <main >
+<main >
     <section class="main" style="   margin-top:10vh;"> 
     <div class="ct">
-        <a href="">
-            <img class="pic"src="Selling_transparent-.png">
+        <a href="" class="pic">
+            
         </a>
-        <a href="">
-            <img class="pic"src="Selling_transparent-.png">
+        <a href=""  class="pic">
+            
         </a>
     </div>
 </section>
-<h1>Opportunity</h1>
+<h1 style="margin-top:5vw">Opportunity</h1>
 <hr>
-<section class="main" style="height:35vw"> 
-    <div class="box">Hi</div>
-   
+<section style="width:100vw;overflow:hidden" > 
+    
+<section  id="game" style="height:35vw;gap:0vw;width:200vw"> 
+    <div class="logos">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <div class="content" style="width:100vw">
+        <div class="header">Welcome To FindSell</div>
+        <div class="description">Check In To Get More Reward!</div>
+        <button id='check' class="button" onclick="location.href='签到中心链接'">Go To Checking Centre!</button>
+        <button class="next" style="margin-left:20vw">Click Here</button>
+    </div>
+   <script>
+    document.getElementById("check").addEventListener("click",function(){
+        window.location.href="http://127.0.0.1:5500/checkin.html";
+    })
+   </script>
+
+<section class="game-section" style=" width:100vw;background-image: url('runner_background.jpg'); background-size: cover; height: 35vw; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h2 style="font-size: 2.5vw; color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Fun Game</h2>
+    <p style="font-size: 1.5vw; color: #ffffffcc; margin-bottom: 2vw;">Win The Game For More Award!</p>
+    <button class="game-button" onclick="location.href='runner_game.html'" id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
+    <button class="next" style="margin-top:5vw">Click Here</button>
 </section>
+    
+        
+        
+    
+
+</section>
+
+<script>
+    const but = document.getElementsByClassName("next");
+    const box = document.getElementById("game");
+    
+    let isBox1Visible = true;
+    
+    but[0].addEventListener("click", () => {
+        if (isBox1Visible) {
+            box.style.transform = "translateX(-105vw)";
+            isBox1Visible = false;  // Update visibility status
+        }
+    });
+    
+    but[1].addEventListener("click", () => {
+        if (!isBox1Visible) {
+            box.style.transform = "translateX(0)";
+            isBox1Visible = true;  // Update visibility status
+        }
+    });
+</script>
 <hr>
 <h1 style="margin-top:1vw">Category</h1>
-<section class="main">
+<section class="main" >
     <section class="ct">
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
-    <div class="smbox">
-
-    </div>
+    <button class="smbox">
+       hi
+    </button>
+ 
+    <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
    
 </section>
 </section>
-<h1 style="margin-top:1vw">Trusetd Seller</h1>
-<section class="main">
+<h1 style="margin-top:5vw">Trusetd Seller</h1>
+<section style="width:100vw;overflow:hidden" > 
+    <button id="but2" >Click Me</button>
+<section  id="seller">
+    
 <div class="ct" style="background-color:antiquewhite;height:20vw">
-
+    
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
 </div>
 
 </section>
+</section>
+<script>
+    let start = 0;
+    let seller = document.getElementById("seller"); 
+    let step = 95; 
+    
+    let but2 = document.getElementById("but2");
+    
+    but2.addEventListener("click", function() {
+        start += 1;
+        if (start >= seller.children.length) {
+            start = 0;
+        }
+        seller.style.transform = `translateX(-${start * step}vw)`;
+        seller.style.transition = "transform 0.5s ease"; 
+    });
+</script>
 <h1 style="margin-top:10vh">Recommend for you</h1>
 <section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
 
@@ -132,8 +298,6 @@
 <div class="pd"></div>
 <div class="pd"></div>
 <div class="pd"></div>
-
-
 </section>
 <section class="main" style="height:10vh">
 <button class="bt" >More</button>
@@ -145,5 +309,48 @@
     </section>
   </footer>
 <hr>
+<script>
+ 
+    let pan = document.getElementsByClassName("panel"); 
+    
+    let pan2 = document.getElementsByClassName("panel2")[0]; 
+    pan2.style.display='none';
+    const p = document.getElementsByClassName("set");
+    const sell = document.getElementById("sell");
+    sell.addEventListener("click",function(){
+        if(pan2.style.display=='block'){
+            pan2.style.display ='none'
+        }
+        else{
+            pan2.style.display ='block';
+        }
+    })
+    p[1].addEventListener("click", function() {
+        if (pan[0].style.display === 'block') {
+            pan[0].style.display = 'none';
+        } else {
+            pan[0].style.display = 'block';
+            
+        }
+    });
 
+    p[0].addEventListener("click", function() {
+        if (pan[0].style.display === 'block') {
+            pan[0].style.display = 'none';
+        } else {
+            pan[0].style.display = 'block';         
+        }
+    });
+document.addEventListener('click', function(event) {
+        for (let i = 0; i < pan.length; i++) {
+            if (!pan[i].contains(event.target) && !p[0].contains(event.target) && !p[1].contains(event.target)) {
+                pan[i].style.display = 'none';
+            }
+            
+            
+        }
+       if(!pan2.contains(event.target) && !sell.contains(event.target) ) {
+            pan2.style.display = 'none';}
+    });
+</script>
 </body>

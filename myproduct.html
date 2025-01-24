@@ -99,7 +99,7 @@
         const productContent = document.getElementById("product-content");
      
         
-        const APIKEY = "67889bac188ac49ef5ec3e3b";;
+        const APIKEY = "678fa7439bd0c87432ac8bee";;
         const set = {
             method: "GET",
             headers: {
@@ -111,7 +111,7 @@
         
         async function loadProducts() {
             try {
-                const response = await fetch("https://jackie2-b185.restdb.io/rest/product", set);
+                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", set);
                 const data = await response.json();
                 console.log("Data: " + JSON.stringify(data))
                 productContent.innerHTML='';
@@ -148,8 +148,8 @@
                     
                   
                     productItem.innerHTML = `
-                       <section style="width:100%;height:20vw">
-                        <img src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
+                       <section style="width:100%;height:20vw" >
+                        <img  data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
                        </section>
                         <div class="product-info">
                             <h3 class="name">${product.name || 'Unnamed Product'}</h3>
@@ -158,7 +158,7 @@
                             <button class="delete-btn" data-id="${product._id}">Delete</button>
                         </div>
                     `;
-    
+                     console.log(localStorage.getItem("userid"));
                    
                     productContent.appendChild(productItem);
                     
@@ -170,35 +170,36 @@
         }
         loadProducts();
       
-        function deleteproduct(){
-      
-        document.querySelectorAll(".delete-btn").forEach((button)=>{
-            button.addEventListener("click",async function(event){
-                if (!confirm("Are you sure you want to delete this product?")) return;
+        function deleteproduct() {
+            document.querySelectorAll(".delete-btn").forEach((button) => {
+                button.addEventListener("click", async function(event) {
+                    event.preventDefault();
+                    if (!confirm("Are you sure you want to delete this product?")) return;
 
-                const productdata = event.target.getAttribute("data-id")
-            const set2 = {
-                method: "DELETE",
-    headers: {
-    "Content-Type": "application/json",
-    "x-apikey": APIKEY,
-    "Cache-Control": "no-cache",
-    },
-            }
-            const  response = fetch(`https://jackie2-b185.restdb.io/rest/product/${productdata}`,set2)
-           .then(response=>{ if(response.ok){
-                alert("Delete Successfully")
-                event.target.closest(".product-item").remove();
-                location.reload();}
-                else{
-                    alert(`error occur, try again later ${repsonse.error}`)
-                   }
-            })
-           
-        })  
-                       }) 
-        
+                    const productdata = event.target.getAttribute("data-id");
+                    const set2 = {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-apikey": APIKEY,
+                            "Cache-Control": "no-cache",
+                        },
+                    };
+
+                    try {
+                        const response = await fetch(`https://jackm-ff5c.restdb.io/rest/product  ${productdata}`, set2);
+                        if (response.ok) {
+                            alert("Delete Successfully");
+                            event.target.closest(".product-item").remove();
+                        } else {
+                            alert("Error occurred. Try again later.");
+                        }
+                    } catch (error) {
+                        console.error("Failed to delete product:", error);
                     }
+                });
+            });
+        }
         
         function toggleDrop() {
             if (dropdown2.style.display === 'block') {
@@ -222,8 +223,19 @@
      
 
    
-      
-
+        document.addEventListener("click", function (event) {
+            const productElement = event.target.closest(".product-image");
+            if (productElement) {
+                localStorage.setItem("product-name", productElement.dataset.name);
+                localStorage.setItem("product-price", productElement.dataset.price);
+                localStorage.setItem("product-description", productElement.dataset.des);
+                localStorage.setItem("product-brand", productElement.dataset.brand);
+                localStorage.setItem("product-image", productElement.dataset.url);
+                localStorage.setItem("product-id", productElement.dataset.pid);
+                console.log("Product details saved to localStorage.");
+            }
+            window.location.href='http://127.0.0.1:5500/productdetail.html'
+        });
       
           
 

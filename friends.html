@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Profile</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="my.css">
+    <style>
+        .friend-profile {
+            margin: 20px auto;
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .friend-avatar {
+            height: 10vw;
+            width: 10vw;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .friend-info {
+            text-align: center;
+        }
+
+        .friend-products {
+            margin-top: 20px;
+            width: 85%;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .product-image {
+            width: 10vw;
+            height: 10vw;
+            object-fit: cover;
+        }
+
+        .product-details {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown">
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                </section>
+            </section>
+
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+        </div>
+    </header>
+    
+    <div class="friend-profile">
+        <img id="friend-avatar" class="friend-avatar" src="" alt="Friend Avatar">
+        <div class="friend-info">
+            <h1 id="friend-name">Friend Name</h1>
+            <p><strong>Email:</strong> <span id="friend-email">friend@example.com</span></p>
+            <p><strong>Bio:</strong> <span id="friend-bio">This is a bio</span></p>
+        </div>
+    </div>
+
+    <div class="friend-products">
+        <h2>Friend's Products</h2>
+        <div id="product-list">
+            <!-- Friend's products will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+        const APIKEY = '678fa7439bd0c87432ac8bee';//678fa7439bd0c87432ac8bee
+        const baseUrl = "https://jackm-ff5c.restdb.io/rest/account";
+        const friendId = localStorage.getItem("friendid"); // Store friend's ID in localStorage
+
+        async function loadFriendProfile() {
+            try {
+                const response = await fetch(`${baseUrl}/account/${friendId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                });
+
+                const friend = await response.json();
+
+                // Populate friend's profile
+                document.getElementById("friend-avatar").src = friend.avatar || "default-avatar.png";
+                document.getElementById("friend-name").textContent = friend.name || "Unnamed Friend";
+                document.getElementById("friend-email").textContent = friend.email || "No Email Provided";
+                document.getElementById("friend-bio").textContent = friend.bio || "No bio available.";
+            } catch (error) {
+                console.error("Failed to load friend profile:", error);
+            }
+        }
+
+        async function loadFriendProducts() {
+            try {
+                const response = await fetch(`${baseUrl}/product`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                });
+
+                const products = await response.json();
+                const productList = document.getElementById("product-list");
+                productList.innerHTML = "";
+
+                const friendProducts = products.filter(product => product.usrid === friendId);
+
+                if (friendProducts.length === 0) {
+                    productList.innerHTML = "<p>No products available.</p>";
+                    return;
+                }
+
+                friendProducts.forEach(product => {
+                    const productItem = document.createElement("div");
+                    productItem.className = "product-item";
+
+                    productItem.innerHTML = `
+                        <img class="product-image" src="${product.url || 'default-product.png'}" alt="Product Image">
+                        <div class="product-details">
+                            <h3>${product.name || 'Unnamed Product'}</h3>
+                            <p><strong>Price:</strong> ¥${product.price || 0}</p>
+                            <p>${product.description || 'No description available.'}</p>
+                        </div>
+                    `;
+
+                    productList.appendChild(productItem);
+                });
+            } catch (error) {
+                console.error("Failed to load friend's products:", error);
+            }
+        }
+
+        // Load data on page load
+        loadFriendProfile();
+        loadFriendProducts();
+    </script>
+</body>
+
+</html>

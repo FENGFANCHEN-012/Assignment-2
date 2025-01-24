@@ -33,17 +33,16 @@
         </div>
     </header>
     <script>
-        let usrmail = localStorage.getItem("usremail")
-        let passwd = localStorage.getItem("usrpasswd")
-        let idnum = localStorage.getItem("usrid")
+        let usrmail = localStorage.getItem("usremail");
+        let passwd = localStorage.getItem("usrpasswd");
+        let idnum = localStorage.getItem("usrid");
         document.getElementById("usrem").innerHTML= usrmail;
     </script>
-  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+  <div>&nbsp &nbsp &nbsp &nbsp</div>
 <script>
     const dropd = document.querySelector('.dropd');
     const dropdown = document.querySelector('.dropdown');
 
-    
     function toggleDropdown() {
         if (dropdown.style.display === 'block') {
             dropdown.style.display = 'none';
@@ -66,8 +65,69 @@
     dropdown.addEventListener('click', function(event) {
         event.stopPropagation();
     });
+</script>
 
+<div>&nbsp &nbsp &nbsp &nbsp</div>
+<div class="product-panel" style="margin-top:12vw">
+    <div class="product-header">
+        <h1>My Reward</h1>
+        <div class="product-controls">
+            <section>Number of Voucher: <span id="voucher"></span></section>
+        </div>
+    </div>
+    <div class="product-content" id="product-content" style="justify-content:start;gap:1vw"></div>
+<script>
+    const productContent = document.getElementById("product-content");
+    const APIKEY = "67889bac188ac49ef5ec3e3b";
+    const set = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache",
+        },
+    };
 
+    async function loadRewards() {
+        try {
+            const response = await fetch("https://jackie2-b185.restdb.io/rest/award", set);
+            const data = await response.json();
+            console.log("Data: " + JSON.stringify(data));
+            productContent.innerHTML = '';
 
+            if (data.length === 0) {
+                productContent.innerHTML = "<p>No Reward available.</p>";
+                return;
+            }
+
+            data.forEach(reward => {
+                if (reward.usrid === localStorage.getItem("usrid")) {
+                    const rewardItem = document.createElement("div");
+                    rewardItem.className = "reward-item";
+                    rewardItem.dataset.id = reward._id;
+                    rewardItem.innerHTML = `
+                        <section style="width:20%;height:20vw">
+                            <img class="voucher-icon" style='width:40vw;height:20vw'src="dca71ba1-6f4a-4baa-87bc-6024b801fd0c.jpg" alt="Voucher" style="cursor: pointer;" />
+                        </section>
+                        <div class="reward-info">
+                            <h3 class="name">${reward.type || 'Unnamed Reward'}</h3>
+                            <p class="reward-number">Voucher Number: ${reward.number || 0}</p>
+                        </div>
+                    `;
+
+                    rewardItem.querySelector(".voucher-icon").addEventListener("click", function() {
+                        localStorage.setItem("reward-id", reward._id);
+                        window.location.href = 'http://127.0.0.1:5500/product.html';
+                    });
+
+                    productContent.appendChild(rewardItem);
+                }
+            });
+        } catch (error) {
+            console.error("Failed to load rewards:", error);
+        }
+    }
+
+    loadRewards();
 </script>
 </body>

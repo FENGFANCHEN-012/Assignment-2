@@ -103,6 +103,37 @@
         <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
     </header>
     <script>
+        const dropd = document.getElementsByClassName('dropd');
+        const dropdown = document.getElementsByClassName('dropdown');
+    
+        
+        function toggleDropdown() {
+            if (dropdown[0].style.display === 'block') {
+                dropdown[0].style.display = 'none';
+            } else {
+                dropdown[0].style.display = 'block';
+            }
+        }
+    
+        dropd[0].addEventListener('click', function(event) {
+            event.stopPropagation();
+            toggleDropdown();
+        });
+    
+        document.addEventListener('click', function(event) {
+            if (!dropdown[0].contains(event.target)) {
+                dropdown[0].style.display = 'none';
+            }
+        });
+    
+        dropdown[0].addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    
+    
+    
+    </script>
+    <script>
         let usrmail = localStorage.getItem("usremail")
         let passwd = localStorage.getItem("usrpasswd")
         let idnum = localStorage.getItem("usrid")
@@ -153,7 +184,7 @@
     </div>
 
     <script>
-        const APIKEY =  "67889bac188ac49ef5ec3e3b";  //678fa7439bd0c87432ac8bee
+        const APIKEY =  "678fa7439bd0c87432ac8bee"; 
         const form = document.getElementById('addProductForm');
     
         form.addEventListener('submit', async function (e) {
@@ -165,7 +196,9 @@
                 alert("Please upload a product image.");
                 return;
             }
-    
+            function generateUniqueProductID() {
+                return  'product_' + `${Date.now()}` + '_' + `${Math.floor(Math.random() * 10000)}`;
+            }
             const reader = new FileReader();
     
             reader.onload = async function (e) {
@@ -178,6 +211,9 @@
                     Brand: formData.get('productBrand'),
                     tag: formData.get('productCategory'),
                     url: base64Image 
+                    ,id:localStorage.getItem("usrid"),
+                    productID: generateUniqueProductID()
+
                 };
     
                 const set = {
@@ -191,7 +227,7 @@
                 };
     
                 try {
-                    const post = await fetch("https://jackie2-b185.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
+                    const post = await fetch("https://jackm-ff5c.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
     
                     if (post.ok) {
                         alert("Product added successfully!");

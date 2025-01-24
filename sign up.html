@@ -65,11 +65,9 @@
                     alert("Email and Password cannot be empty!");
                     return;
                 }
-
+                
                
-                const message = {"email": email, 
-                "passwd": password,'bio':'unkown','avatar':'unknown',name:'unknown'
-              };
+               
 const set = {
   method:"GET",
   headers: {
@@ -78,6 +76,23 @@ const set = {
     "Cache-Control": "no-cache",
 },
 }
+const  check = await  fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+const data= await check.json();
+function generateUniqueID() {
+    return  'user_' + `${Date.now()}` + '_' + `${Math.floor(Math.random() * 10000)}`;
+}
+                    const message = {"email": email, 
+                    "passwd": password,'bio':'unkown','avatar':'unknown','name':'unknown',usrid:generateUniqueID()
+                  };
+                 
+                    for (let i of data) {
+                        if (i.email === email) { 
+                            alert("This email has been registered!");
+                            return ;
+                        }
+
+                    }
+                  
                 const settings = {
                     method: "POST",
                     headers: {
@@ -87,29 +102,27 @@ const set = {
                     },
                     body: JSON.stringify(message),
                 };
-                const  check = await  fetch("https://jackm-ff5c.restdb.io/rest/account", set)
                
-                const data= await check.json();
+               
                 
-                    for (let i of data) {
-                        if (i.email === email) { 
-                            alert("This email has been registered!");
-                            return ;
-                        }
-                    }
-                  
                 
             
            
                 try {
                    
                     const response = await fetch("https://jackm-ff5c.restdb.io/rest/account", settings);
+                  
                     if (!response.ok) {
+                       
+                        
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     const result = await response.json();
+                  
+                     let userid= result._id;
+                     localStorage.setItem("userid",userid)
                     alert("Sign Up successfully:", result);
-
+                 
                    
                     window.location.assign("http://127.0.0.1:5500/login.html");
                 } catch (error) {

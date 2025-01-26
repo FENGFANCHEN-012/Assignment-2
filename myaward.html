@@ -78,7 +78,7 @@
     <div class="product-content" id="product-content" style="justify-content:start;gap:1vw"></div>
 <script>
     const productContent = document.getElementById("product-content");
-    const APIKEY = "67889bac188ac49ef5ec3e3b";
+    const APIKEY = "678fa7439bd0c87432ac8bee";
     const set = {
         method: "GET",
         headers: {
@@ -90,7 +90,7 @@
 
     async function loadRewards() {
         try {
-            const response = await fetch("https://jackie2-b185.restdb.io/rest/award", set);
+            const response = await fetch("https://jackm-ff5c.restdb.io/rest/award", set);
             const data = await response.json();
             console.log("Data: " + JSON.stringify(data));
             productContent.innerHTML = '';

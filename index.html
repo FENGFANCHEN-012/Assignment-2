@@ -4,19 +4,17 @@
     <style></style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style2.css">
-   <link rel="stylesheet" href="my.css">
+   <link rel="stylesheet" href="combined_style.css">
+
    
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <script src="js.js"></script>
   <header>
-    
+  
     <div class="head" >
-        <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
+        <a href="index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
         
          <input type="text" class="search" >
          <button class="bt">Search</button>
@@ -26,75 +24,49 @@
     </div>
   </header>
   <script>
-  localStorage.setItem('usrid',null)
+  
   </script>
   <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
   <div class="down" style="margin-left:28vw;margin-top:15vh">
 
-    <section class="panel" >
-        <a href='http://127.0.0.1:5500/login.html'><p class="log" style="border:none">Login in</p></a>
-        <button class="log">Google</button>
-        <button class="log">FaceBook</button>
-        <p class="log">New user? Sign up <a href='http://127.0.0.1:5500/sign%20up.html'>here</a></p>
-
+    <section class="panel">
+        <p class="log" style="border:none">
+            <a href='login.html' class="login-link">Log in</a>
+        </p>
+        <p class="log">New user? Sign up <a href='sign%20up.html'>here</a></p>
     </section>
+
     <section class="panel2" >
         
-        <p>You have'nt Log In  yet</p>
-        <p>Log In <a href='http://127.0.0.1:5500/login.html'>here</a></p>
+        <p>You have not logged in!</p>
+        <p>Log In <a href='login.html'>here</a></p>
 
     </section>
     
   </div>
+
   <main >
-    <section class="main" style=" margin-top:10vh;"> 
-    <div class="ct">
-        <a href="" class="pic">
-            
-        </a>
-        <a href=""  class="pic">
-            
-        </a>
-    </div>
-</section>
-<h1 style="margin-top:5vw">Opportunity</h1>
+    <section class="popular-pages">
+        <h2>Popular Pages</h2>
+        <div class="pages-container">
+            <div class="page-item">Electronic Devices</div>
+            <div class="page-item">Accessories</div>
+            <div class="page-item">Fashion</div>
+        </div>
+    </section>
+    
+<h1 style="margin-top:5vw">Earn Rewards!</h1>
 <hr>
 <section style="width:100vw;overflow:hidden" > 
-    
-<section  id="game" style="height:35vw;gap:0vw;width:200vw"> 
-    <div class="logos">
-        <img src="logo.png" alt="Logo">
-    </div>
-    <div class="content" style="width:100vw">
-        <div class="header">Welcome To FindSell</div>
-        <div class="description">Check In To Get More Reward!</div>
-        <button id='check' class="button" >Go To Checking Centre!</button>
-        <button class="next" style="margin-left:20vw">Click Here</button>
-    </div>
-   
+<section  id="game" style="height:35vw"> 
+    <div class="box" id="box1">
+    <button class="next">Click Here</button>
+</div>
 
-<section class="game-section" style=" width:100vw;background-image: url('runner_background.jpg'); background-size: cover; height: 35vw; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <h2 style="font-size: 2.5vw; color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Fun Game</h2>
-    <p style="font-size: 1.5vw; color: #ffffffcc; margin-bottom: 2vw;">Win The Game For More Award!</p>
-    <button class="game-button"  id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
-    <button class="next" style="margin-top:5vw">Click Here</button>
+    <div class="box" id="box2">Hi
+        <button class="next">Click Here</button>
+    </div>
 </section>
-    
-<script>
-   
-    document.getElementById("check").addEventListener("click",function(){
-        alert('Please Log In First')
-        window.location.reload();
-    })
-    document.getElementById("go").addEventListener("click",function(e){
-    e.preventDefault();
-        alert('Please Log In First')
-        window.location.reload();
-    })
-   </script>
-        
-    
-
 </section>
 
 <script>
@@ -105,7 +77,7 @@
     
     but[0].addEventListener("click", () => {
         if (isBox1Visible) {
-            box.style.transform = "translateX(-105vw)";
+            box.style.transform = "translateX(-95vw)";
             isBox1Visible = false;  // Update visibility status
         }
     });
@@ -143,67 +115,21 @@
    
 </section>
 </section>
-<h1 style="margin-top:5vw">Trusetd Seller</h1>
+<h1 style="margin-top:5vw">Trusted Sellers</h1>
 <section style="width:100vw;overflow:hidden" > 
     <button id="but2" >Click Me</button>
-<section  id="seller" style="width:280vw">
+<section  id="seller">
     
-
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+    
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+</div>
+<div class="ct" style="background-color:antiquewhite;height:20vw">
+</div>
 
 </section>
-
 </section>
-<script>
-  
-    const APIKEY = '678fa7439bd0c87432ac8bee';
-   const set = {
-       method: "GET",
-       headers: {
-           "Content-Type": "application/json",
-           "x-apikey": APIKEY,
-           "Cache-Control": "no-cache",
-       },
-   };
-  fetch("https://jackm-ff5c.restdb.io/rest/account", set)
-  .then(response => response.json())  // Parse the response as JSON
-  .then(data => {
-       document.getElementById("seller").style.width = `${data.length*95}vw`
-      // Assuming data is an array of user accounts
-      data.forEach(account => {
-       const randomIndex = Math.floor(Math.random() * account.length);
-          // Create a new div for each seller
-          const sellerDiv = document.createElement("div");
-          sellerDiv.classList.add("ct");
-          
-          sellerDiv.style.backgroundColor = "antiquewhite";
-          sellerDiv.style.height = "20vw";
-          
-
-          // You can customize this to display more info from the account
-          const name = document.createElement("h3");
-          name.textContent = `Seller: ${account.name || "User"}`; // Replace with actual account fields
-          sellerDiv.appendChild(name);
-          const pic = document.createElement('img');
-          const base64Url = `data:image/png;base64,${account.avatar}`;
-          pic.src =  base64Url;
-          sellerDiv.appendChild(pic)
-          // You can add more account data as needed
-          const email = document.createElement("p");
-          email.textContent = `Email: ${account.email || "No Email"}`;
-          sellerDiv.appendChild(email);
-
-          // Append the created seller div to the #seller section
-          document.getElementById("seller").appendChild(sellerDiv);
-      });
-  })
-  .catch(error => {
-      console.error('Error fetching the API data:', error);
-  });
-
- 
-       
-   
-</script>
 <script>
     let start = 0;
     let seller = document.getElementById("seller"); 
@@ -220,7 +146,7 @@
         seller.style.transition = "transform 0.5s ease"; 
     });
 </script>
-<h1 style="margin-top:10vh">Recommend for you</h1>
+<h1 style="margin-top:10vh">For You</h1>
 <section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
 
 <div class="pd"></div>

@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindSell HomePage2</title>
-    <link rel="stylesheet" href="css.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="combined_style.css">
     <style>
         .product-image{
          width:50vw;
@@ -180,20 +178,20 @@
     </script>
     <header>
         <div class="head">
-            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <a href="index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
 
             <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
                 <section class="dropdown">
-                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                    <a href='myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='myaward.html'>Awards</a></div>
                 </section>
             </section>
 
-            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+            <a href='product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
         </div>
     </header>
     <script>
@@ -274,7 +272,7 @@
     </div>
      
     <script>
-        const APIKEY = '678fa7439bd0c87432ac8bee';
+        const APIKEY = '67971683f9d2bb616f181e2b';
         const set = {
             method: "GET",
             headers: {
@@ -284,7 +282,7 @@
             },
         };
 
-        fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+        fetch("https://assignmentfed-fb7a.restdb.io/rest/account", set)
             .then((response) => response.json())
             .then((data) => {
                 const userEmail = localStorage.getItem("usremail");
@@ -297,7 +295,7 @@
 
                 // get image file base64 link
             const imgFile = document.getElementById('img2').files[0];
-            const base64Data = `${user.avatar}`; 
+            const base64Data = '${user.avatar}'; 
             const contentType = "image/png"; 
             function base64ToBlob(base64, contentType = "") {
                 const byteCharacters = atob(base64)
@@ -390,7 +388,7 @@
                 localStorage.setItem("usrname",  document.getElementById("name").value.trim(),)
         
                 const response = await fetch(
-                    `https://jackm-ff5c.restdb.io/rest/account/${localStorage.getItem("change")}`,
+                    https,//assignmentfed-fb7a.restdb.io/rest/account/${localStorage.getItem("change")}`,
                     {
                         method: "PATCH",
                         headers: {
@@ -420,7 +418,7 @@
            
             localStorage.setItem("usremail",null)
             
-            window.location.href="http://127.0.0.1:5500/index.html";
+            window.location.href="index.html";
       
             
 

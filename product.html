@@ -4,15 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
-    <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style2.css">
-   <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style2.css">
-   <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="combined_style.css">
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="combined_style.css">
     <style>
         .add-product-form {
          margin-top:50vw;
@@ -83,19 +77,10 @@
     </style>
 </head>
 <body>
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            if (!userId) {
-                document.getElementById('message').textContent = 'Please log in before checking in.';
-                document.getElementById('signInButton').disabled = true;
-                return;
-            }})
-    </script>
     <header>
       <header>
         <div class="head">
-            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <a href="index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
             <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
@@ -193,7 +178,7 @@
     </div>
 
     <script>
-        const APIKEY =  "678fa7439bd0c87432ac8bee"; 
+        const APIKEY =  "67971683f9d2bb616f181e2b"; 
         const form = document.getElementById('addProductForm');
     
         form.addEventListener('submit', async function (e) {
@@ -236,11 +221,11 @@
                 };
     
                 try {
-                    const post = await fetch("https://jackm-ff5c.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
+                    const post = await fetch("https://assignmentfed-fb7a.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
     
                     if (post.ok) {
                         alert("Product added successfully!");
-                        window.location.href = "http://127.0.0.1:5500/myproduct.html";
+                        window.location.href = "myproduct.html";
                     } else {
                         const errorData = await post.json();
                         alert("Failed to add product: " + errorData.message);

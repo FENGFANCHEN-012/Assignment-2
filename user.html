@@ -235,15 +235,15 @@
     <div class="main" style='margin-top:10vw;height:85vw;align-items:start'>
         <div class="product-panel">
             <div class="product-header">
-                <h1>Account Setting</h1>
+                <h1 id="u-n">User</h1>
             </div>
 
-            <div class="product-content" style="align-items: center;justify-content:center">
+            <div class="product-content" style="align-items: center;justify-content:center;width:100%">
                 <img id="img" src="" />
                 <input class="show" type="file" id="img2" accept="image/*" />
 
                 <div class="product-item" id='info' style="margin-bottom: 20px;">
-                    <h3>Your Information</h3>
+                   
                     <p><strong>Name:</strong> <span class="sub" id="name-display"></span></p>
                     <input type="text" class="show" id="name" placeholder="What is your Name?">
                     <p><strong>Email:</strong> <span class="sub" id="email-display"></span></p>
@@ -255,17 +255,27 @@
                     <h3>Recent Activity</h3>
                     <p>No recent activity.</p>
                 </div>
-
-                <div id='changepasswd' class="product-item" style="margin-bottom: 20px;background-color:rgb(204, 211, 210)">
-                    <h3>Change Password</h3>
+                <div class="product-item"  style="margin-bottom: 20px;">
+                    <h3>Product:</h3>
+                    <section id="u-p"></section>
                 </div>
-            </div>
+                <div class="product-item"  style="margin-bottom: 20px;">
+                    <h3>Comment</h3>
+                    
+                    <section class="product-reviews">
+                        <h2>User Reviews</h2>
+                        <section id="comment">
+            
+                        </section>
+                        <div id="reviews-container"></div>
+                        <div class="comment-box">
+                            <textarea id="comment-input" class="comment-input" placeholder="Write your comment here..."></textarea>
+                            <button id="publish-btn" class="btn-publish">Publish</button>
+                        </div>
+                    </section>
+                </div>
 
-            <div class="product-controls" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
-                <button class="btn" id="edit">Edit Profile</button>
-                <button id="submit" style="display:none;width:10vw" class="btn">Submit</button>
-                <button class="btn" id="logout" style="margin-left:0.1vw">Logout</button>
-            </div>
+          
         </div>
     </div>
 
@@ -274,6 +284,110 @@
     </div>
      
     <script>
+        async function loadProducts() {
+            try {
+                let user_now = localStorage.getItem("user_now")
+                const set = {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                }
+
+                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", set);
+                const data = await response.json();
+             
+                console.log("Data: " + JSON.stringify(data))
+               
+                data.forEach(product => {
+                    if(product.id===user_now){
+                    const productItem = document.createElement("div");
+                    productItem.className = "product-item";
+                    productItem.dataset.id = product._id; 
+                    const base64Data = `${product.url}`; 
+                    const contentType = "image/png"; 
+                    
+                   
+                    function base64ToBlob(base64, contentType) {
+                        const byteCharacters = atob(base64);
+                        const byteArrays = [];
+                        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                            const slice = byteCharacters.slice(offset, offset + 512);
+                            const byteNumbers = new Array(slice.length);
+                            for (let i = 0; i < slice.length; i++) {
+                                byteNumbers[i] = slice.charCodeAt(i);
+                            }
+                            byteArrays.push(new Uint8Array(byteNumbers));
+                        }
+                        return new Blob(byteArrays, { type: contentType });
+                    }
+                    
+                    
+                    const blob = base64ToBlob(base64Data, contentType);
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    
+                  
+                    productItem.innerHTML = `
+                       <section style="width:100%;height:20vw" >
+                        <img  data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
+                       </section>
+                        <div class="product-info">
+                            <h3 class="name">${product.name || 'Unnamed Product'}</h3>
+                            <p class="product-price">Price: ¥${product.price || 0}</p>
+                            <p class="product-reviews">Comment: ${product.comments || 'No comments'}</p>
+                            <button class="delete-btn" data-id="${product._id}">Delete</button>
+                        </div>
+                    `;
+                     console.log(localStorage.getItem("userid"));
+                   
+                     document.getElementById("u-p").appendChild(productItem);
+                    
+            }})
+              
+            } catch (error) {
+                console.error("Failed to load products:", error);
+            }
+        }
+        document.getElementById("publish-btn").addEventListener("click", async function() {
+            const commentInput = document.getElementById("comment-input");
+            const comment = commentInput.value.trim();
+        
+            if (!comment) {
+                alert("Please enter a comment before submitting.");
+                return;
+            }
+        
+            const productId = document.querySelector(".product-item").dataset.id;  
+            const userId = localStorage.getItem("usrid");  
+        
+            const newComment = {
+                userId: userId,
+                productId: productId,
+                comment: comment,
+            };
+        
+            const response = await fetch("https://jackm-ff5c.restdb.io/rest/comments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-apikey": APIKEY,
+                    "Cache-Control": "no-cache",
+                },
+                body: JSON.stringify(newComment),
+            });
+        
+            if (response.ok) {
+                alert("Comment posted!");
+                commentInput.value = ""; 
+                loadComments(productId);  
+            } else {
+                alert("Failed to post comment. Please try again.");
+            }
+        });
+        loadProducts();
         const APIKEY = '678fa7439bd0c87432ac8bee';
         const set = {
             method: "GET",

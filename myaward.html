@@ -14,6 +14,15 @@
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!userId) {
+                document.getElementById('message').textContent = 'Please log in before checking in.';
+                document.getElementById('signInButton').disabled = true;
+                return;
+            }})
+    </script>
     <header>
         <div class="head">
             <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>

@@ -47,6 +47,15 @@
     </style>
 </head>
 <body>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!userId) {
+                document.getElementById('message').textContent = 'Please log in before checking in.';
+                document.getElementById('signInButton').disabled = true;
+                return;
+            }})
+    </script>
     <header class="bg-primary text-white p-3 text-center">
         <h1>My Friends</h1>
     </header>

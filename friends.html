@@ -58,24 +58,34 @@
 </head>
 
 <body>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!userId) {
+                document.getElementById('message').textContent = 'Please log in before checking in.';
+                document.getElementById('signInButton').disabled = true;
+                return;
+            }})
+    </script>
     <header>
         <div class="head">
             <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
-
+         
             <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
-                <section class="dropdown">
+                <section class="dropdown" >
                     <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
                     <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
                     <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
                     <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
                 </section>
             </section>
-
+            
             <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
         </div>
     </header>
+    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
     
     <div class="friend-profile">
         <img id="friend-avatar" class="friend-avatar" src="" alt="Friend Avatar">

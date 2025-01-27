@@ -28,6 +28,15 @@
     </style>
 </head>
 <body>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!userId) {
+                document.getElementById('message').textContent = 'Please log in before checking in.';
+                document.getElementById('signInButton').disabled = true;
+                return;
+            }})
+    </script>
     <canvas id="gameCanvas"></canvas>
     <div class="voucher" id="voucher">Congratulations! You've earned a 10% discount coupon!</div>
     <script>

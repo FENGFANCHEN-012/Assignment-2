@@ -108,7 +108,7 @@
     <script src="js.js"></script>
     <header>
         <div class="head">
-            <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
             <input type="text" class="search" style="width:35vw">
             <button class="bt">Search</button>
          
@@ -124,13 +124,14 @@
             <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
         </div>
     </header>
+    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
     <script>
         let usrmail = localStorage.getItem("usremail")
         let passwd = localStorage.getItem("usrpasswd")
         let idnum = localStorage.getItem("usrid")
         document.getElementById("usrem").innerHTML= usrmail;
     </script>
-  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+
 <script>
     const dropd = document.querySelector('.dropd');
     const dropdown = document.querySelector('.dropdown');
@@ -188,7 +189,7 @@
     <div class="content" style="width:100vw">
         <div class="header">Welcome To FindSell</div>
         <div class="description">Check In To Get More Reward!</div>
-        <button id='check' class="button" onclick="location.href='签到中心链接'">Go To Checking Centre!</button>
+        <button id='check' class="button" onclick='location.href="http://127.0.0.1:5500/checkin.html"'>Go To Checking Centre!</button>
         <button class="next" style="margin-left:20vw">Click Here</button>
     </div>
    <script>
@@ -259,17 +260,63 @@
 <h1 style="margin-top:5vw">Trusetd Seller</h1>
 <section style="width:100vw;overflow:hidden" > 
     <button id="but2" >Click Me</button>
-<section  id="seller">
+<section  id="seller"  >
     
-<div class="ct" style="background-color:antiquewhite;height:20vw">
-    
-</div>
-<div class="ct" style="background-color:antiquewhite;height:20vw">
-</div>
-<div class="ct" style="background-color:antiquewhite;height:20vw">
-</div>
+
 
 </section>
+<script>
+  
+     const APIKEY = '678fa7439bd0c87432ac8bee';
+    const set = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache",
+        },
+    };
+   fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+   .then(response => response.json())  // Parse the response as JSON
+   .then(data => {
+        document.getElementById("seller").style.width = `${data.length*95}vw`
+       // Assuming data is an array of user accounts
+       data.forEach(account => {
+        const randomIndex = Math.floor(Math.random() * account.length);
+           // Create a new div for each seller
+           const sellerDiv = document.createElement("div");
+           sellerDiv.classList.add("ct");
+           
+           sellerDiv.style.backgroundColor = "antiquewhite";
+           sellerDiv.style.height = "20vw";
+           
+
+           // You can customize this to display more info from the account
+           const name = document.createElement("h3");
+           name.textContent = `Seller: ${account.name || "User"}`; // Replace with actual account fields
+           sellerDiv.appendChild(name);
+           const pic = document.createElement('img');
+           pic.style.width = '5vw';
+            pic.style.height = '5vw'
+           pic.src =  account.avatar;
+           sellerDiv.appendChild(pic)
+           // You can add more account data as needed
+           const email = document.createElement("p");
+           email.textContent = `Email: ${account.email || "No Email"}`;
+           sellerDiv.appendChild(email);
+
+           // Append the created seller div to the #seller section
+           document.getElementById("seller").appendChild(sellerDiv);
+       });
+   })
+   .catch(error => {
+       console.error('Error fetching the API data:', error);
+   });
+
+  
+        
+    
+</script>
 </section>
 <script>
     let start = 0;
@@ -309,48 +356,5 @@
     </section>
   </footer>
 <hr>
-<script>
- 
-    let pan = document.getElementsByClassName("panel"); 
-    
-    let pan2 = document.getElementsByClassName("panel2")[0]; 
-    pan2.style.display='none';
-    const p = document.getElementsByClassName("set");
-    const sell = document.getElementById("sell");
-    sell.addEventListener("click",function(){
-        if(pan2.style.display=='block'){
-            pan2.style.display ='none'
-        }
-        else{
-            pan2.style.display ='block';
-        }
-    })
-    p[1].addEventListener("click", function() {
-        if (pan[0].style.display === 'block') {
-            pan[0].style.display = 'none';
-        } else {
-            pan[0].style.display = 'block';
-            
-        }
-    });
 
-    p[0].addEventListener("click", function() {
-        if (pan[0].style.display === 'block') {
-            pan[0].style.display = 'none';
-        } else {
-            pan[0].style.display = 'block';         
-        }
-    });
-document.addEventListener('click', function(event) {
-        for (let i = 0; i < pan.length; i++) {
-            if (!pan[i].contains(event.target) && !p[0].contains(event.target) && !p[1].contains(event.target)) {
-                pan[i].style.display = 'none';
-            }
-            
-            
-        }
-       if(!pan2.contains(event.target) && !sell.contains(event.target) ) {
-            pan2.style.display = 'none';}
-    });
-</script>
 </body>

@@ -46,6 +46,7 @@ transition: box-shadow 0.3s ease;
 .down{
     position: fixed;
     margin-top:2.5vw;
+    z-index: 100;
 }
 
 .box-shadow {
@@ -114,6 +115,7 @@ align-items: center;
 .ct{
     
     display: flex;
+    flex-shrink: none;
     justify-content: center;
     width:100%;
     height:26vh;

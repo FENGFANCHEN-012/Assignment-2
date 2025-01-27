@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check-In Page</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="my.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,7 +57,10 @@
     </style>
 </head>
 <body>
-    <div class="container">
+  
+  
+
+    <div class="container" >
         <div class="title">Check In</div>
         <div class="message" id="message">Loading, please wait...</div>
         <button class="sign-in-btn" id="signInButton" onclick="signIn()" disabled>Check In</button>
@@ -61,19 +68,21 @@
     </div>
 
     <script>
-        const APIKEY = "67889bac188ac49ef5ec3e3b";//678fa7439bd0c87432ac8bee
-        const apiUrl = 'https://jackie2-b185.restdb.io/rest/check'; // https://jackm-ff5c.restdb.io/rest/check
+        const APIKEY = "678fa7439bd0c87432ac8bee";//678fa7439bd0c87432ac8bee
+        const apiUrl = 'https://jackm-ff5c.restdb.io/rest/check'; // https://jackm-ff5c.restdb.io/rest/check
+        const awardurl = "https://jackm-ff5c.restdb.io/rest/award"
         const userId = localStorage.getItem("usrid"); 
         let signedInDays = 0;
         let canSignIn = false;
 
         document.addEventListener('DOMContentLoaded', async () => {
-            if (!userId) {
+            if (userId===null) {
                 document.getElementById('message').textContent = 'Please log in before checking in.';
                 document.getElementById('signInButton').disabled = true;
                 return;
             }
-
+            
+        
             try {
                 const response = await fetch(apiUrl, {
                     method: "GET",
@@ -91,6 +100,8 @@
                 let currentUser = data.find(user => user.usrid === userId);
 
                 if (!currentUser) {
+
+
                     // If user data does not exist, send POST request to create user
                     await createUser(userId);
                     const newResponse = await fetch(apiUrl, {
@@ -107,20 +118,31 @@
                     currentUser = newData.find(user => user.usrid === userId);
                 }
 
+
+
+                // create user's data
                 if (currentUser) {
                     signedInDays = currentUser.day || 0;
-                    const lastSignInDate = currentUser.lastdate || null;
+                    const lastSignInDate = currentUser.lastdate ? currentUser.lastdate.split('T')[0] : null;
                     const today = new Date().toISOString().split('T')[0];
 
                     canSignIn = lastSignInDate !== today;
                     updateUI();
+
+
+                    console.log("Last sign-in date:", currentUser.lastdate);
+console.log("Today:", today);
+console.log("Comparison result:", lastSignInDate !== today);
+
                 }
             } catch (error) {
                 console.error("Loading failed:", error);
                 document.getElementById('message').textContent = 'Failed to load, please refresh and try again.';
             }
         });
+///
 
+// 
         function updateUI() {
             document.getElementById('days').textContent = signedInDays;
             document.getElementById('message').textContent = canSignIn
@@ -134,6 +156,7 @@
             if (!canSignIn) return;
         
             try {
+
                 const today = new Date().toISOString().split('T')[0];
                 const response = await fetch(`${apiUrl}/${localStorage.getItem("checkid")}`, {
                     method: "PATCH", 
@@ -147,7 +170,7 @@
                         lastdate: today
                     })
                 });
-        
+                
                 if (!response.ok) throw new Error("Check-in failed.");
         
                 
@@ -156,7 +179,7 @@
         
                 if (signedInDays >= 15) {
                     // Handle reward creation or update
-                    const awardResponse = await fetch("https://jackie2-b185.restdb.io/rest/award",{method: "GET",
+                    const awardResponse = await fetch("https://jackm-ff5c.restdb.io/rest/award",{method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
                                 "x-apikey": APIKEY
@@ -169,7 +192,7 @@
         
                     if (!userAward) {
                         // No reward exists, create one
-                        await fetch("https://jackie2-b185.restdb.io/rest/award", {
+                        await fetch("https://jackm-ff5c.restdb.io/rest/award", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -183,7 +206,7 @@
                         });
                     } else {
                         // Reward exists, update the number
-                        await fetch(`https://jackie2-b185.restdb.io/rest/award/${userAward._id}`, {
+                        await fetch(`https://jackm-ff5c.restdb.io/rest/award/${userAward._id}`, {
                             method: "PATCH",
                             headers: {
                                 "Content-Type": "application/json",
@@ -197,7 +220,7 @@
         
                     alert('Congratulations! You have checked in for 15 consecutive days. Your reward has been sent to your account.');
                 } else {
-                    alert(`Check-in successful! You have checked in for ${signedInDays} consecutive days.`);
+                    alert(`Check-in successful! You have checked in for ${signedInDays+1} consecutive days.`);
                 }
             } catch (error) {
                 console.error("Check-in failed:", error);

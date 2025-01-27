@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in/sign up</title>
-    <link rel="stylesheet" href="css.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="combined_style.css">
+    <link rel="stylesheet" href="combined_style.css">
    
 <body>
     <header>
   
         <div class="head" style="position:absolute">
-            <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
+            <a href="index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
              <input type="text" class="search" >
              <button class="bt">Search</button>
             <button class="set">Login</button>
@@ -45,7 +45,7 @@
                 <button  type="submit" style="margin-left:5vw">Submit</button>
             </form>
 
-                <section>Are you new user ?<a href='http://127.0.0.1:5500/sign%20up.html'>sign Here</a></section>
+                <section>Don't have an account?<a href='sign%20up.html'>Sign up Here</a></section>
                
         </div>
     </section>
@@ -84,14 +84,13 @@ let settings = {
     let check = false;
      for(let i of data){
         if(i.email===email && i.passwd===passwd){
-            alert("log in successfullt")
-            alert("welcome!")
+            alert("Log in successful. Welcome to FindSell!")
             check=true;
             localStorage.setItem("usrid",i.usrid)
             localStorage.setItem("usremail",i.email)
             localStorage.setItem("usrpasswd",i.passwd)
          
-            window.location.assign("http://127.0.0.1:5500/index2.html")
+            window.location.assign("index2.html")
             break;
         }
         
@@ -102,7 +101,7 @@ let settings = {
      }
   }
 catch(error){
-    alert("Error Occur during login,Pls  try again",error)
+    alert("Error Occurred during login. Please try again",error)
 }
 })
 

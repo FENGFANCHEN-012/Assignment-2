@@ -284,7 +284,7 @@
             },
         };
 
-        fetch("https://jackm-ff5c.restdb.io/rest/account", set)
+        fetch("https://assignmentfed-fb7a.restdb.io/rest/account", set)
             .then((response) => response.json())
             .then((data) => {
                 const userEmail = localStorage.getItem("usremail");
@@ -390,7 +390,7 @@
                 localStorage.setItem("usrname",  document.getElementById("name").value.trim(),)
         
                 const response = await fetch(
-                    `https://jackm-ff5c.restdb.io/rest/account/${localStorage.getItem("change")}`,
+                    `https://assignmentfed-fb7a.restdb.io/rest/account/${localStorage.getItem("change")}`,
                     {
                         method: "PATCH",
                         headers: {

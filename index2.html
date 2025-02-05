@@ -126,6 +126,10 @@
     </header>
     <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
     <script>
+        account = "https://jackm-ff5c.restdb.io/rest/account"
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        api = "678fa7439bd0c87432ac8bee"
+         test = "67971683f9d2bb616f181e2b"
         let usrmail = localStorage.getItem("usremail")
         let passwd = localStorage.getItem("usrpasswd")
         let idnum = localStorage.getItem("usrid")
@@ -201,7 +205,7 @@
 <section class="game-section" style=" width:100vw;background-image: url('runner_background.jpg'); background-size: cover; height: 35vw; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <h2 style="font-size: 2.5vw; color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Fun Game</h2>
     <p style="font-size: 1.5vw; color: #ffffffcc; margin-bottom: 2vw;">Win The Game For More Award!</p>
-    <button class="game-button" onclick="location.href='runner_game.html'" id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
+    <button class="game-button"  id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
     <button class="next" style="margin-top:5vw">Click Here</button>
 </section>
     
@@ -212,6 +216,10 @@
 </section>
 
 <script>
+    let userId = localStorage.getItem('usrid');
+    document.getElementById("go").addEventListener("click",function(){
+        window.location.href="http://127.0.0.1:5500/game.html";
+    })
     const but = document.getElementsByClassName("next");
     const box = document.getElementById("game");
     
@@ -267,7 +275,7 @@
 </section>
 <script>
   
-     const APIKEY = '67889bac188ac49ef5ec3e3b';//678fa7439bd0c87432ac8bee
+     const APIKEY = api;//678fa7439bd0c87432ac8bee
     const set = {
         method: "GET",
         headers: {
@@ -276,12 +284,17 @@
             "Cache-Control": "no-cache",
         },
     };
-   fetch("https://jackie2-b185.restdb.io/rest/account", set) //https://jackm-ff5c.restdb.io/rest/account
+   
+   fetch(account, set) //https://jackm-ff5c.restdb.io/rest/account
    .then(response => response.json())  // Parse the response as JSON
    .then(data => {
         document.getElementById("seller").style.width = `${data.length*95}vw`
        // Assuming data is an array of user accounts
        data.forEach(account => {
+        if(account.usrid == idnum ){
+             console.log("sd")
+        }
+        else{
         const randomIndex = Math.floor(Math.random() * account.length);
            // Create a new div for each seller
            const sellerDiv = document.createElement("div");
@@ -289,15 +302,17 @@
            sellerDiv.style.justifyContent='space-around';
            sellerDiv.style.alignItems='center';
            sellerDiv.style.gap='6vw';
-           sellerDiv.classList.add("ct");
-           
+         
+           sellerDiv.classList.add("other");
+           sellerDiv.style.width="90vw"
            sellerDiv.style.backgroundColor = "antiquewhite";
            sellerDiv.style.height = "20vw";
            
 
-           // You can customize this to display more info from the account
            const name = document.createElement("h3");
            const pic = document.createElement('img');
+          
+        
            pic.style.width = '20vw';
             pic.style.height = '18vw'
             pic.addEventListener("click",function(){
@@ -305,23 +320,44 @@
             })
            pic.src =  account.avatar;
            pic.style.left = '10vw'
+         
+           pic.addEventListener("click",function(){
+            pic.style.transform='scale(1.05)'
+           })
            sellerDiv.appendChild(pic)
            name.textContent = `Seller: ${account.name || "User"}`; // Replace with actual account fields
            sellerDiv.appendChild(name);
-
+          
            
            // You can add more account data as needed
            const email = document.createElement("p");
            email.textContent = `Email: ${account.email || "No Email"}`;
            sellerDiv.appendChild(email);
+           pic.addEventListener("click", function () {
+            localStorage.setItem("selectedUser", JSON.stringify({
+                otherid: account.usrid,
+                otheremail: account.email,
+                otherbio: account.bio,
+                otheravatar: account.avatar,
+                othername: account.name
+            }
+
+           )
+            ); window.location.href='http://127.0.0.1:5500/myfriend.html'
+           
+        });
 
            // Append the created seller div to the #seller section
            document.getElementById("seller").appendChild(sellerDiv);
-       });
+       }});
    })
    .catch(error => {
        console.error('Error fetching the API data:', error);
    });
+    // get data of each user
+    
+    
+
 
   
         

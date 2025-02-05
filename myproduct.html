@@ -42,6 +42,7 @@
         </div>
     </header>
     <script>
+        let userId = localStorage.getItem('usrid');
         let usrmail = localStorage.getItem("usremail")
         let passwd = localStorage.getItem("usrpasswd")
         let idnum = localStorage.getItem("usrid")
@@ -108,7 +109,7 @@
         const productContent = document.getElementById("product-content");
      
         
-        const APIKEY = "678fa7439bd0c87432ac8bee";;
+        const APIKEY = "67971683f9d2bb616f181e2b";;
         const set = {
             method: "GET",
             headers: {
@@ -120,7 +121,7 @@
         
         async function loadProducts() {
             try {
-                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", set);
+                const response = await fetch("https://assignmentfed-fb7a.restdb.io/rest/product", set);
                 const data = await response.json();
                 console.log("Data: " + JSON.stringify(data))
                 productContent.innerHTML='';
@@ -183,6 +184,8 @@
             document.querySelectorAll(".delete-btn").forEach((button) => {
                 button.addEventListener("click", async function(event) {
                     event.preventDefault();
+                    
+                   
                     if (!confirm("Are you sure you want to delete this product?")) return;
 
                     const productdata = event.target.getAttribute("data-id");
@@ -196,7 +199,7 @@
                     };
 
                     try {
-                        const response = await fetch(`https://jackm-ff5c.restdb.io/rest/product  ${productdata}`, set2);
+                        const response = await fetch(`https://assignmentfed-fb7a.restdb.io/rest/product  ${productdata}`, set2);
                         if (response.ok) {
                             alert("Delete Successfully");
                             event.target.closest(".product-item").remove();

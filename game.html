@@ -29,7 +29,7 @@
 </head>
 <body>
     <script>
-        
+        let userId = localStorage.getItem('usrid');
         document.addEventListener('DOMContentLoaded', async () => {
             if (!userId) {
                 document.getElementById('message').textContent = 'Please log in before checking in.';
@@ -40,7 +40,7 @@
     <canvas id="gameCanvas"></canvas>
     <div class="voucher" id="voucher">Congratulations! You've earned a 10% discount coupon!</div>
     <script>
-        const API_KEY = "678fa7439bd0c87432ac8bee";
+        const API_KEY = "67971683f9d2bb616f181e2b";
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -93,7 +93,7 @@
                 }
 
                 // Fetch existing rewards
-                const awardResponse = await fetch("https://jackm-ff5c.restdb.io/rest/award", {
+                const awardResponse = await fetch("https://assignmentfed-fb7a.restdb.io/rest/award", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -106,7 +106,7 @@
 
                 if (userAwards.length === 0) {
                     // Create new rewards if none exist
-                    const newAward = await fetch("https://jackm-ff5c.restdb.io/rest/award", {
+                    const newAward = await fetch("https://assignmentfed-fb7a.restdb.io/rest/award", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -126,7 +126,7 @@
                     userAwards.forEach(async award => {
                         if (award.type === '10%') {
                             localStorage.setItem("type10", award._id);
-                            await fetch(`https://jackm-ff5c.restdb.io/rest/award/${award._id}`, {
+                            await fetch(`https://assignmentfed-fb7a.restdb.io/rest/award/${award._id}`, {
                                 method: "PATCH",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -139,6 +139,7 @@
                 }
 
                 alert('You earned 50 points! Game over.');
+                window.location.href='http://127.0.0.1:5500/myaward.html'
             }
         }
 

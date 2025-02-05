@@ -253,7 +253,8 @@
         </footer>
     </div>
     <script>
-        const APIKEY =  "678fa7439bd0c87432ac8bee"; 
+        let userId = localStorage.getItem('usrid');
+        const APIKEY =  "67971683f9d2bb616f181e2b"; 
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementsByClassName("product-image")[0].src=localStorage.getItem("product-image")
             document.getElementById("des").textContent=localStorage.getItem("product-description")
@@ -276,7 +277,7 @@
                 },
             };
             
-            const response = await fetch('https://jackm-ff5c.restdb.io/rest/comment',set)
+            const response = await fetch('https://assignmentfed-fb7a.restdb.io/rest/comment',set)
          
            
             const reviews = await response.json();
@@ -296,7 +297,7 @@
             const commentText = commentInput.value.trim();
             if (!commentText) return alert("Enter a comment!");
 
-            await fetch('https://jackm-ff5c.restdb.io/rest/comment', {
+            await fetch('https://assignmentfed-fb7a.restdb.io/rest/comment', {
                 method: "POST",
                 headers: {
                     "x-apikey": APIKEY,

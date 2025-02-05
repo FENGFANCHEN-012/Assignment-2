@@ -53,10 +53,14 @@
 </section>
 <footer class="footer">Hi</footer>
 <script>
-    
-  document.addEventListener("DOMContentLoaded", function(){
-APIKEY="67971683f9d2bb616f181e2b";//678fa7439bd0c87432ac8bee
+    account = "https://jackm-ff5c.restdb.io/rest/account"
+    testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+    api = "678fa7439bd0c87432ac8bee"
+     test = "67971683f9d2bb616f181e2b"
 
+  document.addEventListener("DOMContentLoaded", function(){
+APIKEY= api;//678fa7439bd0c87432ac8bee
+ 
 
 let login = document.getElementById("login")
 login.addEventListener("submit",  async  function (event){
@@ -78,7 +82,7 @@ let settings = {
     }
   };
   try{                   
-  let search = await fetch("https://assignmentfed-fb7a.restdb.io/rest/account", settings)
+  let search = await fetch(account, settings)
   
   const data = await search.json();
     let check = false;

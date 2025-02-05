@@ -143,6 +143,7 @@
     
     </script>
     <script>
+        let userId = localStorage.getItem('usrid');
         let usrmail = localStorage.getItem("usremail")
         let passwd = localStorage.getItem("usrpasswd")
         let idnum = localStorage.getItem("usrid")
@@ -193,7 +194,7 @@
     </div>
 
     <script>
-        const APIKEY =  "678fa7439bd0c87432ac8bee"; 
+        const APIKEY =  "67971683f9d2bb616f181e2b"; 
         const form = document.getElementById('addProductForm');
     
         form.addEventListener('submit', async function (e) {
@@ -236,7 +237,7 @@
                 };
     
                 try {
-                    const post = await fetch("https://jackm-ff5c.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
+                    const post = await fetch("https://assignmentfed-fb7a.restdb.io/rest/product", set); //https://jackm-ff5c.restdb.io/rest/product
     
                     if (post.ok) {
                         alert("Product added successfully!");

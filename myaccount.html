@@ -170,7 +170,7 @@
 
 <body>
     <script>
-        
+       let userId = localStorage.getItem("usrid")
         document.addEventListener('DOMContentLoaded', async () => {
             if (!userId) {
                 document.getElementById('message').textContent = 'Please log in before checking in.';
@@ -274,7 +274,11 @@
     </div>
      
     <script>
-        const APIKEY = '67971683f9d2bb616f181e2b';
+        account = "https://jackm-ff5c.restdb.io/rest/account"
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        api = "678fa7439bd0c87432ac8bee"
+         test = "67971683f9d2bb616f181e2b"
+        const APIKEY = api;
         const set = {
             method: "GET",
             headers: {
@@ -284,7 +288,7 @@
             },
         };
 
-        fetch("https://assignmentfed-fb7a.restdb.io/rest/account", set)
+        fetch(account, set)
             .then((response) => response.json())
             .then((data) => {
                 const userEmail = localStorage.getItem("usremail");
@@ -390,7 +394,7 @@
                 localStorage.setItem("usrname",  document.getElementById("name").value.trim(),)
         
                 const response = await fetch(
-                    `https://assignmentfed-fb7a.restdb.io/rest/account/${localStorage.getItem("change")}`,
+                    `https://jackm-ff5c.restdb.io/rest/account/${localStorage.getItem("change")}`,
                     {
                         method: "PATCH",
                         headers: {
@@ -404,6 +408,9 @@
         
                 if (response.ok) {
                     alert("Update successful!");
+                    localStorage.setItem("usrname",name)
+                    localStorage.setItem("usravatar",avatar)
+
                     location.reload();
                 } else {
                     throw new Error("Failed to update user data");
@@ -419,7 +426,7 @@
         logout.addEventListener("click",function(){
            
             localStorage.setItem("usremail",null)
-            
+            localStorage.setItem("usrid",null)
             window.location.href="http://127.0.0.1:5500/index.html";
       
             

@@ -121,7 +121,7 @@
          }
  
          .comment-input {
-             width: 100%;
+             width: 95%;
              padding: 10px;
              margin: 10px 0;
              border: 1px solid #ddd;
@@ -170,7 +170,7 @@
 
 <body>
     <script>
-          
+      
         document.addEventListener('DOMContentLoaded', async () => {
             if (!userId) {
                 document.getElementById('message').textContent = 'Please log in before checking in.';
@@ -248,10 +248,10 @@
                 <div class="product-item" id='info' style="margin-bottom: 20px;">
                    
                     <p><strong>Name:</strong> <span class="sub" id="name-display"></span></p>
-                    <input type="text" class="show" id="name" placeholder="What is your Name?">
+                    
                     <p><strong>Email:</strong> <span class="sub" id="email-display"></span></p>
                     <p><strong>Account Bio:</strong> <span class="sub" id="bio-display"></span></p>
-                    <textarea class="show" id="bio" placeholder="Input your Description"></textarea>
+                   
                 </div>
 
                 <div class="product-item" style="margin-bottom: 20px;">
@@ -272,7 +272,7 @@
                         </section>
                         <div id="reviews-container"></div>
                         <div class="comment-box">
-                            <textarea id="comment-input" class="comment-input" placeholder="Write your comment here..."></textarea>
+                            <textarea id="comment-input" class="comment-input"  placeholder="Write your comment here..."></textarea>
                             <button id="publish-btn" class="btn-publish">Publish</button>
                         </div>
                     </section>
@@ -287,6 +287,8 @@
     </div>
      
     <script>
+        let comments = "https://jackm-ff5c.restdb.io/rest/usercomment"
+        let testcomments = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
         function base64ToUrl(base64) {
           
             const byteCharacters = atob(base64.split(',')[1]); 
@@ -302,44 +304,94 @@
            
             return URL.createObjectURL(blob);
         }
-        const imageUrl = base64ToUrl(other.otheravatar);
-        document.getElementById("img").src=imageUrl
+        // if user has no avatar make it null
+        if(other.otheravatar = 'unknown')
+        {
+            document.getElementById("img").src= null
+        }
+        else{
+            const imageUrl = base64ToUrl(other.otheravatar);
+            document.getElementById("img").src=imageUrl
+        }
+       // fetch the data of user selected
         document.getElementById("name-display").innerText = other.othername
         document.getElementById("email-display").innerText = other.otheremail
         document.getElementById("bio-display").innerText = other.otherbio
         account = "https://jackm-ff5c.restdb.io/rest/account"
-        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        testaccount = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
         api = "678fa7439bd0c87432ac8bee"
          test = "67971683f9d2bb616f181e2b"
-      
-      
-        const producturl =  "https://assignmentfed-fb7a.restdb.io/rest/product";
-      
-        async function loaduser(){
 
+       const APIKEY = test;
+       async function loadComments(){
+        const set2 = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache",
+            },
+        };
+let comm = document.getElementById("reviews-container")
+        comm.innerHTML=''
+        const com = await  fetch(testurl,set2)
+        const response = await com.json();
+           response.forEach(comment=>{
+            if(comment.posterid==userId){
+                let userscomment = document.createElement("div")
+                userscomment.innerHTML=`
+                 <p><img id='imgs' src=''> <strong>${comment.name}:  ${comment.comment}</p> 
+            
+            <hr style="width:100%">
+        `
+         document.getElementById("imgs").src= base64ToUrl(comment.posteravatar)
+        comm.appendChild(userscomment)
+            }
+           })
+       
         }
-        
-        async function loadProducts() {
+       
+      
+   
+       let hasproduct = [];
+        async  function loadProducts() {
+            const producturl =  "https://jackm-ff5c.restdb.io/rest/product";
             try {
-                let user_now = localStorage.getItem("user_now")
+
                 const set = {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "x-apikey":api,
+                       "x-apikey":APIKEY,
                         "Cache-Control": "no-cache",
                     },
                 }
-                document.getElementById("u-p").innerHTML='';
-                const response = await fetch(`${producturl}`, set);
-                const data = await response.json();
                
-                console.log("Data: " + JSON.stringify(data))
-               if(data.length===0){
-                document.getElementById("u-p").innerHTML='This User Has No Product'
-               }
+                document.getElementById("u-p").innerHTML='';
+              
+                const response = await fetch(producturl, set);console.log(response)
+                const data = await response.json();
+              
+               
+                 
+               data.forEach(product => {
+                  
+                if(product.id===other.otherid){
+                 hasproduct.push(1)
+                }}
+                    )
+
+                if(hasproduct.length == 0){
+                    
+                        document.getElementById("u-p").innerHTML='This User Has No Product'
+                    
+                }
+                else{
+                    console.warn('sd');
                 data.forEach(product => {
-                    if(product.id===user_now){
+                  
+                    if(product.id===other.otherid){
                     const productItem = document.createElement("div");
                     productItem.className = "product-item";
                     productItem.dataset.id = product._id; 
@@ -369,29 +421,63 @@
                   
                     productItem.innerHTML = `
                        <section style="width:100%;height:20vw" >
-                        <img  data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
+                        <img  src=${blobUrl} data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
                        </section>
                         <div class="product-info">
                             <h3 class="name">${product.name || 'Unnamed Product'}</h3>
                             <p class="product-price">Price: ¥${product.price || 0}</p>
                             <p class="product-reviews">Comment: ${product.comments || 'No comments'}</p>
-                            <button class="delete-btn" data-id="${product._id}">Delete</button>
+                            
                         </div>
                     `;
-                     console.log(localStorage.getItem("userid"));
-                   
+                     console.log(localStorage.getItem("usrid"));
+                   console.warn('sd');
                      document.getElementById("u-p").appendChild(productItem);
                     
-            }})
-              
-            } catch (error) {
+                }})}
+            }
+        
+            catch (error) {
                 console.error("Failed to load products:", error);
             }
         }
+        document.getElementById("u-p").addEventListener("click", function (event) {
+            let target = event.target;
+            if (target.classList.contains("product-image")) {
+
+                let productData = {
+                    productID: target.getAttribute("data-pid"),
+                    userID: target.getAttribute("data-usrid"),
+                    price: target.getAttribute("data-price"),
+                    tag: target.getAttribute("data-tag"),
+                    description: target.getAttribute("data-des"),
+                    brand: target.getAttribute("data-brand"),
+                    url: target.getAttribute("data-url"),
+                    name: target.getAttribute("data-name"),
+                };
+        
+                localStorage.setItem("selectedProduct", JSON.stringify(productData));
+        
+             
+                window.location.href = "product.html";
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            loadComments();
+           
+            
+
+        });
+
+
+
+
+
         document.getElementById("publish-btn").addEventListener("click", async function() {
             const commentInput = document.getElementById("comment-input");
             const comment = commentInput.value.trim();
-        
+           
             if (!comment) {
                 alert("Please enter a comment before submitting.");
                 return;
@@ -399,18 +485,22 @@
         
             const productId = document.querySelector(".product-item").dataset.id;  
             const userId = localStorage.getItem("usrid");  
-        
+            const username = localStorage.getItem("usrname")
+            
+         
             const newComment = {
-                userId: userId,
-                productId: productId,
+                usrid: other.otherid,
+                name:localStorage.getItem("usrname"),
                 comment: comment,
+                posterid:userId,
+                posteravatar:other.otheravatar
             };
         
-            const response = await fetch("https://jackm-ff5c.restdb.io/rest/comments", {
+            const response = await fetch(testurl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-apikey": api,
+                    "x-apikey": APIKEY,
                     "Cache-Control": "no-cache",
                 },
                 body: JSON.stringify(newComment),
@@ -424,73 +514,12 @@
                 alert("Failed to post comment. Please try again.");
             }
         });
-        loadProducts();
       
-        const set = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": api,
-                "Cache-Control": "no-cache",
-            },
-        };
-
-        fetch("https://jackm-ff5c.restdb.io/rest/account", set)
-            .then((response) => response.json())
-            .then((data) => {
-                const userEmail = localStorage.getItem("usremail");
-                const user = data.find((w) => w.email === userEmail);
-                 
+      
 
 
-
-
-
-                // get image file base64 link
-            const imgFile = document.getElementById('img2').files[0];
-            const base64Data = `${user.avatar}`; 
-            const contentType = "image/png"; 
-            function base64ToBlob(base64, contentType = "") {
-                const byteCharacters = atob(base64)
-                const byteArrays = [];
+    
             
-                for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-                    const slice = byteCharacters.slice(offset, offset + 512);
-            
-                    const byteNumbers = new Array(slice.length);
-                    for (let i = 0; i < slice.length; i++) {
-                        byteNumbers[i] = slice.charCodeAt(i);
-                    }
-            
-                    const byteArray = new Uint8Array(byteNumbers);
-                    byteArrays.push(byteArray);
-                }
-            
-                return new Blob(byteArrays, { type: contentType });
-            }
-
-
-
-
-            const avatarBase64 = user.avatar ; //get the data of file image link
-            if (avatarBase64.startsWith("data:image")) {
-                const base64Data = avatarBase64.split(",")[1]; 
-                const blob = base64ToBlob(base64Data, "image/png");
-                const blobUrl = URL.createObjectURL(blob);
-                document.getElementById('img').src = blobUrl;
-            }
-             
-
-
-
-
-                localStorage.setItem("change", user._id);
-
-                
-                document.getElementById('name-display').textContent = user.name || "Nil";
-                document.getElementById('email-display').textContent = user.email;
-                document.getElementById('bio-display').textContent = user.bio || "Nil";
-            });
 
      
     </script>

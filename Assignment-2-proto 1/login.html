@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in/Sign up</title>
+    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="loginStyle.css">  <!--  Consider combining with my.css -->
+
+</head>
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <div class="search-container">
+              <input type="text" class="search" placeholder="Search...">
+              <button class="bt">Search</button>
+            </div>
+            <div class="header-buttons">
+              <button class="set">Login</button>
+              <button class="set signup-button">Sign Up</button>
+              <div class="set sell-button-container"><button class="inbt">Sell</button></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="login-container">  <!-- Use main tag semantically -->
+      <div class="login-form-wrapper">  <!-- Wrapper for consistent styling -->
+        <h1>Welcome Back!</h1>
+        <p class="login-subtext">Log in to FindSell</p>
+
+        <form id="login">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="passwd">Password</label>
+                <input type="password" id="passwd" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+
+        <p class="signup-link">New to FindSell? <a href="http://127.0.0.1:5500/sign%20up.html">Sign up here</a></p>
+      </div>
+    </main>
+
+    <footer class="footer">FindSell</footer>
+
+    <script>
+        // JavaScript Code (same as before)
+        account = "https://jackm-ff5c.restdb.io/rest/account"
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        api = "678fa7439bd0c87432ac8bee"
+        test = "67971683f9d2bb616f181e2b"
+
+      document.addEventListener("DOMContentLoaded", function(){
+          APIKEY= api;//678fa7439bd0c87432ac8bee
+
+          let login = document.getElementById("login")
+          login.addEventListener("submit",  async  function (event){
+              event.preventDefault();
+              let email = document.getElementById("email").value
+              let passwd = document.getElementById("passwd").value
+
+              if (!email || !passwd) {
+                  alert("Email and Password cannot be empty!");
+                  return;
+              }
+              let settings = {
+                  method:"GET",
+                  headers:{
+                    "Content-Type": "application/json",
+                      "x-apikey": APIKEY,
+                      "Cache-Control": "no-cache",
+
+                  }
+                };
+                try{
+                let search = await fetch(account, settings)
+
+                const data = await search.json();
+                  let check = false;
+                   for(let i of data){
+                      if(i.email===email && i.passwd===passwd){
+                          alert("log in successfullt")
+                          alert("welcome!")
+                          check=true;
+                          localStorage.setItem("usrid",i.usrid)
+                          localStorage.setItem("usremail",i.email)
+                          localStorage.setItem("usrpasswd",i.passwd)
+
+                          window.location.assign("http://127.0.0.1:5500/index2.html")
+                          break;
+                      }
+
+
+                   }
+                   if(!check){
+                      alert("Invalid email or password, try again.")
+                   }
+                }
+              catch(error){
+                  alert("Error Occur during login,Pls  try again",error)
+              }
+          })
+
+
+      })
+    </script>
+
+</body>
+</html>

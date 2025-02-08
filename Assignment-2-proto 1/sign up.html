@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signupStyle.css">
+</head>
+<body>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <div class="search-container">
+                <input type="text" class="search" placeholder="Search...">
+                <button class="bt">Search</button>
+            </div>
+            <div class="header-buttons">
+                <button class="header-button login">Login</button>
+                <button class="header-button signup">Sign Up</button>
+                <button class="header-button sell">Sell</button>
+            </div>
+            
+        </div>
+    </header>
+
+    <main class="signup-container">
+        <div class="signup-form-wrapper">
+            <h1>Join FindSell Today!</h1>
+            <p class="signup-subtext">Create your account</p>
+
+            <form id="signup">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwd">Password</label>
+                    <input type="password" id="passwd" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-passwd">Confirm Password</label>
+                    <input type="password" id="confirm-passwd" name="confirm-password" required>
+                </div>
+                <button type="submit" class="signup-button">Sign Up</button>
+            </form>
+
+            <p class="login-link">Already have an account? <a href="http://127.0.0.1:5500/login.html">Log In Here</a></p>
+        </div>
+    </main>
+
+    <footer class="footer">FindSell</footer>
+</body>
+</html>
+
+
+    <script>
+        account = "https://jackm-ff5c.restdb.io/rest/account";
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account";
+        api = "678fa7439bd0c87432ac8bee";
+        test = "67971683f9d2bb616f181e2b";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const APIKEY = api;
+            const signupForm = document.getElementById("signup");
+
+            signupForm.addEventListener("submit", async function (event) {
+                event.preventDefault();
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("passwd").value.trim();
+                const passwordConfirm = document.getElementById("confirm_password").value.trim();
+
+                if (!email || !password || !passwordConfirm) {
+                    alert("Email and Password fields cannot be empty!");
+                    return;
+                }
+                if (password.length < 8 || password.length > 20 || !/\d/.test(password)) {
+                    alert("Password must be between 8 and 20 characters long and include at least one number.");
+                    return;
+                }
+
+                if (password !== passwordConfirm) {
+                    alert("The passwords do not match!");
+                    return;
+                }
+
+                const set = {
+                    method:"GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                }
+                const  check = await  fetch(account, set)
+                const data= await check.json();
+
+                for (let i of data) {
+                    if (i.email === email) {
+                        alert("This email has been registered!");
+                        return ;
+                    }
+                }
+
+                function generateUniqueID() {
+                    return  'user_' + `${Date.now()}` + '_' + `${Math.floor(Math.random() * 10000)}`;
+                }
+                const message = {"email": email,
+                    "passwd": password,'bio':'unkown','avatar':'unknown','name':'unknown',usrid:generateUniqueID()
+                };
+
+                const settings = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                    body: JSON.stringify(message),
+                };
+
+                try {
+                    const response = await fetch(account, settings);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const result = await response.json();
+
+                    window.location.assign("http://127.0.0.1:5500/login.html");
+                    let userid = result._id;
+                    localStorage.setItem("userid", userid);
+                    alert("Sign Up successful!", result);
+
+                    window.location.assign("login.html");
+                } catch (error) {
+                    console.error("Error occurred while signing up:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            });
+        })
+    </script>
+
+</body>
+</html>

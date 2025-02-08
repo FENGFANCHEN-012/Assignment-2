@@ -1,0 +1,256 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in/Sign up</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="my.css">
+    
+</head>
+<body>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!userId) {
+                document.getElementById('message').textContent = 'Please log in before checking in.';
+                document.getElementById('signInButton').disabled = true;
+                return;
+            }})
+    </script>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+         
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown" style="margin-top:2vw" >
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                </section>
+            </section>
+            
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+        </div>
+    </header>
+    <script>
+        let userId = localStorage.getItem('usrid');
+        let usrmail = localStorage.getItem("usremail")
+        let passwd = localStorage.getItem("usrpasswd")
+        let idnum = localStorage.getItem("usrid")
+        document.getElementById("usrem").innerHTML= usrmail
+    </script>
+    
+ 
+  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+<script>
+    const dropd = document.getElementsByClassName('dropd');
+    const dropdown = document.getElementsByClassName('dropdown');
+
+    
+    function toggleDropdown() {
+        if (dropdown[0].style.display === 'block') {
+            dropdown[0].style.display = 'none';
+        } else {
+            dropdown[0].style.display = 'block';
+        }
+    }
+
+    dropd[0].addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown[0].contains(event.target)) {
+            dropdown[0].style.display = 'none';
+        }
+    });
+
+    dropdown[0].addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+
+
+</script>
+    <div >&nbsp  &nbsp  &nbsp  &nbsp </div>
+    <div class="product-panel" style="margin-top:12vw">
+        <div class="product-header">
+            <h1>My product</h1>
+            <div class="product-controls">
+                <a href=product.html><button class="btn" id="edit-products">Add Product</button></a>
+               
+                
+                
+
+                <input type="text" placeholder="Searching~~" class="product-search">
+                
+            </div>
+        </div>
+        <div class="product-content" id="product-content">
+        
+    </div>
+    <script>
+       
+        const dropdown2 = document.getElementsByClassName('dropdown2')[0];
+        const bt = document.getElementById("edit-products");
+        const name = document.getElementsByClassName("name");
+        const info = document.getElementsByClassName("product-picture");
+        const price = document.getElementsByClassName("product-price");
+        const productContent = document.getElementById("product-content");
+     
+        
+        const APIKEY = "67971683f9d2bb616f181e2b";;
+        const set = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache",
+            },
+        };
+        
+        async function loadProducts() {
+            try {
+                const response = await fetch("https://assignmentfed-fb7a.restdb.io/rest/product", set);
+                const data = await response.json();
+                console.log("Data: " + JSON.stringify(data))
+                productContent.innerHTML='';
+                if (data.length === 0) {
+                    productContent.innerHTML = "<p>No products available.</p>";
+                    return;
+                }
+                data.forEach(product => {
+                    const productItem = document.createElement("div");
+                    productItem.className = "product-item";
+                    productItem.dataset.id = product._id; 
+                    const base64Data = `${product.url}`; 
+                    const contentType = "image/png"; 
+                    
+                   
+                    function base64ToBlob(base64, contentType) {
+                        const byteCharacters = atob(base64);
+                        const byteArrays = [];
+                        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                            const slice = byteCharacters.slice(offset, offset + 512);
+                            const byteNumbers = new Array(slice.length);
+                            for (let i = 0; i < slice.length; i++) {
+                                byteNumbers[i] = slice.charCodeAt(i);
+                            }
+                            byteArrays.push(new Uint8Array(byteNumbers));
+                        }
+                        return new Blob(byteArrays, { type: contentType });
+                    }
+                    
+                    
+                    const blob = base64ToBlob(base64Data, contentType);
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    
+                  
+                    productItem.innerHTML = `
+                       <section style="width:100%;height:20vw" >
+                        <img  data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
+                       </section>
+                        <div class="product-info">
+                            <h3 class="name">${product.name || 'Unnamed Product'}</h3>
+                            <p class="product-price">Price: ¥${product.price || 0}</p>
+                            <p class="product-reviews">Comment: ${product.comments || 'No comments'}</p>
+                            <button class="delete-btn" data-id="${product._id}">Delete</button>
+                        </div>
+                    `;
+                     console.log(localStorage.getItem("userid"));
+                   
+                    productContent.appendChild(productItem);
+                    
+                });
+                deleteproduct();
+            } catch (error) {
+                console.error("Failed to load products:", error);
+            }
+        }
+        loadProducts();
+      
+        function deleteproduct() {
+            document.querySelectorAll(".delete-btn").forEach((button) => {
+                button.addEventListener("click", async function(event) {
+                    event.preventDefault();
+                    
+                   
+                    if (!confirm("Are you sure you want to delete this product?")) return;
+
+                    const productdata = event.target.getAttribute("data-id");
+                    const set2 = {  
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "x-apikey": APIKEY,
+                            "Cache-Control": "no-cache",
+                        },
+                    };
+
+                    try {
+                        const response = await fetch(`https://assignmentfed-fb7a.restdb.io/rest/product  ${productdata}`, set2);
+                        if (response.ok) {
+                            alert("Delete Successfully");
+                            event.target.closest(".product-item").remove();
+                        } else {
+                            alert("Error occurred. Try again later.");
+                        }
+                    } catch (error) {
+                        console.error("Failed to delete product:", error);
+                    }
+                });
+            });
+        }
+        
+        function toggleDrop() {
+            if (dropdown2.style.display === 'block') {
+                dropdown2.style.display = 'none';
+            } else {
+                dropdown2.style.display = 'block';
+            }
+        }
+        
+        bt.addEventListener('click', function(event) {
+            event.stopPropagation(); 
+            toggleDrop();
+        });
+        
+        document.addEventListener('click', function(event) {
+            if (!dropdown2.contains(event.target)) {
+                dropdown2.style.display = 'none';
+            }
+        });
+        
+     
+
+   
+        document.addEventListener("click", function (event) {
+            const productElement = event.target.closest(".product-image");
+            if (productElement) {
+                localStorage.setItem("product-name", productElement.dataset.name);
+                localStorage.setItem("product-price", productElement.dataset.price);
+                localStorage.setItem("product-description", productElement.dataset.des);
+                localStorage.setItem("product-brand", productElement.dataset.brand);
+                localStorage.setItem("product-image", productElement.dataset.url);
+                localStorage.setItem("product-id", productElement.dataset.pid);
+                console.log("Product details saved to localStorage.");
+            }
+            window.location.href='http://127.0.0.1:5500/productdetail.html'
+        });
+      
+          
+
+          
+    </script>
+</body>

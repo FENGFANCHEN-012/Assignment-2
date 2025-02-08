@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<head>
+    <title>FindSell HomePage2</title>
+    <style></style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="my.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+
+        .container {
+            width: 90vw;
+            height: 30vw;
+            margin: 2vw auto;
+            background-color: #fff8e1;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 2vw;
+        }
+
+        .logos{
+            width: 15vw;
+            height: 15vw;
+            background-color: #ffcc00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 3vw;
+        }
+
+        .logos img {
+            width: 80%;
+            height: 80%;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .header {
+            font-size: 2.5vw;
+            color: #ff7043;
+            margin-bottom: 1vw;
+        }
+
+        .description {
+            font-size: 1.5vw;
+            color: #4caf50;
+            margin-bottom: 2vw;
+        }
+
+        .button {
+            padding: 1vw 3vw;
+            background-color: #ff7043;
+            color: white;
+            font-size: 1.5vw;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff5722;
+        }
+
+        .game-section {
+            width: 90vw;
+            height: 30vw;
+            background-color: #ffeb3b;
+            margin: 3vw auto;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-button {
+            padding: 1.5vw 4vw;
+            background-color: #ff5722;
+            color: white;
+            font-size: 1.5vw;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .game-button:hover {
+            background-color: #ff3d00;
+        }
+    </style>
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <script src="js.js"></script>
+    <header>
+        <div class="head">
+            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
+            <input type="text" class="search" style="width:35vw">
+            <button class="bt">Search</button>
+         
+            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
+                <section class="dropdown" >
+                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
+                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
+                </section>
+            </section>
+            
+            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
+        </div>
+    </header>
+    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+    <script>
+        account = "https://jackm-ff5c.restdb.io/rest/account"
+        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/account"
+        api = "678fa7439bd0c87432ac8bee"
+         test = "67971683f9d2bb616f181e2b"
+        let usrmail = localStorage.getItem("usremail")
+        let passwd = localStorage.getItem("usrpasswd")
+        let idnum = localStorage.getItem("usrid")
+        document.getElementById("usrem").innerHTML= usrmail;
+    </script>
+
+<script>
+    const dropd = document.querySelector('.dropd');
+    const dropdown = document.querySelector('.dropdown');
+
+    
+    function toggleDropdown() {
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+        } else {
+            dropdown.style.display = 'block';
+        }
+    }
+
+    dropd.addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleDropdown();
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    dropdown.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+
+
+
+</script>
+
+  
+   
+  
+<main >
+    <section class="main" style="   margin-top:10vh;"> 
+    <div class="ct">
+        <a href="" class="pic">
+            
+        </a>
+        <a href=""  class="pic">
+            
+        </a>
+    </div>
+</section>
+<h1 style="margin-top:5vw">Opportunity</h1>
+<hr>
+<section style="width:100vw;overflow:hidden" > 
+    
+<section  id="game" style="height:35vw;gap:0vw;width:200vw"> 
+    <div class="logos">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <div class="content" style="width:100vw">
+        <div class="header">Welcome To FindSell</div>
+        <div class="description">Check In To Get More Reward!</div>
+        <button id='check' class="button" onclick='location.href="http://127.0.0.1:5500/checkin.html"'>Go To Checking Centre!</button>
+        <button class="next" style="margin-left:20vw">Click Here</button>
+    </div>
+   <script>
+    document.getElementById("check").addEventListener("click",function(){
+        window.location.href="http://127.0.0.1:5500/checkin.html";
+    })
+   </script>
+
+<section class="game-section" style=" width:100vw;background-image: url('runner_background.jpg'); background-size: cover; height: 35vw; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <h2 style="font-size: 2.5vw; color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Fun Game</h2>
+    <p style="font-size: 1.5vw; color: #ffffffcc; margin-bottom: 2vw;">Win The Game For More Award!</p>
+    <button class="game-button"  id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
+    <button class="next" style="margin-top:5vw">Click Here</button>
+</section>
+    
+        
+        
+    
+
+</section>
+
+<script>
+    let userId = localStorage.getItem('usrid');
+    document.getElementById("go").addEventListener("click",function(){
+        window.location.href="http://127.0.0.1:5500/game.html";
+    })
+    const but = document.getElementsByClassName("next");
+    const box = document.getElementById("game");
+    
+    let isBox1Visible = true;
+    
+    but[0].addEventListener("click", () => {
+        if (isBox1Visible) {
+            box.style.transform = "translateX(-105vw)";
+            isBox1Visible = false;  // Update visibility status
+        }
+    });
+    
+    but[1].addEventListener("click", () => {
+        if (!isBox1Visible) {
+            box.style.transform = "translateX(0)";
+            isBox1Visible = true;  // Update visibility status
+        }
+    });
+</script>
+<hr>
+<h1 style="margin-top:1vw">Category</h1>
+<section class="main" >
+    <section class="ct">
+    <button class="smbox">
+       hi
+    </button>
+ 
+    <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+     <button class="smbox">
+        hi
+     </button>
+   
+</section>
+</section>
+<h1 style="margin-top:5vw">Trusetd Seller</h1>
+<section style="width:100vw;overflow:hidden" > 
+    <button id="but2" >Click Me</button>
+<section  id="seller"  >
+    
+
+
+</section>
+<script>
+  
+     const APIKEY = api;//678fa7439bd0c87432ac8bee
+    const set = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": APIKEY,
+            "Cache-Control": "no-cache",
+        },
+    };
+   
+   fetch(account, set) //https://jackm-ff5c.restdb.io/rest/account
+   .then(response => response.json())  // Parse the response as JSON
+   .then(data => {
+        document.getElementById("seller").style.width = `${data.length*95}vw`
+       // Assuming data is an array of user accounts
+       data.forEach(account => {
+        if(account.usrid == idnum ){
+             console.log("sd")
+        }
+        else{
+        const randomIndex = Math.floor(Math.random() * account.length);
+           // Create a new div for each seller
+           const sellerDiv = document.createElement("div");
+           sellerDiv.style.display='flex';
+           sellerDiv.style.justifyContent='space-around';
+           sellerDiv.style.alignItems='center';
+           sellerDiv.style.gap='6vw';
+         
+           sellerDiv.classList.add("other");
+           sellerDiv.style.width="90vw"
+           sellerDiv.style.backgroundColor = "antiquewhite";
+           sellerDiv.style.height = "20vw";
+           
+
+           const name = document.createElement("h3");
+           const pic = document.createElement('img');
+          
+        
+           pic.style.width = '20vw';
+            pic.style.height = '18vw'
+            pic.addEventListener("click",function(){
+                localStorage.set('')
+            })
+           pic.src =  account.avatar;
+           pic.style.left = '10vw'
+         
+           pic.addEventListener("click",function(){
+            pic.style.transform='scale(1.05)'
+           })
+           sellerDiv.appendChild(pic)
+           name.textContent = `Seller: ${account.name || "User"}`; // Replace with actual account fields
+           sellerDiv.appendChild(name);
+          
+           
+           // You can add more account data as needed
+           const email = document.createElement("p");
+           email.textContent = `Email: ${account.email || "No Email"}`;
+           sellerDiv.appendChild(email);
+           pic.addEventListener("click", function () {
+            localStorage.setItem("selectedUser", JSON.stringify({
+                otherid: account.usrid,
+                otheremail: account.email,
+                otherbio: account.bio,
+                otheravatar: account.avatar,
+                othername: account.name
+            }
+
+           )
+            ); window.location.href='http://127.0.0.1:5500/user.html'
+           
+        });
+
+           // Append the created seller div to the #seller section
+           document.getElementById("seller").appendChild(sellerDiv);
+       }});
+   })
+   .catch(error => {
+       console.error('Error fetching the API data:', error);
+   });
+    // get data of each user
+    
+    
+
+
+  
+        
+    
+</script>
+</section>
+<script>
+    let start = 0;
+    let seller = document.getElementById("seller"); 
+    let step = 95; 
+    
+    let but2 = document.getElementById("but2");
+    
+    but2.addEventListener("click", function() {
+        start += 1;
+        if (start >= seller.children.length) {
+            start = 0;
+        }
+        seller.style.transform = `translateX(-${start * step}vw)`;
+        seller.style.transition = "transform 0.5s ease"; 
+    });
+</script>
+<h1 style="margin-top:10vh">Recommend for you</h1>
+<section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
+
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+<div class="pd"></div>
+</section>
+<section class="main" style="height:10vh">
+<button class="bt" >More</button>
+</section>
+  </main>
+  <footer>
+    <section class="footer">
+
+    </section>
+  </footer>
+<hr>
+
+</body>

@@ -1,0 +1,105 @@
+/* Friend Profile Page Styling */
+.friend-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
+
+.friend-avatar {
+    height: 10vw;
+    width: 10vw;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-info {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.friend-info h1 {
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.friend-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Friend's Products Section */
+.friend-products {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.friend-products h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 20px;
+}
+
+#product-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Product Item */
+.product-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 8vw;
+    height: 8vw;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.product-details {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.product-details h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.product-details p {
+    margin: 5px 0;
+    color: #555;
+}

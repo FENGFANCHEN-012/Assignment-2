@@ -1,0 +1,334 @@
+/*  loginStyle.css */
+
+/* Overall container for the login form */
+.login-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;       /* Center vertically */
+    min-height: 80vh;         /* Occupy at least 80% of the viewport height */
+    padding: 20px;
+}
+
+.login-form-wrapper {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Take up full width of its parent by default */
+    max-width: 450px; /* But don't get wider than 450px */
+    text-align: center; /* Center the content inside */
+}
+
+/* Headings */
+.login-form-wrapper h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Subtext below the heading */
+.login-form-wrapper .login-subtext {
+    font-size: 1.1em;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;  /* Restore left alignment for labels and inputs */
+}
+
+.form-group label {
+    display: block;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;  /* Include padding and border in the element's total width */
+    transition: border-color 0.3s ease; /* Smooth transition for focus */
+}
+
+.form-group input:focus {
+    border-color: #007bff;  /* Highlight on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Optional: add a subtle shadow */
+}
+
+/* Login Button */
+.login-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Sign-up Link */
+.signup-link {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #777;
+}
+
+.signup-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/*  loginStyle.css */
+
+/* Overall container for the login form */
+.login-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;       /* Center vertically */
+    min-height: 80vh;         /* Occupy at least 80% of the viewport height */
+    padding: 20px;
+}
+
+.login-form-wrapper {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Take up full width of its parent by default */
+    max-width: 450px; /* But don't get wider than 450px */
+    text-align: center; /* Center the content inside */
+}
+
+/* Headings */
+.login-form-wrapper h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Subtext below the heading */
+.login-form-wrapper .login-subtext {
+    font-size: 1.1em;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;  /* Restore left alignment for labels and inputs */
+}
+
+.form-group label {
+    display: block;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;  /* Include padding and border in the element's total width */
+    transition: border-color 0.3s ease; /* Smooth transition for focus */
+}
+
+.form-group input:focus {
+    border-color: #007bff;  /* Highlight on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Optional: add a subtle shadow */
+}
+
+/* Login Button */
+.login-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Sign-up Link */
+.signup-link {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #777;
+}
+
+.signup-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* my.css - Modified */
+
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;  /* More modern font stack */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f9; /*  Softer background */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header styling */
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;  /* Increased padding */
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);  /*  Subtler shadow */
+    position: relative;   /* Ensure relative positioning for correct z-index stacking */
+    z-index: 100;        /* Ensure the header is always on top */
+}
+
+.head .logo {
+    height: 50px;  /*  Larger logo */
+}
+
+.search-container {
+  display: flex;
+  align-items: center; /* Vertically align the search input and button */
+}
+
+.search {
+    flex-grow: 1;
+    margin: 0 15px;  /* Reduced margin */
+    padding: 12px;   /* Increased padding */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Softer rounded corners */
+    font-size: 1em;
+}
+
+.bt {
+    padding: 12px 22px;  /* Increased padding */
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 8px;  /* Softer rounded corners */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.bt:hover {
+    background-color: #0056b3;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.set {
+    margin-left: 15px; /* Add space between the buttons */
+}
+
+/* Button styling */
+.set button, .inbt {
+    padding: 12px 18px;
+    border: none;  /* Remove border */
+    border-radius: 8px;
+    background-color: #f8d749;
+    color: #333;  /* Darker text for contrast */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.set button:hover, .inbt:hover {
+    background-color: #f0c14b; /* Slightly darker hover state */
+}
+
+/* Specific styles for "Sell" button container */
+.sell-button-container {
+    margin-left: 15px;
+}
+
+/* Footer styling */
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 25px;
+    background-color: #e9ecef;  /* Lighter background */
+    font-size: 1em;
+    color: #777;
+}
+
+/* responsive.css - Add this CSS file */
+
+/* Basic Responisve CSS */
+@media (max-width: 768px) {
+    .head {
+        flex-direction: column;
+        align-items: stretch; /* Full width on mobile */
+    }
+
+    .head .logo {
+        margin-bottom: 10px; /* Space below the logo */
+    }
+
+    .search-container {
+        width: 100%;
+        margin-bottom: 10px; /* Space below the search bar */
+    }
+
+    .search {
+        margin: 0; /* Remove margin */
+    }
+
+    .header-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        width: 100%;
+    }
+
+    .set {
+        margin-left: 0;
+        margin-top: 10px; /* Space between stacked buttons */
+    }
+
+    .login-container {
+        padding: 10px;
+    }
+
+    .login-form-wrapper {
+        padding: 20px;
+    }
+
+}

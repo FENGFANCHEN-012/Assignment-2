@@ -1,528 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FindSell HomePage2</title>
-    <link rel="stylesheet" href="css.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="my.css">
-    <style>
-        .product-image{
-         width:50vw;
-         height:40vw;
-         background-position: center;
-        }
-         .product-page {
-             font-family: Arial, sans-serif;
-             color: #333;
-             line-height: 1.6;
-             max-width: 1200px;
-             margin: 0 auto;
-             padding: 20px;
-         }
- 
-         .product-header {
-             display: flex;
-             justify-content: space-between;
-             align-items: center;
-             border-bottom: 2px solid #f0f0f0;
-             padding-bottom: 10px;
-         }
- 
-         .product-header h1 {
-             font-size: 24px;
-             font-weight: bold;
-             color: #007BFF;
-         }
- 
-         .product-main {
-             display: flex;
-             gap: 20px;
-             margin-top: 20px;
-         }
- 
-         .product-image-section {
-             flex: 2;
-         }
- 
-         .product-image {
-             width: 100%;
-             height: auto;
-             border-radius: 8px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
- 
-         .product-thumbnails {
-             display: flex;
-             gap: 10px;
-             margin-top: 10px;
-         }
- 
-         .product-thumbnails img {
-             width: 60px;
-             height: 60px;
-             border: 2px solid #ddd;
-             border-radius: 4px;
-             cursor: pointer;
-         }
- 
-         .product-thumbnails img:hover {
-             border-color: #007BFF;
-         }
- 
-         .product-details {
-             flex: 3;
-             display: flex;
-             flex-direction: column;
-             justify-content: space-between;
-         }
- 
-         .product-price {
-             font-size: 28px;
-             font-weight: bold;
-             color: #E74C3C;
-             margin: 10px 0;
-         }
- 
-         .btn-buy {
-             padding: 12px 20px;
-             background-color: #4CAF50;
-             color: #fff;
-             border: none;
-             border-radius: 4px;
-             font-size: 16px;
-             cursor: pointer;
-             margin-top: 20px;
-         }
- 
-         .btn-buy:hover {
-             background-color: #45a049;
-         }
- 
-         .product-description {
-             margin-top: 20px;
-             border-top: 1px solid #f0f0f0;
-             padding-top: 10px;
-         }
- 
-         .product-reviews {
-             margin-top: 40px;
-         }
- 
-         .review-item {
-             border-bottom: 1px solid #f0f0f0;
-             padding: 10px 0;
-         }
- 
-         .comment-box {
-             margin-top: 20px;
-         }
- 
-         .comment-input {
-             width: 95%;
-             padding: 10px;
-             margin: 10px 0;
-             border: 1px solid #ddd;
-             border-radius: 4px;
-             font-size: 14px;
-         }
- 
-         .btn-publish {
-             background-color: #007BFF;
-             color: white;
-             padding: 10px 20px;
-             border: none;
-             border-radius: 4px;
-             cursor: pointer;
-         }
- 
-         .btn-publish:hover {
-             background-color: #0056b3;
-         }
- 
-         .footer {
-             text-align: center;
-             padding: 20px;
-             background-color: #f9f9f9;
-             margin-top: 40px;
-         }
-     </style>
-    <style>
-        .product-item {
-            width: 85%;
-        }
-
-        #img {
-            height: 10vw;
-            width: 10vw;
-            display: flex;
-            margin-right: 20vw;
-            justify-content: center;
-        }
-
-        .show {
-            display: none;
-        }
-    </style>
+    <title>User Profile - FindSell</title>
+    <link rel="stylesheet" href="userStyle.css">
 </head>
-
 <body>
-    <script>
-      
-        document.addEventListener('DOMContentLoaded', async () => {
-            if (!userId) {
-                document.getElementById('message').textContent = 'Please log in before checking in.';
-                document.getElementById('signInButton').disabled = true;
-                return;
-            }})
-    </script>
-    <header>
-        <div class="head">
-            <a href="http://127.0.0.1:5500/index2.html"><img class="logo" src="Selling_transparent-.png" alt="Find Sell"></a>
-            <input type="text" class="search" style="width:35vw">
-            <button class="bt">Search</button>
+    <div class="welcome-message">
+        Welcome! <span id="usrem"></span>
+    </div>
 
-            <section class="dropd" style="width:20vw">Welcome! <span id="usrem"></span>
-                <section class="dropdown">
-                    <a href='http://127.0.0.1:5500/myaccount.html'>My Account <div class="tag"></div></a>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
-                    <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
-                </section>
-            </section>
-
-            <a href='http://127.0.0.1:5500/product.html'><div class="set" style="width:7vw; margin-left:3vw;"><button class="inbt">Sell</button></div></a>
-        </div>
-    </header>
-    <script>
-        const dropd = document.getElementsByClassName('dropd');
-        const dropdown = document.getElementsByClassName('dropdown');
-    
-        
-        function toggleDropdown() {
-            if (dropdown[0].style.display === 'block') {
-                dropdown[0].style.display = 'none';
-            } else {
-                dropdown[0].style.display = 'block';
-            }
-        }
-    
-        dropd[0].addEventListener('click', function(event) {
-            event.stopPropagation();
-            toggleDropdown();
-        });
-    
-        document.addEventListener('click', function(event) {
-            if (!dropdown[0].contains(event.target)) {
-                dropdown[0].style.display = 'none';
-            }
-        });
-    
-        dropdown[0].addEventListener('click', function(event) {
-            event.stopPropagation();
-        });
-    
-    
-    
-    </script>
-    <script>
-        let others = localStorage.getItem("selectedUser")
-        let other = JSON.parse(others)
-        let userId=  localStorage.getItem("usrid")
-        let usrmail = localStorage.getItem("usremail");
-        document.getElementById("usrem").innerHTML = usrmail;
-    </script>
-    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
-    <div class="main" style='margin-top:10vw;height:85vw;align-items:start'>
-        <div class="product-panel">
-            <div class="product-header">
-                <h1 id="u-n">User</h1>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index2.html">
+                <img src="Selling_transparent-.png" alt="FindSell" class="logo">
+            </a>
+            
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search for items...">
+                <button class="search-button">
+                    <!-- SVG for search icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                </button>
             </div>
 
-            <div class="product-content" style="align-items: center;justify-content:center;width:100%">
-                <img id="img" src="" >
-                <input class="show" type="file" id="img2" accept="image/*" />
-
-                <div class="product-item" id='info' style="margin-bottom: 20px;">
-                   
-                    <p><strong>Name:</strong> <span class="sub" id="name-display"></span></p>
-                    
-                    <p><strong>Email:</strong> <span class="sub" id="email-display"></span></p>
-                    <p><strong>Account Bio:</strong> <span class="sub" id="bio-display"></span></p>
-                   
+            <div class="nav-buttons">
+                <div class="account-wrapper" style="position: relative;">
+                    <button class="my-account-btn" id="account-btn">My Account</button>
+                    <div class="dropdown" style="display:none;">
+                        <a href="myaccount.html">My Account</a>
+                        <a href="myproduct.html">My Products</a>
+                        <a href="myfriend.html">My Friends</a>
+                        <a href="myaward.html">Awards</a>
+                    </div>
                 </div>
-
-                <div class="product-item" style="margin-bottom: 20px;">
-                    <h3>Recent Activity</h3>
-                    <p>No recent activity.</p>
-                </div>
-                <div class="product-item"  style="margin-bottom: 20px;">
-                    <h3>Product:</h3>
-                    <section id="u-p"></section>
-                </div>
-                <div class="product-item"  style="margin-bottom: 20px;">
-                    <h3>Comment</h3>
-                    
-                    <section class="product-reviews">
-                        <h2>User Reviews</h2>
-                        <section id="comment">
-            
-                        </section>
-                        <div id="reviews-container"></div>
-                        <div class="comment-box">
-                            <textarea id="comment-input" class="comment-input"  placeholder="Write your comment here..."></textarea>
-                            <button id="publish-btn" class="btn-publish">Publish</button>
-                        </div>
-                    </section>
-                </div>
-
-          
+                <a href="product.html" class="sell-btn">Sell</a>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="footer">
-        <p>&copy; 2025 My Company. All rights reserved.</p>
-    </div>
-     
+    <main class="main-content">
+        <div class="user-profile">
+            <h1>User Profile</h1>
+            <div class="profile-section">
+                <img id="profile-picture" src="default-avatar.png" alt="Profile Picture" class="profile-image">
+                <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+                
+                <div class="profile-info">
+                    <p><strong>Name:</strong> <span id="user-name"></span></p>
+                    <p><strong>Email:</strong> <span id="user-email"></span></p>
+                    <p><strong>Account Bio:</strong> <span id="user-bio"></span></p>
+                </div>
+            </div>
+
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <p>No recent activity.</p>
+            </div>
+
+            <div class="user-products">
+                <h2>Products</h2>
+                <div id="products-container"></div>
+            </div>
+
+            <div class="user-comments">
+                <h2>Comments</h2>
+                <div id="comments-container"></div>
+                <div class="comment-form">
+                    <textarea id="comment-input" placeholder="Write a comment..."></textarea>
+                    <button id="submit-comment">Post Comment</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+</body>
+</html>
+
+
     <script>
-        let comments = "https://jackm-ff5c.restdb.io/rest/usercomment"
-        let testcomments = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
+        // Initialize variables
+        const others = localStorage.getItem("selectedUser");
+        const other = JSON.parse(others);
+        const userId = localStorage.getItem("usrid");
+        const usrmail = localStorage.getItem("usremail");
+        document.getElementById("usrem").innerHTML = usrmail;
+
+        // Dropdown functionality
+        const dropd = document.querySelector('.dropd');
+        const dropdown = document.querySelector('.dropdown');
+
+        dropd.addEventListener('click', function(event) {
+            event.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!dropdown.contains(event.target) && !dropd.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Profile image handling
         function base64ToUrl(base64) {
-          
-            const byteCharacters = atob(base64.split(',')[1]); 
+            if (!base64 || !base64.includes(',')) return '';
+            const byteCharacters = atob(base64.split(',')[1]);
             const byteArrays = [];
-        
+
             for (let offset = 0; offset < byteCharacters.length; offset++) {
                 byteArrays.push(byteCharacters.charCodeAt(offset));
             }
-        
-            
+
             const blob = new Blob([new Uint8Array(byteArrays)], { type: 'image/png' });
-        
-           
             return URL.createObjectURL(blob);
         }
-        // if user has no avatar make it null
-        if(other.otheravatar = 'unknown')
-        {
-            document.getElementById("img").src= null
-        }
-        else{
-            const imageUrl = base64ToUrl(other.otheravatar);
-            document.getElementById("img").src=imageUrl
-        }
-       // fetch the data of user selected
-        document.getElementById("name-display").innerText = other.othername
-        document.getElementById("email-display").innerText = other.otheremail
-        document.getElementById("bio-display").innerText = other.otherbio
-        account = "https://jackm-ff5c.restdb.io/rest/account"
-        testaccount = "https://assignmentfed-fb7a.restdb.io/rest/account"
-        testurl   = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
-        api = "678fa7439bd0c87432ac8bee"
-         test = "67971683f9d2bb616f181e2b"
 
-       const APIKEY = test;
-       async function loadComments(){
-        const set2 = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache",
-            },
-        };
-let comm = document.getElementById("reviews-container")
-        comm.innerHTML=''
-        const com = await  fetch(testurl,set2)
-        const response = await com.json();
-           response.forEach(comment=>{
-            if(comment.posterid==userId){
-                let userscomment = document.createElement("div")
-                userscomment.innerHTML=`
-                 <p><img id='imgs' src=''> <strong>${comment.name}:  ${comment.comment}</p> 
-            
-            <hr style="width:100%">
-        `
-         document.getElementById("imgs").src= base64ToUrl(comment.posteravatar)
-        comm.appendChild(userscomment)
-            }
-           })
-       
+        // Set profile information
+        if (other.otheravatar === 'unknown') {
+            document.getElementById("img").src = 'default-avatar.png'; // Add a default avatar image
+        } else {
+            document.getElementById("img").src = base64ToUrl(other.otheravatar);
         }
-       
-      
-   
-       let hasproduct = [];
-        async  function loadProducts() {
-            const producturl =  "https://jackm-ff5c.restdb.io/rest/product";
+
+        document.getElementById("name-display").textContent = other.othername;
+        document.getElementById("email-display").textContent = other.otheremail;
+        document.getElementById("bio-display").textContent = other.otherbio;
+
+        // API configuration
+        const APIKEY = "67971683f9d2bb616f181e2b";
+        const testurl = "https://assignmentfed-fb7a.restdb.io/rest/usercomment";
+
+        // Load comments
+        async function loadComments() {
             try {
-
-                const set = {
+                const response = await fetch(testurl, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                       "x-apikey":APIKEY,
+                        "x-apikey": APIKEY,
                         "Cache-Control": "no-cache",
                     },
-                }
-               
-                document.getElementById("u-p").innerHTML='';
-              
-                const response = await fetch(producturl, set);console.log(response)
-                const data = await response.json();
-              
-               
-                 
-               data.forEach(product => {
-                  
-                if(product.id===other.otherid){
-                 hasproduct.push(1)
-                }}
-                    )
+                });
 
-                if(hasproduct.length == 0){
-                    
-                        document.getElementById("u-p").innerHTML='This User Has No Product'
-                    
-                }
-                else{
-                    console.warn('sd');
-                data.forEach(product => {
-                  
-                    if(product.id===other.otherid){
-                    const productItem = document.createElement("div");
-                    productItem.className = "product-item";
-                    productItem.dataset.id = product._id; 
-                    const base64Data = `${product.url}`; 
-                    const contentType = "image/png"; 
-                    
-                   
-                    function base64ToBlob(base64, contentType) {
-                        const byteCharacters = atob(base64);
-                        const byteArrays = [];
-                        for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-                            const slice = byteCharacters.slice(offset, offset + 512);
-                            const byteNumbers = new Array(slice.length);
-                            for (let i = 0; i < slice.length; i++) {
-                                byteNumbers[i] = slice.charCodeAt(i);
-                            }
-                            byteArrays.push(new Uint8Array(byteNumbers));
-                        }
-                        return new Blob(byteArrays, { type: contentType });
+                const comments = await response.json();
+                const container = document.getElementById("reviews-container");
+                container.innerHTML = '';
+
+                comments.forEach(comment => {
+                    if (comment.posterid === userId) {
+                        const commentElement = document.createElement("div");
+                        commentElement.className = "comment-item";
+                        commentElement.innerHTML = `
+                            <div class="comment-header">
+                                <img src="${base64ToUrl(comment.posteravatar) || 'default-avatar.png'}" alt="User" class="comment-avatar">
+                                <strong>${comment.name}</strong>
+                            </div>
+                            <p class="comment-text">${comment.comment}</p>
+                            <hr>
+                        `;
+                        container.appendChild(commentElement);
                     }
-                    
-                    
-                    const blob = base64ToBlob(base64Data, contentType);
-                    const blobUrl = URL.createObjectURL(blob);
-                    
-                    
-                  
-                    productItem.innerHTML = `
-                       <section style="width:100%;height:20vw" >
-                        <img  src=${blobUrl} data-pid=${product.productID} data-usrid=${localStorage.getItem('usrid')} data-price='${product.price}' data-tag='${product.tag}' data-des ='${product.Description}' data-brand='${product.Brand}' data-url='${blobUrl}' data-name='${product.name}' src=${blobUrl} alt="Product Image" class="product-image" style="backrgound-size:cover;background-position:center">
-                       </section>
-                        <div class="product-info">
-                            <h3 class="name">${product.name || 'Unnamed Product'}</h3>
-                            <p class="product-price">Price: ¥${product.price || 0}</p>
-                            <p class="product-reviews">Comment: ${product.comments || 'No comments'}</p>
-                            
-                        </div>
-                    `;
-                     console.log(localStorage.getItem("usrid"));
-                   console.warn('sd');
-                     document.getElementById("u-p").appendChild(productItem);
-                    
-                }})}
-            }
-        
-            catch (error) {
-                console.error("Failed to load products:", error);
+                });
+            } catch (error) {
+                console.error("Error loading comments:", error);
             }
         }
-        document.getElementById("u-p").addEventListener("click", function (event) {
-            let target = event.target;
-            if (target.classList.contains("product-image")) {
 
-                let productData = {
-                    productID: target.getAttribute("data-pid"),
-                    userID: target.getAttribute("data-usrid"),
-                    price: target.getAttribute("data-price"),
-                    tag: target.getAttribute("data-tag"),
-                    description: target.getAttribute("data-des"),
-                    brand: target.getAttribute("data-brand"),
-                    url: target.getAttribute("data-url"),
-                    name: target.getAttribute("data-name"),
+        // Load products
+        async function loadProducts() {
+            try {
+                const response = await fetch("https://jackm-ff5c.restdb.io/rest/product", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                });
+
+                const products = await response.json();
+                const container = document.getElementById("u-p");
+                container.innerHTML = '';
+
+                const userProducts = products.filter(product => product.id === other.otherid);
+
+                if (userProducts.length === 0) {
+                    container.innerHTML = '<p>This User Has No Products</p>';
+                    return;
+                }
+
+                userProducts.forEach(product => {
+                    const productElement = document.createElement("div");
+                    productElement.className = "product-card";
+                    const imageUrl = base64ToUrl(product.url);
+
+                    productElement.innerHTML = `
+                        <img src="${imageUrl}" alt="${product.name}" class="product-image"
+                            data-pid="${product.productID}"
+                            data-usrid="${userId}"
+                            data-price="${product.price}"
+                            data-tag="${product.tag}"
+                            data-des="${product.Description}"
+                            data-brand="${product.Brand}"
+                            data-url="${imageUrl}"
+                            data-name="${product.name}">
+                        <div class="product-info">
+                            <h3>${product.name || 'Unnamed Product'}</h3>
+                            <p class="price">¥${product.price || 0}</p>
+                            <p class="description">${product.Description || 'No description available'}</p>
+                        </div>
+                    `;
+
+                    container.appendChild(productElement);
+                });
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
+        }
+
+        // Handle product clicks
+        document.getElementById("u-p").addEventListener("click", function(event) {
+            const target = event.target;
+            if (target.classList.contains("product-image")) {
+                const productData = {
+                    productID: target.dataset.pid,
+                    userID: target.dataset.usrid,
+                    price: target.dataset.price,
+                    tag: target.dataset.tag,
+                    description: target.dataset.des,
+                    brand: target.dataset.brand,
+                    url: target.dataset.url,
+                    name: target.dataset.name,
                 };
-        
+
                 localStorage.setItem("selectedProduct", JSON.stringify(productData));
-        
-             
                 window.location.href = "product.html";
             }
         });
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            loadComments();
-           
-            
 
-        });
-
-
-
-
-
+        // Handle comment submission
         document.getElementById("publish-btn").addEventListener("click", async function() {
             const commentInput = document.getElementById("comment-input");
             const comment = commentInput.value.trim();
-           
+
             if (!comment) {
                 alert("Please enter a comment before submitting.");
                 return;
             }
-        
-            const productId = document.querySelector(".product-item").dataset.id;  
-            const userId = localStorage.getItem("usrid");  
-            const username = localStorage.getItem("usrname")
-            
-         
-            const newComment = {
-                usrid: other.otherid,
-                name:localStorage.getItem("usrname"),
-                comment: comment,
-                posterid:userId,
-                posteravatar:other.otheravatar
-            };
-        
-            const response = await fetch(testurl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-apikey": APIKEY,
-                    "Cache-Control": "no-cache",
-                },
-                body: JSON.stringify(newComment),
-            });
-        
-            if (response.ok) {
-                alert("Comment posted!");
-                commentInput.value = ""; 
-                loadComments(productId);  
-            } else {
+
+            try {
+                const response = await fetch(testurl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                    body: JSON.stringify({
+                        usrid: other.otherid,
+                        name: localStorage.getItem("usrname"),
+                        comment: comment,
+                        posterid: userId,
+                        posteravatar: other.otheravatar
+                    }),
+                });
+
+                if (response.ok) {
+                    alert("Comment posted successfully!");
+                    commentInput.value = "";
+                    loadComments();
+                } else {
+                    throw new Error("Failed to post comment");
+                }
+            } catch (error) {
                 alert("Failed to post comment. Please try again.");
+                console.error(error);
             }
         });
-      
-      
 
-
-    
-            
-
-     
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            loadComments();
+        });
     </script>
 </body>
-
 </html>

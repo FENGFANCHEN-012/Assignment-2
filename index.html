@@ -1,289 +1,236 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>FindSell HomePage</title>
-    <style></style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="css.css">
-   <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="style2.css">
-   <link rel="stylesheet" href="my.css">
-   
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>FindSell - Buy and Sell Platform</title>
+    <link rel="stylesheet" href="indexStyle.css">
 </head>
 <body>
-    <script src="js.js"></script>
-  <header>
-    
-    <div class="head" >
-        <a href="http://127.0.0.1:5500/index.html"><img class="logo"src= "Selling_transparent-.png" alt="Find Sell"></a>
+    <header class="header">
+        <div class="top-bar">
+            <div class="container">
+                <p>Hi! <a href="#" class="link-primary">Sign In</a> or <a href="#" class="link-primary">Register</a></p>
+            </div>
+        </div>
         
-         <input type="text" class="search" >
-         <button class="bt">Search</button>
-        <button class="set">Login</button>
-        <button class="set" style="margin-left:0">Sign Up</button>
-        <div class="set" style="width:7vw;margin-left:1vw" id="sell"><button class="inbt"  >Sell</button></div>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="Selling_transparent-.png" alt="FindSell Logo" style="height: 50px;">  <!-- Set the height or width as needed -->
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="search-wrapper">
+                        <input type="text" class="search-input" placeholder="Search for items...">
+                        <button class="search-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="auth-buttons">
+                        <button class="btn-auth" id="login-btn">Login</button>
+                        <button class="btn-auth" id="signup-btn">Sign Up</button>
+                        <button class="btn-sell" id="sell-btn">Sell</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="categories-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">Saved</a></li>
+                    <li><a href="#" class="nav-link">Electronics</a></li>
+                    <li><a href="#" class="nav-link">Fashion</a></li>
+                    <li><a href="#" class="nav-link">Jewellery and Watches</a></li>
+                    <li><a href="#" class="nav-link">Toys</a></li>
+                    <li><a href="#" class="nav-link">Collectables</a></li>
+                    <li><a href="#" class="nav-link">Home</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Panel -->
+    <div class="auth-panel" id="login-panel">
+        <div class="auth-content">
+            <h3>Login</h3>
+            <a href="http://127.0.0.1:5500/login.html" class="auth-link">Login In</a>
+            <button class="social-btn">Google</button>
+            <button class="social-btn">Facebook</button>
+            <p>New user? <a href="http://127.0.0.1:5500/sign%20up.html">Sign up here</a></p>
+        </div>
     </div>
-  </header>
-  <script>
-  localStorage.setItem('usrid',null)
-  </script>
-  <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
-  <div class="down" style="margin-left:28vw;margin-top:15vh">
 
-    <section class="panel" >
-        <a href='http://127.0.0.1:5500/login.html'><p class="log" style="border:none">Login in</p></a>
-        <button class="log">Google</button>
-        <button class="log">FaceBook</button>
-        <p class="log">New user? Sign up <a href='http://127.0.0.1:5500/sign%20up.html'>here</a></p>
-
-    </section>
-    <section class="panel2" >
-        
-        <p>You have'nt Log In  yet</p>
-        <p>Log In <a href='http://127.0.0.1:5500/login.html'>here</a></p>
-
-    </section>
-    
-  </div>
-  <main >
-    <section class="main" style=" margin-top:10vh;"> 
-    <div class="ct">
-        <a href="" class="pic">
-            
-        </a>
-        <a href=""  class="pic">
-            
-        </a>
+    <!-- Sell Panel -->
+    <div class="auth-panel" id="sell-panel">
+        <div class="auth-content">
+            <p>You haven't logged in yet</p>
+            <p>Log In <a href="http://127.0.0.1:5500/login.html">here</a></p>
+        </div>
     </div>
-</section>
-<h1 style="margin-top:5vw">Opportunity</h1>
-<hr>
-<section style="width:100vw;overflow:hidden" > 
-    
-<section  id="game" style="height:35vw;gap:0vw;width:200vw"> 
-    <div class="logos">
-        <img src="logo.png" alt="Logo">
-    </div>
-    <div class="content" style="width:100vw">
-        <div class="header">Welcome To FindSell</div>
-        <div class="description">Check In To Get More Reward!</div>
-        <button id='check' class="button" >Go To Checking Centre!</button>
-        <button class="next" style="margin-left:20vw">Click Here</button>
-    </div>
-   
 
-<section class="game-section" style=" width:100vw;background-image: url('runner_background.jpg'); background-size: cover; height: 35vw; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    <h2 style="font-size: 2.5vw; color: white; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Fun Game</h2>
-    <p style="font-size: 1.5vw; color: #ffffffcc; margin-bottom: 2vw;">Win The Game For More Award!</p>
-    <button class="game-button"  id='go' style="padding: 1.5vw 4vw; background-color: #ff5722; color: white; font-size: 1.5vw; border: none; border-radius: 10px; cursor: pointer;">Let's Start</button>
-    <button class="next" style="margin-top:5vw">Click Here</button>
-</section>
-    
-<script>
-   
-    document.getElementById("check").addEventListener("click",function(){
-        alert('Please Log In First')
-        window.location.reload();
-    })
-    document.getElementById("go").addEventListener("click",function(e){
-    e.preventDefault();
-        alert('Please Log In First')
-        window.location.reload();
-    })
-   </script>
-        
-    
+    <main class="main-content">
+        <div class="container">
+            <section class="game-section" id="game">
+                <div class="game-slide active">
+                    <div class="game-content">
+                        <h2>Welcome To FindSell</h2>
+                        <p>Check In To Get More Reward!</p>
+                        <button id="check" class="game-btn">Go To Checking Centre!</button>
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+                
+                <div class="game-slide">
+                    <div class="game-content">
+                        <h2>Fun Game</h2>
+                        <p>Win The Game For More Award!</p>
+                        <button id="go" class="game-btn">Let's Start</button>
+                        <button class="next-btn">Previous</button>
+                    </div>
+                </div>
+            </section>
 
-</section>
+            <section class="trusted-sellers">
+                <h2>Trusted Sellers</h2>
+                <button id="but2" class="scroll-btn">Next</button>
+                <div class="sellers-container">
+                    <div id="seller" class="sellers-scroll">
+                        <!-- Sellers will be loaded here dynamically -->
+                    </div>
+                </div>
+            </section>
 
-<script>
-    const but = document.getElementsByClassName("next");
-    const box = document.getElementById("game");
-    
-    let isBox1Visible = true;
-    
-    but[0].addEventListener("click", () => {
-        if (isBox1Visible) {
-            box.style.transform = "translateX(-105vw)";
-            isBox1Visible = false;  // Update visibility status
-        }
-    });
-    
-    but[1].addEventListener("click", () => {
-        if (!isBox1Visible) {
-            box.style.transform = "translateX(0)";
-            isBox1Visible = true;  // Update visibility status
-        }
-    });
-</script>
-<hr>
-<h1 style="margin-top:1vw">Category</h1>
-<section class="main" >
-    <section class="ct">
-    <button class="smbox">
-       hi
-    </button>
- 
-    <button class="smbox">
-        hi
-     </button>
-     <button class="smbox">
-        hi
-     </button>
-     <button class="smbox">
-        hi
-     </button>
-     <button class="smbox">
-        hi
-     </button>
-     <button class="smbox">
-        hi
-     </button>
-   
-</section>
-</section>
-<h1 style="margin-top:5vw">Trusetd Seller</h1>
-<section style="width:100vw;overflow:hidden" > 
-    <button id="but2" >Click Me</button>
-<section  id="seller" style="width:280vw">
-    
+            <section class="for-you">
+                <h2>Recommended for You</h2>
+                <div class="products-grid">
+                    <!-- Product cards will be repeated 8 times -->
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h3>Product Title</h3>
+                            <p class="price">$199.99</p>
+                        </div>
+                    </div>
+                    <!-- Repeat 7 more times -->
+                </div>
+                <div class="load-more">
+                    <button class="btn-load-more">Load More</button>
+                </div>
+            </section>
+        </div>
+    </main>
 
+    <script>
+        // Initialize user state
+        localStorage.setItem('usrid', null);
 
-</section>
+        // Auth panel functionality
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const sellBtn = document.getElementById('sell-btn');
+        const loginPanel = document.getElementById('login-panel');
+        const sellPanel = document.getElementById('sell-panel');
 
-</section>
-<script>
-  
-    const APIKEY = '67971683f9d2bb616f181e2b';
-   const set = {
-       method: "GET",
-       headers: {
-           "Content-Type": "application/json",
-           "x-apikey": APIKEY,
-           "Cache-Control": "no-cache",
-       },
-   };
-  fetch("https://assignmentfed-fb7a.restdb.io/rest/account", set)
-  .then(response => response.json())  // Parse the response as JSON
-  .then(data => {
-       document.getElementById("seller").style.width = `${data.length*95}vw`
-      // Assuming data is an array of user accounts
-      data.forEach(account => {
-       const randomIndex = Math.floor(Math.random() * account.length);
-          // Create a new div for each seller
-          const sellerDiv = document.createElement("div");
-          sellerDiv.classList.add("ct");
-          
-          sellerDiv.style.backgroundColor = "antiquewhite";
-          sellerDiv.style.height = "20vw";
-          
-
-          // You can customize this to display more info from the account
-          const name = document.createElement("h3");
-          name.textContent = `Seller: ${account.name || "User"}`; // Replace with actual account fields
-          sellerDiv.appendChild(name);
-          const pic = document.createElement('img');
-          const base64Url = `data:image/png;base64,${account.avatar}`;
-          pic.src =  base64Url;
-          sellerDiv.appendChild(pic)
-          // You can add more account data as needed
-          const email = document.createElement("p");
-          email.textContent = `Email: ${account.email || "No Email"}`;
-          sellerDiv.appendChild(email);
-
-          // Append the created seller div to the #seller section
-          document.getElementById("seller").appendChild(sellerDiv);
-      });
-  })
-  .catch(error => {
-      console.error('Error fetching the API data:', error);
-  });
-
- 
-       
-   
-</script>
-<script>
-    let start = 0;
-    let seller = document.getElementById("seller"); 
-    let step = 95; 
-    
-    let but2 = document.getElementById("but2");
-    
-    but2.addEventListener("click", function() {
-        start += 1;
-        if (start >= seller.children.length) {
-            start = 0;
-        }
-        seller.style.transform = `translateX(-${start * step}vw)`;
-        seller.style.transition = "transform 0.5s ease"; 
-    });
-</script>
-<h1 style="margin-top:10vh">Recommend for you</h1>
-<section class="main" style="gap:0.5vw;height:52vw;margin-bottom:2vw;">
-
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-<div class="pd"></div>
-</section>
-<section class="main" style="height:10vh">
-<button class="bt" >More</button>
-</section>
-  </main>
-  <footer>
-    <section class="footer">
-
-    </section>
-  </footer>
-<hr>
-<script>
- 
-    let pan = document.getElementsByClassName("panel"); 
-    
-    let pan2 = document.getElementsByClassName("panel2")[0]; 
-    pan2.style.display='none';
-    const p = document.getElementsByClassName("set");
-    const sell = document.getElementById("sell");
-    sell.addEventListener("click",function(){
-        if(pan2.style.display=='block'){
-            pan2.style.display ='none'
-        }
-        else{
-            pan2.style.display ='block';
-        }
-    })
-    p[1].addEventListener("click", function() {
-        if (pan[0].style.display === 'block') {
-            pan[0].style.display = 'none';
-        } else {
-            pan[0].style.display = 'block';
-            
-        }
-    });
-
-    p[0].addEventListener("click", function() {
-        if (pan[0].style.display === 'block') {
-            pan[0].style.display = 'none';
-        } else {
-            pan[0].style.display = 'block';         
-        }
-    });
-document.addEventListener('click', function(event) {
-        for (let i = 0; i < pan.length; i++) {
-            if (!pan[i].contains(event.target) && !p[0].contains(event.target) && !p[1].contains(event.target)) {
-                pan[i].style.display = 'none';
+        function togglePanel(panel) {
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
             }
-            
-            
         }
-       if(!pan2.contains(event.target) && !sell.contains(event.target) ) {
-            pan2.style.display = 'none';}
-    });
-</script>
+
+        loginBtn.addEventListener('click', () => togglePanel(loginPanel));
+        signupBtn.addEventListener('click', () => togglePanel(loginPanel));
+        sellBtn.addEventListener('click', () => togglePanel(sellPanel));
+
+        // Close panels when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!loginPanel.contains(event.target) && !loginBtn.contains(event.target) && !signupBtn.contains(event.target)) {
+                loginPanel.style.display = 'none';
+            }
+            if (!sellPanel.contains(event.target) && !sellBtn.contains(event.target)) {
+                sellPanel.style.display = 'none';
+            }
+        });
+
+        // Game section functionality
+        const checkBtn = document.getElementById('check');
+        const goBtn = document.getElementById('go');
+        const gameSection = document.getElementById('game');
+        const nextBtns = document.getElementsByClassName('next-btn');
+
+        function requireLogin() {
+            alert('Please Log In First');
+            window.location.reload();
+        }
+
+        checkBtn.addEventListener('click', requireLogin);
+        goBtn.addEventListener('click', requireLogin);
+
+        // Game slides navigation
+        let currentSlide = 0;
+        const slides = gameSection.getElementsByClassName('game-slide');
+
+        Array.from(nextBtns).forEach(btn => {
+            btn.addEventListener('click', () => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = currentSlide === 0 ? 1 : 0;
+                slides[currentSlide].classList.add('active');
+            });
+        });
+
+        // Trusted sellers section
+        const APIKEY = '67971683f9d2bb616f181e2b';
+        const sellersContainer = document.getElementById('seller');
+        const scrollBtn = document.getElementById('but2');
+
+        // Fetch sellers data
+        fetch("https://assignmentfed-fb7a.restdb.io/rest/account", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(account => {
+                const sellerDiv = document.createElement("div");
+                sellerDiv.className = "seller-card";
+                
+                const name = document.createElement("h3");
+                name.textContent = `Seller: ${account.name || "User"}`;
+                
+                const avatar = document.createElement('img');
+                avatar.src = `data:image/png;base64,${account.avatar}`;
+                avatar.className = "seller-avatar";
+                
+                const email = document.createElement("p");
+                email.textContent = `Email: ${account.email || "No Email"}`;
+                
+                sellerDiv.appendChild(name);
+                sellerDiv.appendChild(avatar);
+                sellerDiv.appendChild(email);
+                
+                sellersContainer.appendChild(sellerDiv);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+
+        // Sellers scroll functionality
+        let scrollPosition = 0;
+        scrollBtn.addEventListener('click', () => {
+            const cards = sellersContainer.children;
+            scrollPosition = (scrollPosition + 1) % cards.length;
+            sellersContainer.style.transform = `translateX(-${scrollPosition * 95}vw)`;
+        });
+    </script>
 </body>
+</html>

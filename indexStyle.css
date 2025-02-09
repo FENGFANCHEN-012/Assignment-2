@@ -22,12 +22,16 @@ body {
 .header {
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width:100%;
+    z-index: 2;
 }
 
 .top-bar {
     background-color: #f8f9fa;
     padding: 8px 0;
     border-bottom: 1px solid #e9ecef;
+    
 }
 
 .top-bar p {
@@ -120,6 +124,7 @@ body {
     list-style: none;
     gap: 2rem;
     padding: 1rem 0;
+    justify-content: space-around;
 }
 
 .nav-link {
@@ -178,6 +183,7 @@ h2 {
 }
 
 .seller-card {
+    width: 95vw;
     background-color: white;
     padding: 1.5rem;
     border-radius: 12px;
@@ -267,8 +273,11 @@ h2 {
 
 /* Auth Panels */
 .auth-panel {
+    
+    margin-right:30em;
+    margin-top:10em;
     display: none;
-    position: absolute;
+    position:absolute;
     top: 80px;
     right: 20px;
     background: white;
@@ -276,6 +285,7 @@ h2 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     min-width: 300px;
+
 }
 
 .auth-content {
@@ -302,12 +312,13 @@ h2 {
     background-color: #f8f9fa;
 }
 
-/* Game Section */
+/* Game Section  seller card*/ 
 .game-section {
     position: relative;
     overflow: hidden;
     margin-bottom: 3rem;
     border-radius: 12px;
+    z-index: 0;
 }
 
 .game-slide {
@@ -367,10 +378,12 @@ h2 {
 .sellers-container {
     overflow: hidden;
     margin: 2rem 0;
+    width:500em;
 }
 
 .sellers-scroll {
     display: flex;
+   
     transition: transform 0.5s ease;
 }
 

@@ -266,36 +266,30 @@ body {
 .sellers-container {
     width: 100%;
     overflow: hidden;
-    margin: 2rem 0;
+
 }
 
 .sellers-scroll {
     display: flex;
     transition: transform 0.5s ease;
-    width: max-content;
+    width: calc(100% * numberOfItems); 
 }
 
 .seller-card {
-    width: calc(100vw - 40px);
-    max-width: 1200px;
-    background: rgb(8, 168, 254);
-    padding: 2rem;
+    width: 100%;
+    background-color: white;
+    padding: 1.5rem;
     border-radius: 12px;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    height: 20vw;
-    max-height: 300px;
-    margin-right: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .seller-avatar {
-    width: 20vw;
-    height: 18vw;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+    width: 80px;
+    height: 80px;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
 }
 
 .seller-avatar:hover {

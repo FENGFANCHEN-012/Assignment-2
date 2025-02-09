@@ -18,8 +18,8 @@
             <div class="container">
                 <div class="header-content">
                     <div class="logo">
-                        <a href="http://127.0.0.1:5500/index2.html">
-                            <img src="Selling_transparent-.png" alt="FindSell Logo">
+                        <a href="index2.html">
+                            <img src="Selling_transparent-.png" alt="FindSell Logo" style="height: 40px;">
                         </a>
                     </div>
                     
@@ -32,13 +32,13 @@
                     
                     <div class="auth-buttons">
                         <button class="btn-auth" id="account-btn">My Account</button>
-                        <section class="dropdown">
-                            <div class="tag"><a href="http://127.0.0.1:5500/myaccount.html">My Account</a></div>
-                            <div class="tag"><a href='http://127.0.0.1:5500/myproduct.html'>My Products</a></div>
-                            <div class="tag"><a href='http://127.0.0.1:5500/myfriend.html'>My Friends</a></div>
-                            <div class="tag"><a href='http://127.0.0.1:5500/myaward.html'>Awards</a></div>
-                        </section>
-                        <a href="http://127.0.0.1:5500/product.html" class="btn-sell">Sell</a>
+                        <div class="dropdown">
+                            <div class="tag"><a href="myaccount.html">My Account</a></div>
+                            <div class="tag"><a href='myproduct.html'>My Products</a></div>
+                            <div class="tag"><a href='myfriend.html'>My Friends</a></div>
+                            <div class="tag"><a href='myaward.html'>Awards</a></div>
+                        </div>
+                        <a href="product.html" class="btn-sell">Sell</a>
                     </div>
                 </div>
             </div>
@@ -66,8 +66,10 @@
                     <div class="game-content">
                         <h2>Welcome To FindSell</h2>
                         <p>Check In To Get More Reward!</p>
-                        <button id="check" class="game-btn">Go To Checking Centre!</button>
-                        <button class="next-btn">Next</button>
+                        <div class="game-buttons">
+                            <button id="check" class="game-btn">Go To Checking Centre!</button>
+                            <button class="next-btn">Next</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -75,8 +77,10 @@
                     <div class="game-content">
                         <h2>Fun Game</h2>
                         <p>Win The Game For More Award!</p>
-                        <button id="go" class="game-btn">Let's Start</button>
-                        <button class="next-btn">Previous</button>
+                        <div class="game-buttons">
+                            <button id="go" class="game-btn">Let's Start</button>
+                            <button class="next-btn">Previous</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -101,7 +105,9 @@
                             <p class="price">$199.99</p>
                         </div>
                     </div>
-                    <!-- Repeat product cards as needed -->
+                </div>
+                <div class="load-more">
+                    <button class="btn-load-more">Load More</button>
                 </div>
             </section>
         </div>
@@ -140,11 +146,11 @@
         let currentSlide = 0;
 
         checkBtn.addEventListener('click', () => {
-            window.location.href = "http://127.0.0.1:5500/checkin.html";
+            window.location.href = "checkin.html";
         });
 
         goBtn.addEventListener('click', () => {
-            window.location.href = "http://127.0.0.1:5500/game.html";
+            window.location.href = "game.html";
         });
 
         Array.from(nextBtns).forEach(btn => {
@@ -184,7 +190,7 @@
                         otheravatar: account.avatar,
                         othername: account.name
                     }));
-                    window.location.href = 'http://127.0.0.1:5500/user.html';
+                    window.location.href = 'user.html';
                 });
                 
                 const name = document.createElement("h3");
@@ -201,49 +207,16 @@
             });
 
             // Initialize scroll functionality
-            initializeScroll();
+            let scrollPosition = 0;
+            const scrollBtn = document.getElementById('but2');
+            
+            scrollBtn.addEventListener('click', () => {
+                const cards = sellersContainer.children;
+                scrollPosition = (scrollPosition + 1) % cards.length;
+                sellersContainer.style.transform = `translateX(-${scrollPosition * 95}vw)`;
+            });
         })
         .catch(error => console.error('Error:', error));
-
-        function initializeScroll() {
-            const container = document.querySelector('.sellers-container');
-            const scrollContent = document.getElementById('seller');
-            const scrollLeftBtn = document.getElementById('scroll-left');
-            const scrollRightBtn = document.getElementById('scroll-right');
-            const cardWidth = 315; // 300px card width + 15px gap
-            let scrollPosition = 0;
-
-            // Initially hide "Previous" button
-            scrollLeftBtn.style.display = 'none';
-
-            scrollLeftBtn.addEventListener('click', () => {
-                scrollPosition = Math.max(scrollPosition - cardWidth, 0);
-                updateScroll();
-            });
-
-            scrollRightBtn.addEventListener('click', () => {
-                const maxScroll = scrollContent.scrollWidth - container.clientWidth;
-                scrollPosition = Math.min(scrollPosition + cardWidth, maxScroll);
-                updateScroll();
-            });
-
-            function updateScroll() {
-                scrollContent.style.transform = `translateX(-${scrollPosition}px)`;
-                
-                // Update button visibility
-                scrollLeftBtn.style.display = scrollPosition > 0 ? 'inline-block' : 'none';
-                scrollRightBtn.style.display = 
-                    scrollPosition < (scrollContent.scrollWidth - container.clientWidth) 
-                    ? 'inline-block' 
-                    : 'none';
-            }
-
-            // Initial check for button visibility 
-            updateScroll();
-
-            // Update on window resize
-            window.addEventListener('resize', updateScroll);
-        }
     </script>
 </body>
 </html>

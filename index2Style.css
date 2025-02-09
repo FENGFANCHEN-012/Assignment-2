@@ -308,11 +308,12 @@ body {
 .trusted-sellers {
     margin-bottom: 3rem;
     width: 100%;
+    overflow: hidden;
 }
 
 .sellers-container {
-    width: 100%;
-    overflow: hidden;
+    width:400vw;
+
     margin: 2rem 0;
 }
 
@@ -322,12 +323,13 @@ body {
 }
 
 .seller-card {
-    flex: 0 0 90vw;
+    flex-shrink: none;
+    flex: 0 0 95vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 6vw;
-    background-color: antiquewhite;
+    background-color: rgb(8, 168, 254);
     height: 20vw;
     padding: 1rem;
 }

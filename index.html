@@ -6,6 +6,7 @@
     <title>FindSell - Buy and Sell Platform</title>
     <link rel="stylesheet" href="indexStyle.css">
 </head>
+
 <body>
     <header class="header">
         <div class="top-bar">
@@ -215,6 +216,43 @@
                 
                 const email = document.createElement("p");
                 email.textContent = `Email: ${account.email || "No Email"}`;
+                           
+
+
+               
+          
+        
+          
+         
+        
+         
+           avatar.addEventListener("click",function(){
+            avatar.style.transform='scale(1.05)'
+           })
+          
+         
+          
+           
+           // click go to seller
+      
+          
+           avatar.addEventListener("click", function () {
+            localStorage.setItem("selectedUser", JSON.stringify({
+                otherid: account.usrid,
+                otheremail: account.email,
+                otherbio: account.bio,
+                otheravatar: account.avatar,
+                othername: account.name
+            })
+            ); window.location.href='http://127.0.0.1:5500/user.html'})
+
+        
+
+
+
+
+
+
                 
                 sellerDiv.appendChild(name);
                 sellerDiv.appendChild(avatar);

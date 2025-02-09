@@ -84,27 +84,26 @@
 
 
     <script>
-        // Initialize variables
-        const others = localStorage.getItem("selectedUser");
-        const other = JSON.parse(others);
-        const userId = localStorage.getItem("usrid");
-        const usrmail = localStorage.getItem("usremail");
-        document.getElementById("usrem").innerHTML = usrmail;
+    // Initialize variables
+    const userId = localStorage.getItem("usrid");
+    const usrmail = localStorage.getItem("usremail");
+    document.getElementById("usrem").innerHTML = usrmail;
 
-        // Dropdown functionality
-        const dropd = document.querySelector('.dropd');
-        const dropdown = document.querySelector('.dropdown');
+    // Dropdown functionality
+    const accountBtn = document.getElementById('account-btn');
+    const dropdown = document.querySelector('.dropdown');
 
-        dropd.addEventListener('click', function(event) {
-            event.stopPropagation();
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-        });
+    accountBtn.addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
 
-        document.addEventListener('click', function(event) {
-            if (!dropdown.contains(event.target) && !dropd.contains(event.target)) {
-                dropdown.style.display = 'none';
-            }
-        });
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target) && event.target !== accountBtn) {
+            dropdown.style.display = 'none';
+        }
+    });
+        
 
         // Profile image handling
         function base64ToUrl(base64) {

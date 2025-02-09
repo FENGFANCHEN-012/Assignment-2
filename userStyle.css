@@ -1,3 +1,38 @@
+.account-wrapper {
+    position: relative;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown a:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.dropdown a:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.dropdown a:hover {
+    background-color: #f8f9fa;
+}
 /* Reset and base styles */
 * {
     margin: 0;

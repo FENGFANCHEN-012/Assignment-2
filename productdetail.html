@@ -23,8 +23,8 @@
                 </button>
             </div>
             
-            <div class="dropd">
-                Welcome! <span id="usrem"></span>
+            <div class="account-container">
+                <button class="account-btn" id="account-btn">My Account</button>
                 <div class="dropdown">
                     <a href="http://127.0.0.1:5500/myaccount.html">My Account</a>
                     <a href="http://127.0.0.1:5500/myproduct.html">My Products</a>
@@ -81,19 +81,18 @@
         // User data
         const usrmail = localStorage.getItem("usremail");
         const userId = localStorage.getItem("usrid");
-        document.getElementById("usrem").innerHTML = usrmail;
 
         // Dropdown functionality
-        const dropd = document.querySelector('.dropd');
+        const accountBtn = document.getElementById('account-btn');
         const dropdown = document.querySelector('.dropdown');
 
-        dropd.addEventListener('click', function(event) {
+        accountBtn.addEventListener('click', function(event) {
             event.stopPropagation();
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         });
 
         document.addEventListener('click', function(event) {
-            if (!dropdown.contains(event.target) && event.target !== dropd) {
+            if (!dropdown.contains(event.target) && event.target !== accountBtn) {
                 dropdown.style.display = 'none';
             }
         });

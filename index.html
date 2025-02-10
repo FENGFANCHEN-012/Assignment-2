@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindSell - Buy and Sell Platform</title>
     <link rel="stylesheet" href="indexStyle.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body>
     <header class="header">
@@ -19,7 +20,7 @@
                 <div class="header-content">
                     <div class="logo">
                         <a href="/">
-                            <img src="Selling_transparent-.png" alt="FindSell Logo" style="height: 50px;">  <!-- Set the height or width as needed -->
+                            <img src="Selling_transparent-.png" alt="FindSell Logo" style="height: 50px;">
                         </a>
                     </div>
                     
@@ -101,6 +102,15 @@
                 <h2>Trusted Sellers</h2>
                 <button id="but2" class="scroll-btn">Next</button>
                 <div class="sellers-container">
+                    <div id="loading-animation" style="display: flex; justify-content: center; width: 100%;">
+                        <dotlottie-player src="https://lottie.host/92d876b3-0b70-4bf0-beae-400c681ff9dd/YU72bij2XY.lottie" 
+                            background="transparent" 
+                            speed="1" 
+                            style="width: 300px; height: 300px" 
+                            loop 
+                            autoplay>
+                        </dotlottie-player>
+                    </div>
                     <div id="seller" class="sellers-scroll">
                         <!-- Sellers will be loaded here dynamically -->
                     </div>
@@ -129,7 +139,6 @@
 
     <script>
         // Initialize user state
-        localStorage.setItem('usrid', null);
 
         // Auth panel functionality
         const loginBtn = document.getElementById('login-btn');
@@ -137,6 +146,7 @@
         const sellBtn = document.getElementById('sell-btn');
         const loginPanel = document.getElementById('login-panel');
         const sellPanel = document.getElementById('sell-panel');
+        const loadingAnimation = document.getElementById('loading-animation');
 
         function togglePanel(panel) {
             if (panel.style.display === 'block') {
@@ -168,7 +178,7 @@
 
         function requireLogin() {
             alert('Please Log In First');
-            window.location.reload();
+            window.location.href = 'login.html';  // Changed to redirect to login page
         }
 
         checkBtn.addEventListener('click', requireLogin);
@@ -187,33 +197,43 @@
         });
 
         // Trusted sellers section
-        const APIKEY = '678fa7439bd0c87432ac8bee';
-        const API_URL = 'https://jackm-ff5c.restdb.io/rest/account';
+        const APIKEY = '67a9a09c020c068f77e6537d';
+        const API_URL = "https://fedpart2-130c.restdb.io/rest/account";
         const sellersContainer = document.getElementById('seller');
         const scrollBtn = document.getElementById('but2');
-        const currentUserId = localStorage.getItem('usrid');
-
+        
         // Fetch sellers data
         fetch(API_URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "x-apikey": APIKEY,
-                "Cache-Control": "no-cache",
+                "Cache-Control": "no-cache"
             },
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            const filteredData = data.filter(account => account.usrid !== currentUserId);
+            // Hide loading animation once data is loaded
+            loadingAnimation.style.display = 'none';
             
-            filteredData.forEach(account => {
+            if (!Array.isArray(data) || data.length === 0) {
+                sellersContainer.innerHTML = '<p>No sellers available at the moment.</p>';
+                return;
+            }
+            
+            data.forEach(account => {
                 const sellerCard = document.createElement("div");
                 sellerCard.className = "seller-card";
                 
                 const avatar = document.createElement('img');
                 avatar.src = account.avatar || 'https://via.placeholder.com/80';
                 avatar.className = "seller-avatar";
-                avatar.alt = `${account.name}'s avatar`;
+                avatar.alt = `${account.name || 'User'}'s avatar`;
                 avatar.addEventListener("click", () => {
                     localStorage.setItem("selectedUser", JSON.stringify({
                         otherid: account.usrid,
@@ -244,15 +264,18 @@
             
             scrollBtn.addEventListener('click', () => {
                 const cards = sellersContainer.children;
-                scrollPosition = (scrollPosition + 1) % cards.length;
-                sellersContainer.style.transform = `translateX(-${scrollPosition * cardWidth}vw)`;
+                if (cards.length > 0) {
+                    scrollPosition = (scrollPosition + 1) % cards.length;
+                    sellersContainer.style.transform = `translateX(-${scrollPosition * cardWidth}vw)`;
+                }
             });
         })
         .catch(error => {
+            // Hide loading animation and show error message
+            loadingAnimation.style.display = 'none';
             console.error('Error:', error);
             sellersContainer.innerHTML = '<p>Failed to load trusted sellers. Please try again later.</p>';
         });
     </script>
-
-</body>
+  </body>
 </html>

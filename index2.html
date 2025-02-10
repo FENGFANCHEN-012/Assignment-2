@@ -139,11 +139,14 @@
 
     <script>
         // Initialize variables
+        let friendList = new Set(); 
         const message = null
         const testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
         const account = "https://jackm-ff5c.restdb.io/rest/account";
         const api = "678fa7439bd0c87432ac8bee";
-        const testapi = "67971683f9d2bb616f181e2b"
+        const testapi = "67a9a09c020c068f77e6537d"
+        const test3 = "67a9a09c020c068f77e6537d"
+        const messagetest = "https://fedpart2-130c.restdb.io/rest/message"
         const usrmail = localStorage.getItem("usremail");
         const idnum = localStorage.getItem("usrid");
         
@@ -252,7 +255,7 @@ async function loadMessages() {
     console.log("Loading messages..."); 
    
     try {
-        const response = await fetch(testmessage, {
+        const response = await fetch(messagetest, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -282,8 +285,8 @@ async function loadMessages() {
                     // if it is friend request
                     messageItem.innerHTML = `
                         <p><strong>${msg.sender}</strong> sent you a friend request.</p>
-                        <button class="btn-accept" onclick="accept('${msg.posterid}')">Accept</button>
-                        <button class="btn-reject" onclick="reject('${msg.posterid}')">Reject</button>
+                        <button class="btn-accept" onclick="accept('${msg.posterid}', this)">Accept</button>
+        <button class="btn-reject" onclick="reject('${msg.posterid}', this)">Reject</button>
                     `;
                    
                 } else if (msg.type === "msg") {
@@ -291,6 +294,9 @@ async function loadMessages() {
                     messageItem.innerHTML = `
                         <p><strong>${msg.sender}:</strong> ${msg.content}</p>
                     `;
+                    if(msg.content=="Approve your friend request"){
+                            friendList.add(msg.posterid)
+                    }
                 }
 
                 messageContent.appendChild(messageItem);
@@ -303,7 +309,7 @@ async function loadMessages() {
 
        
         document.getElementById("message-box").style.display = "block";
-    } catch (error) {
+    } catch (error ) {
         alert("Error loading messages:", error);
     }
 }
@@ -312,32 +318,69 @@ async function loadMessages() {
 document.getElementById("close-message-box").addEventListener("click", () => {
     document.getElementById("message-box").style.display = "none";
 });
-let friendList = {
 
-}
 
-function accept(posterid){
-        friendList.add(posterid)
-        
-}
-function reject(posterID){
-    fetch(testmessage, {
-        method: 'POST', 
+function accept(posterID, btn) {
+    const messageItem = btn.closest('.message-item');
+    const messageId = messageItem.getAttribute('data-msg-id');
+    fetch(messagetest, {
+        method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            "x-apikey":testapi ,
+            "x-apikey": testapi,
             "Cache-Control": "no-cache",
-          
         },
         body: JSON.stringify({
-           usrid : posterID,
-           posterid : idnum,
-           content :"reject your friend request" ,
-           type:"msg"
+            usrid: posterID,
+            posterid: idnum,
+            content: "Approve your friend request",
+            type: "msg"
         })
-      })
-
+    })
+    
+   
+        friendList.add(posterID); 
+       fetch(`${messagetest}/${messageId}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": testapi,
+                "Cache-Control": "no-cache",
+            }
+        });
+        window.location.reload();
 }
+
+function reject(posterID, btn) {
+    const messageItem = btn.closest('.message-item');
+    const messageId = messageItem.getAttribute('data-msg-id');
+    fetch(messagetest, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": testapi,
+            "Cache-Control": "no-cache",
+        },
+        body: JSON.stringify({
+            usrid: posterID,
+            posterid: idnum,
+            content: "Reject your friend request",
+            type: "msg"
+        })
+    })
+    fetch(`${messagetest}/${messageId}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey": testapi,
+            "Cache-Control": "no-cache",
+        }
+    });
+    window.location.reload();
+}
+localStorage.setItem("friend", JSON.stringify([...friendSet]));
+
+
     </script>
 
 </body>

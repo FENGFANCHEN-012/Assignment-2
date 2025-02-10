@@ -247,7 +247,7 @@
             </div>
         </div>
     </header>
-
+  
     <main class="main-content">
 
         <div class="main" style='margin-top:10vw;height:85vw;align-items:start'>
@@ -258,7 +258,9 @@
     
                 <div class="product-content" style="align-items: center;justify-content:center;width:100%">
                     <img id="img" src="" >
+                    <section id="talk">Talk To Him</section>
                     <button id="add"> Add Friend</button>
+                    
                     <div class="auth-panel" id="login-panel">
                         <div class="auth-content">
                             <h3>Send Friend Request</h3>
@@ -271,15 +273,29 @@
 
                             </textarea>
                             <button id="send">Send</button>
+                           
                         </div>
                     </div>
                     <script>
+                        const friendlist = new Set(JSON.parse(localStorage.getItem("friend") || "[]"));
+                        test2account = "https://fedpart2-130c.restdb.io/rest/account"
+                            test3  = "67a9a09c020c068f77e6537d"
                            const userID = localStorage.getItem("usrid")
                            document.addEventListener("DOMContentLoaded", function () {
                             const authContent = document.getElementsByClassName("auth-panel")[0];
                             const sendRequestBtn = document.getElementById("add");
-                           const  testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
+                            if(friendlist.has(other.otherid)){
+                                 sendRequestBtn.style.display = 'none'
+                            }
                           
+                                
+                                data.forEach(data=>{
+                                if(friendlist.has(data.usrid)){
+                                    sendRequestBtn.style.display='none'
+                                }
+                            })} )
+                           const  testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
+                           
                             sendRequestBtn.addEventListener("click", function (event) {
                                 authContent.style.display = "block";
                                 event.stopPropagation();
@@ -294,7 +310,7 @@
                             document.body.addEventListener("click", function () {
                                 authContent.style.display = "none";
                             });
-                        });
+                              
                         
 
                               document.getElementById("send").addEventListener("click",function(event){
@@ -331,7 +347,10 @@
                             }
                             
                             })
-                    </script>
+                            document.getElementById("talk").addEventListener("click",function(){
+                                window.location.href='http://127.0.0.1:5500/talk.html';
+                            })   
+                        </script>
                     
                     <div class="product-item" id='info' style="margin-bottom: 20px;">
                        
@@ -376,6 +395,20 @@
     </div>
      
     <script>
+        const accountBtn = document.getElementById('account-btn');
+        const dropdown = document.querySelector('.dropdown');
+        
+        accountBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target) && event.target !== accountBtn) {
+                dropdown.style.display = 'none';
+            }
+        });
+
         let comments = "https://jackm-ff5c.restdb.io/rest/usercomment"
         let testcomments = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
         function base64ToUrl(base64) {
@@ -408,13 +441,14 @@
         document.getElementById("bio-display").innerText = other.otherbio
         account = "https://jackm-ff5c.restdb.io/rest/account"
         testaccount = "https://assignmentfed-fb7a.restdb.io/rest/account"
+         
         commenturl = "https://jackm-ff5c.restdb.io/rest/usercomment"
         commenttesturl   = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
         const producturl =  "https://jackm-ff5c.restdb.io/rest/product"
         const testproducturl = "https://assignmentfed-fb7a.restdb.io/rest/product";
         api = "678fa7439bd0c87432ac8bee"
          test = "67971683f9d2bb616f181e2b"
-
+        test3  = "67a9a09c020c068f77e6537d"
        const APIKEY = api;
     
         

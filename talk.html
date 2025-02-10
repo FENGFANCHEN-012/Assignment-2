@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - FindSell</title>
+    <link rel="stylesheet" href="userStyle.css">
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="my.css">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="index2.html">
+                <img src="Selling_transparent-.png" alt="FindSell" class="logo">
+            </a>
+            
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search for items...">
+                <button class="search-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="nav-buttons">
+                <div class="account-wrapper" style="position: relative;">
+                    <button class="my-account-btn" id="account-btn">My Account</button>
+                    <div class="dropdown" style="display:none;">
+                        <a href="myaccount.html">My Account</a>
+                        <a href="myproduct.html">My Products</a>
+                        <a href="myfriend.html">My Friends</a>
+                        <a href="myaward.html">Awards</a>
+                    </div>
+                </div>
+                <a href="product.html" class="sell-btn">Sell</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <section class="user-profile">
+            <h2>User Profile</h2>
+            <p><strong>Name:</strong> <span id="u-n">User</span></p>
+            <p><strong>Email:</strong> <span id="u-email">user@example.com</span></p>
+            <p><strong>Bio:</strong> <span id="u-bio">This is the user's bio.</span></p>
+        </section>
+        
+        <div class="chat-container">
+            <div class="chat-box">
+                <div class="chat-header">Chat with <span id="u-n">User</span></div>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Type a message...">
+                    <button id="sendMessage" class="my-account-btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let others = localStorage.getItem("selectedUser")
+        let other = JSON.parse(others)
+        let userId=  localStorage.getItem("usrid")
+        let usrmail = localStorage.getItem("usremail");
+      
+        const API_URL = "https://jackie2-b185.restdb.io/rest/message";
+        const API_KEY = "67889bac188ac49ef5ec3e3b";
+   
+        const otherUserId = other.otherid; // Replace with actual target user ID
+        fetchMessages();
+    
+        document.getElementById("sendMessage").addEventListener("click", async function() {
+            let userMessage = document.getElementById("userInput").value;
+            if (userMessage.trim() === "") return;
+            
+            let chatBox = document.getElementById("chatMessages");
+            let userBubble = document.createElement("div");
+            userBubble.classList.add("message", "user");
+            userBubble.textContent = userMessage;
+            chatBox.appendChild(userBubble);
+            
+            document.getElementById("userInput").value = "";
+            
+            try {
+                await fetch(API_URL, {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "x-apikey": API_KEY
+                    },
+                    body: JSON.stringify({
+                        posterid: userId,
+                        usrid: otherUserId,
+                        content: userMessage,
+                        type: "msg"
+                    })
+                });
+            } catch (error) {
+                console.error("Failed to send message", error);
+            }
+        });
+
+        async function fetchMessages() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": API_KEY,
+                        "Cache-Control": "no-cache",
+                    }
+                });
+                const messages = await response.json();
+                let chatBox = document.getElementById("chatMessages");
+                chatBox.innerHTML = "";
+                
+                messages.forEach(msg => {
+                    if (msg.usrid === other.otherid && msg.posterid==userId) {
+                        let msgBubble = document.createElement("div");
+                        msgBubble.classList.add("message", msg.posterid === userId ? "user" : "bot");
+                        msgBubble.textContent = msg.content;
+                        chatBox.appendChild(msgBubble);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to fetch messages", error);
+            }
+        }
+       fetchMessages();
+    
+    </script>
+    
+</body>
+</html>

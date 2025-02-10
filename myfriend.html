@@ -64,10 +64,13 @@
 
     <script>
         // Initialize variables
+        const friendlist = localStorage.getItem("friend")
         const userId = localStorage.getItem('usrid');
         const APIKEY = "678fa7439bd0c87432ac8bee";
+        const testurl = "67a9a09c020c068f77e6537d"
         const baseUrl = "https://jackm-ff5c.restdb.io/rest/account";
-
+       const testaccount = "https://fedpart2-130c.restdb.io/rest/account";
+      
         // Account dropdown functionality
         const accountBtn = document.getElementById('account-btn');
         const dropdown = document.querySelector('.dropdown');
@@ -96,11 +99,11 @@
         // Load friends
         async function loadFriends() {
             try {
-                const response = await fetch(baseUrl, {
+                const response = await fetch(testaccount, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "x-apikey": APIKEY,
+                        "x-apikey": testurl,
                         "Cache-Control": "no-cache",
                     }
                 });
@@ -108,8 +111,8 @@
                 const users = await response.json();
                 const friendsGrid = document.getElementById('friends-grid');
                 friendsGrid.innerHTML = '';
-
-                const otherUsers = users.filter(user => user.usrid !== userId);
+               
+                const otherUsers = users.filter(user => friendlist.includes(user.usrid))
 
                 if (otherUsers.length === 0) {
                     friendsGrid.innerHTML = "<p class='no-friends'>No friends found.</p>";
@@ -140,7 +143,7 @@
                             otheravatar: user.avatar,
                             othername: user.name
                         }));
-                        window.location.href = 'friend.html';
+                        window.location.href = 'http://127.0.0.1:5500/user.html';
                     });
 
                     friendsGrid.appendChild(friendCard);

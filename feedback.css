@@ -273,3 +273,138 @@ textarea {
         text-align: center;
     }
 }
+
+.feedback-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.feedback-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.status-pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-assigned {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-resolved {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.rating-display {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.rating-display p {
+    margin: 5px 0;
+}
+
+.rating {
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #d1d5db;
+    transition: color 0.2s;
+}
+
+.star.active {
+    color: #fbbf24;
+}
+
+#rating-comment {
+    width: 100%;
+    min-height: 100px;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#submit-rating {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+#submit-rating:hover {
+    background-color: #1d4ed8;
+}
+
+#close-modal {
+    background-color: #e5e7eb;
+    border: none;
+}
+
+#close-modal:hover {
+    background-color: #d1d5db;
+}
+
+/* Support staff status indicators */
+.staff-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.875rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-available {
+    background-color: #10b981;
+}
+
+.status-busy {
+    background-color: #f59e0b;
+}
+
+.status-offline {
+    background-color: #ef4444;
+}
+
+

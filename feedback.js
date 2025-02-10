@@ -1,7 +1,7 @@
 // Constants
-const APIKEY = '678fa7439bd0c87432ac8bee';
-const FEEDBACK_API = 'https://jackm-ff5c.restdb.io/rest/feedback';
-const SUPPORT_STAFF_API = 'https://jackm-ff5c.restdb.io/rest/support-staff';
+const APIKEY = '67a9a09c020c068f77e6537d';
+const FEEDBACK_API = 'https://fedpart2-130c.restdb.io/rest/feedback';
+const STAFF_API = 'https://fedpart2-130c.restdb.io/rest/supportstaff';
 
 // DOM Elements
 const feedbackForm = document.getElementById('feedback-form');
@@ -16,60 +16,76 @@ const closeModalBtn = document.getElementById('close-modal');
 // State
 let currentFeedbackId = null;
 let currentRating = 0;
-const userId = localStorage.getItem('usrid');
-const userEmail = localStorage.getItem('usremail');
+let supportStaff = [];
 
-// Display user email
-const userEmailElement = document.getElementById('usrem');
-if (userEmailElement) {
-    userEmailElement.textContent = userEmail || '';
+// Load Support Staff
+async function loadSupportStaff() {
+    try {
+        const response = await fetch(`${STAFF_API}?q={"active":true}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': APIKEY,
+                'Cache-Control': 'no-cache'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to load support staff');
+        }
+
+        supportStaff = await response.json();
+        console.log('Support staff loaded:', supportStaff);
+    } catch (error) {
+        console.error('Error loading support staff:', error);
+        alert('Failed to load support staff. Using fallback assignment.');
+        // Fallback support staff in case of API failure
+        supportStaff = [
+            { id: 'staff1', name: 'Support Team', specialization: 'technical' }
+        ];
+    }
 }
 
-// Tab Functionality
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const tab = button.dataset.tab;
-        
-        // Update active states
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-        
-        button.classList.add('active');
-        document.getElementById(`${tab}-tab`).classList.add('active');
-        
-        if (tab === 'history') {
-            loadFeedbackHistory();
-        }
-    });
-});
+// Initialize by loading support staff
+loadSupportStaff();
 
 // Submit Feedback
 feedbackForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log('Form submitted'); // Debug log
-
-    if (!userId || !userEmail) {
-        alert('Please log in to submit feedback');
-        return;
-    }
-
+    
+    const emailInput = document.getElementById('email');
+    const category = document.getElementById('category').value;
+    
+    // Find available support staff for the category
+    const availableStaff = supportStaff.filter(staff => 
+        staff.specialization === category && 
+        staff.status === 'available'
+    );
+    
+    // Select staff member with least cases or any available staff
+    const assignedStaff = availableStaff.length > 0
+        ? availableStaff.reduce((prev, curr) => 
+            (prev.cases_handled || 0) <= (curr.cases_handled || 0) ? prev : curr
+        )
+        : supportStaff[0];
+    
     const feedback = {
-        user_id: userId,
-        user_email: userEmail,
-        category: document.getElementById('category').value,
+        user_id: 'anonymous',
+        user_email: emailInput.value,
+        category: category,
         priority: document.getElementById('priority').value,
         subject: document.getElementById('subject').value,
         description: document.getElementById('description').value,
-        status: 'pending',
+        status: 'assigned',
         created_at: new Date().toISOString(),
-        support_staff_id: null,
-        rating: null,
-        rating_comment: null
+        support_staff_id: assignedStaff._id || assignedStaff.id,
+        support_staff_name: assignedStaff.name,
+        rating: 0,
+        rating_comment: ''
     };
 
-    console.log('Feedback data:', feedback); // Debug log
-
     try {
+        // Submit feedback
         const response = await fetch(FEEDBACK_API, {
             method: 'POST',
             headers: {
@@ -80,22 +96,37 @@ feedbackForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(feedback)
         });
 
-        console.log('Response status:', response.status); // Debug log
-
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Server error:', errorData);
             throw new Error('Failed to submit feedback');
         }
 
-        const result = await response.json();
-        console.log('Success:', result); // Debug log
+        // Update staff member's status to busy
+        const staffUpdateResponse = await fetch(`${STAFF_API}/${assignedStaff._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': APIKEY,
+                'Cache-Control': 'no-cache'
+            },
+            body: JSON.stringify({
+                status: 'busy',
+                cases_handled: (assignedStaff.cases_handled || 0) + 1
+            })
+        });
 
-        alert('Feedback submitted successfully!');
+        if (!staffUpdateResponse.ok) {
+            console.error('Failed to update staff status');
+        }
+
+        const result = await response.json();
+        console.log('Success:', result);
+        alert('Feedback submitted successfully and assigned to support staff!');
         feedbackForm.reset();
         
-        // Switch to history tab and refresh
-        document.querySelector('[data-tab="history"]').click();
+        // Reload support staff data
+        loadSupportStaff();
     } catch (error) {
         console.error('Error:', error);
         alert('Failed to submit feedback. Please try again.');
@@ -104,13 +135,8 @@ feedbackForm.addEventListener('submit', async (e) => {
 
 // Load Feedback History
 async function loadFeedbackHistory() {
-    if (!userId) {
-        feedbackList.innerHTML = '<p>Please log in to view your feedback history</p>';
-        return;
-    }
-
     try {
-        const response = await fetch(`${FEEDBACK_API}?q={"user_id":"${userId}"}`, {
+        const response = await fetch(FEEDBACK_API, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -148,6 +174,14 @@ function displayFeedbackHistory(feedbacks) {
             <p><strong>Priority:</strong> ${feedback.priority}</p>
             <p><strong>Description:</strong> ${feedback.description}</p>
             <p><strong>Submitted:</strong> ${new Date(feedback.created_at).toLocaleDateString()}</p>
+            ${feedback.support_staff_name ? `
+                <p><strong>Assigned to:</strong> ${feedback.support_staff_name}</p>
+            ` : ''}
+            ${feedback.status !== 'resolved' ? `
+                <button onclick="resolveTestFeedback('${feedback._id}')" class="submit-btn" style="background-color: #10b981;">
+                    Mark as Resolved
+                </button>
+            ` : ''}
             ${feedback.status === 'resolved' && !feedback.rating ? `
                 <button onclick="openRatingModal('${feedback._id}')" class="submit-btn">Rate Support</button>
             ` : ''}
@@ -161,12 +195,30 @@ function displayFeedbackHistory(feedbacks) {
     `).join('');
 }
 
-// Rating Functionality
+// Tab Functionality
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const tab = button.dataset.tab;
+        
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        button.classList.add('active');
+        document.getElementById(`${tab}-tab`).classList.add('active');
+        
+        if (tab === 'history') {
+            loadFeedbackHistory();
+        }
+    });
+});
+
+// Rating Modal Functionality
 function openRatingModal(feedbackId) {
     currentFeedbackId = feedbackId;
     currentRating = 0;
     ratingModal.style.display = 'block';
     updateStars(0);
+    document.getElementById('rating-comment').value = '';
 }
 
 stars.forEach(star => {
@@ -198,6 +250,23 @@ submitRatingBtn.addEventListener('click', async () => {
     }
 
     try {
+        // Get the feedback to update the staff's average rating
+        const feedbackResponse = await fetch(`${FEEDBACK_API}/${currentFeedbackId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': APIKEY,
+                'Cache-Control': 'no-cache'
+            }
+        });
+
+        if (!feedbackResponse.ok) {
+            throw new Error('Failed to get feedback details');
+        }
+
+        const feedback = await feedbackResponse.json();
+        
+        // Update feedback with rating
         const response = await fetch(`${FEEDBACK_API}/${currentFeedbackId}`, {
             method: 'PUT',
             headers: {
@@ -215,9 +284,36 @@ submitRatingBtn.addEventListener('click', async () => {
             throw new Error('Failed to submit rating');
         }
 
+        // Update staff member's status and rating
+        const staffMember = supportStaff.find(staff => staff._id === feedback.support_staff_id);
+        if (staffMember) {
+            const newAvgRating = (
+                (staffMember.average_rating * staffMember.cases_handled + currentRating) / 
+                (staffMember.cases_handled + 1)
+            ).toFixed(2);
+
+            const staffUpdateResponse = await fetch(`${STAFF_API}/${feedback.support_staff_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-apikey': APIKEY,
+                    'Cache-Control': 'no-cache'
+                },
+                body: JSON.stringify({
+                    status: 'available',
+                    average_rating: parseFloat(newAvgRating)
+                })
+            });
+
+            if (!staffUpdateResponse.ok) {
+                console.error('Failed to update staff rating');
+            }
+        }
+
         alert('Rating submitted successfully!');
         ratingModal.style.display = 'none';
         loadFeedbackHistory();
+        loadSupportStaff(); // Reload staff data
     } catch (error) {
         console.error('Error:', error);
         alert('Failed to submit rating. Please try again.');
@@ -228,14 +324,35 @@ closeModalBtn.addEventListener('click', () => {
     ratingModal.style.display = 'none';
 });
 
-// Close modal when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === ratingModal) {
         ratingModal.style.display = 'none';
     }
 });
 
-// Initial load
-if (userId) {
-    loadFeedbackHistory();
+// Test function to simulate resolving a feedback
+async function resolveTestFeedback(feedbackId) {
+    try {
+        const response = await fetch(`${FEEDBACK_API}/${feedbackId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': APIKEY,
+                'Cache-Control': 'no-cache'
+            },
+            body: JSON.stringify({
+                status: 'resolved'
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to resolve feedback');
+        }
+
+        alert('Feedback marked as resolved. Please rate the support staff.');
+        loadFeedbackHistory();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to resolve feedback. Please try again.');
+    }
 }

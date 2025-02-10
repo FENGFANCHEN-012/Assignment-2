@@ -73,13 +73,13 @@
         <nav class="categories-nav">
             <div class="container">
                 <ul class="nav-list">
-                    <li><a href="#" class="nav-link">Saved</a></li>
-                    <li><a href="#" class="nav-link">Electronics</a></li>
-                    <li><a href="#" class="nav-link">Fashion</a></li>
-                    <li><a href="#" class="nav-link">Jewellery and Watches</a></li>
-                    <li><a href="#" class="nav-link">Toys</a></li>
-                    <li><a href="#" class="nav-link">Collectables</a></li>
-                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Saved">Saved</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Electronics">Electronics</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Fashion">Fashion</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Jewellery and Watches">Jewellery and Watches</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Toys">Toys</a></li>
+                    <li><a href="#" class="nav-link" data-tag="collectables">Collectables</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Home">Home</a></li>
                 </ul>
             </div>
         </nav>
@@ -540,6 +540,45 @@ const imageUrl = base64ToBlobUrl(base64Image, "image/png");
     loadRecommendedProducts(); 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", async function (event) {
+            event.preventDefault(); 
+
+            const tag = this.getAttribute("data-tag"); 
+            const PRODUCT_API_URL = "https://jackie2-b185.restdb.io/rest/product";
+            const API_KEY = "67889bac188ac49ef5ec3e3b" ;
+            try {
+                const response = await fetch(PRODUCT_API_URL, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", "x-apikey": API_KEY }
+                });
+                const products = await response.json();
+                const filteredProducts = products.filter(product => product.tag === tag);
+
+                if (filteredProducts.length > 0) {
+                  
+                    const firstProduct = filteredProducts[0];
+                    localStorage.setItem("product-name", firstProduct.name);
+                    localStorage.setItem("product-price", firstProduct.price);
+                    localStorage.setItem("product-description", firstProduct.Description);
+                    localStorage.setItem("product-brand", firstProduct.Brand);
+                    localStorage.setItem("product-image", firstProduct.url);
+                    localStorage.setItem("product-id", firstProduct.productID);
+                    localStorage.setItem("selectedProduct", JSON.stringify(firstProduct));
+                    window.location.href = "productdetail.html";
+                } else {
+                    alert("No products found in this category.");
+                }
+            } catch (error) {
+                console.error("Failed to fetch products", error);
+                alert("Failed to load products. Please try again later.");
+            }
+        });
+    });
+});
 localStorage.setItem("friend", JSON.stringify([...friendList]));
 
 

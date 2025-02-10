@@ -70,8 +70,11 @@
                     <option value="electronics">Electronics</option>
                     <option value="fashion">Fashion</option>
                     <option value="home">Home</option>
-                    <option value="sports">Sports</option>
-                    <option value="other">Other</option>
+                    <option value="sports">
+                        Collectables
+                        </option>
+                      
+                    <option value="other">Jewellery and Watches</option>
                 </select>
             </div>
 
@@ -108,7 +111,7 @@
         });
 
         // Product form submission
-        const APIKEY = "67971683f9d2bb616f181e2b";
+        const APIKEY = "67889bac188ac49ef5ec3e3b"; //67971683f9d2bb616f181e2b
         const form = document.getElementById('addProductForm');
 
         form.addEventListener('submit', async function (e) {
@@ -153,7 +156,7 @@
                 };
 
                 try {
-                    const response = await fetch("https://assignmentfed-fb7a.restdb.io/rest/product", settings);
+                    const response = await fetch("https://jackie2-b185.restdb.io/rest/product", settings);
 
                     if (response.ok) {
                         alert("Product added successfully!");

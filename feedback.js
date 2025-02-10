@@ -179,7 +179,7 @@ function displayFeedbackHistory(feedbacks) {
             ` : ''}
             ${feedback.status !== 'resolved' ? `
                 <button onclick="resolveTestFeedback('${feedback._id}')" class="submit-btn" style="background-color: #10b981;">
-                    Test: Mark as Resolved
+                    Mark as Resolved
                 </button>
             ` : ''}
             ${feedback.status === 'resolved' && !feedback.rating ? `
@@ -349,7 +349,7 @@ async function resolveTestFeedback(feedbackId) {
             throw new Error('Failed to resolve feedback');
         }
 
-        alert('Feedback marked as resolved. You can now test the rating system.');
+        alert('Feedback marked as resolved. Please rate the support staff.');
         loadFeedbackHistory();
     } catch (error) {
         console.error('Error:', error);

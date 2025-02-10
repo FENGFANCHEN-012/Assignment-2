@@ -40,7 +40,7 @@
     <canvas id="gameCanvas"></canvas>
     <div class="voucher" id="voucher">Congratulations! You've earned a 10% discount coupon!</div>
     <script>
-        const API_KEY = "67971683f9d2bb616f181e2b";
+        const API_KEY = "67aa072d020c065268e653c8";
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -106,7 +106,7 @@
 
                 if (userAwards.length === 0) {
                     // Create new rewards if none exist
-                    const newAward = await fetch("https://assignmentfed-fb7a.restdb.io/rest/award", {
+                    const newAward = await fetch("https://testa-cdb8.restdb.io/rest/award", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -126,7 +126,7 @@
                     userAwards.forEach(async award => {
                         if (award.type === '10%') {
                             localStorage.setItem("type10", award._id);
-                            await fetch(`https://assignmentfed-fb7a.restdb.io/rest/award/${award._id}`, {
+                            await fetch(`https://testa-cdb8.restdb.io/rest/award/${award._id}`, {
                                 method: "PATCH",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -139,7 +139,7 @@
                 }
 
                 alert('You earned 50 points! Game over.');
-                window.location.href='http://127.0.0.1:5500/myaward.html'
+                window.location.href='myaward.html'
             }
         }
 

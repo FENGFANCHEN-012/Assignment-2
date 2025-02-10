@@ -24,7 +24,6 @@
                         </a>
                     </div>
                     
-                    
                     <div class="search-wrapper">
                         <input type="text" class="search-input" placeholder="Search for items...">
                         <button class="search-button">
@@ -41,7 +40,6 @@
             </div>
         </div>
       
-       
         <nav class="categories-nav">
             <div class="container">
                 <ul class="nav-list">
@@ -55,28 +53,28 @@
                 </ul>
             </div>
         </nav>
-        <!-- Login Panel -->
-    <div class="auth-panel" id="login-panel">
-        <div class="auth-content">
-            <h3>Login</h3>
-            <a href="login.html" class="auth-link">Login In</a>
-            <button class="social-btn">Google</button>
-            <button class="social-btn">Facebook</button>
-            <p>New user? <a href="sign%20up.html">Sign up here</a></p>
-        </div>
-    </div>
 
-    <!-- Sell Panel -->
-    <div class="auth-panel" id="sell-panel">
-        <div class="auth-content">
-            <p>You haven't logged in yet</p>
-            <p>Log In <a href="login.html">here</a></p>
+        <!-- Login Panel -->
+        <div class="auth-panel" id="login-panel">
+            <div class="auth-content">
+                <h3>Login</h3>
+                <a href="login.html" class="auth-link">Login In</a>
+                <button class="social-btn">Google</button>
+                <button class="social-btn">Facebook</button>
+                <p>New user? <a href="sign%20up.html">Sign up here</a></p>
+            </div>
         </div>
-    </div>
+
+        <!-- Sell Panel -->
+        <div class="auth-panel" id="sell-panel">
+            <div class="auth-content">
+                <p>You haven't logged in yet</p>
+                <p>Log In <a href="login.html">here</a></p>
+            </div>
+        </div>
     </header>
     
-    
-    <div >                                     &nbsp  &nbsp  &nbsp  &nbsp</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
     <main class="main-content" style="margin-top:15vw">
         <div class="container">
             <section class="game-section" id="game">
@@ -120,16 +118,17 @@
 
             <section class="for-you">
                 <h2>Recommended for You</h2>
+                <div id="recommended-loading" style="display: flex; justify-content: center; width: 100%;">
+                    <dotlottie-player src="https://lottie.host/92d876b3-0b70-4bf0-beae-400c681ff9dd/YU72bij2XY.lottie" 
+                        background="transparent" 
+                        speed="1" 
+                        style="width: 300px; height: 300px" 
+                        loop 
+                        autoplay>
+                    </dotlottie-player>
+                </div>
                 <div class="products-grid">
-                    <!-- Product cards will be repeated 8 times -->
-                    <div class="product-card">
-                        <div class="product-image"></div>
-                        <div class="product-info">
-                            <h3>Product Title</h3>
-                            <p class="price">$199.99</p>
-                        </div>
-                    </div>
-                    <!-- Repeat 7 more times -->
+                    <!-- Product cards will be loaded here dynamically -->
                 </div>
                 <div class="load-more">
                     <button class="btn-load-more">Load More</button>
@@ -140,14 +139,15 @@
 
     <script>
         // Initialize user state
-
-        // Auth panel functionality
         const loginBtn = document.getElementById('login-btn');
         const signupBtn = document.getElementById('signup-btn');
         const sellBtn = document.getElementById('sell-btn');
         const loginPanel = document.getElementById('login-panel');
         const sellPanel = document.getElementById('sell-panel');
         const loadingAnimation = document.getElementById('loading-animation');
+        const recommendedLoadingAnimation = document.getElementById('recommended-loading');
+        const APIKEY = '67aa072d020c065268e653c8';
+        const API_URL = "https://testa-cdb8.restdb.io/rest/product";
 
         function togglePanel(panel) {
             if (panel.style.display === 'block') {
@@ -179,7 +179,7 @@
 
         function requireLogin() {
             alert('Please Log In First');
-            window.location.href = 'login.html';  // Changed to redirect to login page
+            window.location.href = 'login.html';
         }
 
         checkBtn.addEventListener('click', requireLogin);
@@ -198,8 +198,6 @@
         });
 
         // Trusted sellers section
-        const APIKEY = '67aa072d020c065268e653c8';
-        const API_URL = "https://testa-cdb8.restdb.io/rest/product";
         const sellersContainer = document.getElementById('seller');
         const scrollBtn = document.getElementById('but2');
         
@@ -277,30 +275,31 @@
             console.error('Error:', error);
             sellersContainer.innerHTML = '<p>Failed to load trusted sellers. Please try again later.</p>';
         });
-        async function loadRecommendedProducts() {
 
+        // Recommended products section
+        const recommendedContainer = document.querySelector(".products-grid");
+
+        async function loadRecommendedProducts() {
             try {
-                const response = await fetch(PRODUCT_API_URL, {
+                const response = await fetch(API_URL, {
                     method: "GET",
-                    headers: { "Content-Type": "application/json", "x-apikey": api }
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache"
+                    }
                 });
-    
+
                 const products = await response.json();
-                recommendedContainer.innerHTML = ""; 
-    
+                
+                // Hide loading animation once data is loaded
+                recommendedLoadingAnimation.style.display = 'none';
+                recommendedContainer.innerHTML = "";
+
                 products.forEach(product => {
                     const productCard = document.createElement("div");
                     productCard.classList.add("product-card");
-    
-                    productCard.innerHTML = `
-                        <div class="product-image">
-                            <img src="${product.image || 'default-image.jpg'}" alt="${product.name}" style="width: 100%; height: auto;">
-                        </div>
-                        <div class="product-info">
-                            <h3>${product.name}</h3>
-                            <p class="price">$${product.price || 'N/A'}</p>
-                        </div>
-                    `;
+
                     function base64ToBlobUrl(base64, contentType = "image/png") {
                         const byteCharacters = atob(base64);
                         const byteNumbers = new Array(byteCharacters.length);
@@ -311,9 +310,20 @@
                         const blob = new Blob([byteArray], { type: contentType });
                         return URL.createObjectURL(blob);
                     }
-                    const base64Image = product.url; 
-    const imageUrl = base64ToBlobUrl(base64Image, "image/png");
-                  
+
+                    const base64Image = product.url;
+                    const imageUrl = base64ToBlobUrl(base64Image, "image/png");
+
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${imageUrl}" alt="${product.name}" style="width: 100%; height: auto;">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">$${product.price || 'N/A'}</p>
+                        </div>
+                    `;
+
                     productCard.addEventListener("click", () => {
                         localStorage.setItem("product-name", product.name);
                         localStorage.setItem("product-price", product.price);
@@ -323,37 +333,44 @@
                         localStorage.setItem("product-id", product.productID);
                         localStorage.setItem("selectedProduct", JSON.stringify(product));
                         window.location.href = "productdetail.html";
-    
                     });
-                    
+
                     recommendedContainer.appendChild(productCard);
                 });
-    
             } catch (error) {
+                // Hide loading animation and show error message
+                recommendedLoadingAnimation.style.display = 'none';
                 console.error("Failed to fetch recommended products", error);
+                recommendedContainer.innerHTML = '<p>Failed to load recommended products. Please try again later.</p>';
             }
         }
-      loadRecommendedProducts();
+
+        // Load recommended products when the page loads
+        loadRecommendedProducts();
+
+        // Category navigation functionality
         document.addEventListener("DOMContentLoaded", function () {
             const navLinks = document.querySelectorAll(".nav-link");
-        
+
             navLinks.forEach(link => {
                 link.addEventListener("click", async function (event) {
-                    event.preventDefault(); 
-        
-                    const tag = this.getAttribute("data-tag"); 
-                    const PRODUCT_API_URL = "https://testa-cdb8.restdb.io/rest/product";
+                    event.preventDefault();
+
+                    const tag = this.getAttribute("data-tag");
                     
                     try {
-                        const response = await fetch(PRODUCT_API_URL, {
+                        const response = await fetch(API_URL, {
                             method: "GET",
-                            headers: { "Content-Type": "application/json", "x-apikey":api}
+                            headers: {
+                                "Content-Type": "application/json",
+                                "x-apikey": APIKEY,
+                                "Cache-Control": "no-cache"
+                            }
                         });
                         const products = await response.json();
                         const filteredProducts = products.filter(product => product.tag === tag);
-        
+
                         if (filteredProducts.length > 0) {
-                          
                             const firstProduct = filteredProducts[0];
                             localStorage.setItem("product-name", firstProduct.name);
                             localStorage.setItem("product-price", firstProduct.price);
@@ -374,5 +391,5 @@
             });
         });
     </script>
-  </body>
+</body>
 </html>

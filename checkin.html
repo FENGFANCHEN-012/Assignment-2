@@ -182,7 +182,7 @@ console.log("Comparison result:", lastSignInDate !== today);
         
                 if (signedInDays >= 15) {
                     // Handle reward creation or update
-                    const awardResponse = await fetch("https://assignmentfed-fb7a.restdb.io/rest/award",{method: "GET",
+                    const awardResponse = await fetch("https://testa-cdb8.restdb.io/rest/award",{method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
                                 "x-apikey": APIKEY
@@ -195,7 +195,7 @@ console.log("Comparison result:", lastSignInDate !== today);
         
                     if (!userAward) {
                         // No reward exists, create one
-                        await fetch("https://assignmentfed-fb7a.restdb.io/rest/award", {
+                        await fetch("https://testa-cdb8.restdb.io/rest/rest/award", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -209,7 +209,7 @@ console.log("Comparison result:", lastSignInDate !== today);
                         });
                     } else {
                         // Reward exists, update the number
-                        await fetch(`https://assignmentfed-fb7a.restdb.io/rest/award/${userAward._id}`, {
+                        await fetch(`https://testa-cdb8.restdb.io/rest/award/${userAward._id}`, {
                             method: "PATCH",
                             headers: {
                                 "Content-Type": "application/json",

@@ -3,213 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - FindSell</title>
-    <link rel="stylesheet" href="userStyle.css">
-    <link rel="stylesheet" href="css.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="my.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        
-  
-        .header {
-            background: #007BFF;
-            color: white;
-            padding: 15px 0;
-            text-align: center;
-        }
-        
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo {
-            height: 40px;
-        }
-        
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 20px;
-            padding: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .search-input {
-            border: none;
-            padding: 8px;
-            width: 200px;
-            border-radius: 20px;
-            outline: none;
-        }
-        
-        .search-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-        
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-        }
-        
-        .my-account-btn {
-            background: white;
-            color: #007BFF;
-            border: 1px solid #007BFF;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        .my-account-btn:hover {
-            background: #007BFF;
-            color: white;
-        }
-        
-        .sell-btn {
-            background: #28a745;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin-left: 10px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        
-        .sell-btn:hover {
-            background: #218838;
-        }
-        
-
-        .user-profile {
-            background: white;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .user-profile h2 {
-            color: #333;
-        }
-        
-        .user-profile p {
-            font-size: 16px;
-            color: #666;
-        }
-        
-        
-        .chat-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .chat-box {
-            display: flex;
-            flex-direction: column;
-            height: 350px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .chat-header {
-            background: #007BFF;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            background: #f9f9f9;
-        }
-        
-        .message {
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-        
-        .message.user {
-            background: #007BFF;
-            color: white;
-            align-self: flex-end;
-        }
-        
-        .message.bot {
-            background: #ddd;
-            color: #333;
-            align-self: flex-start;
-        }
-        
-        
-        .chat-input {
-            display: flex;
-            padding: 10px;
-            background: white;
-            border-top: 1px solid #ddd;
-        }
-        
-        #userInput {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-        }
-        
-        #sendMessage {
-            background: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        #sendMessage:hover {
-            background: #0056b3;
-        }
-        
-        
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .chat-messages::-webkit-scrollbar-thumb {
-            background-color: #007BFF;
-            border-radius: 5px;
-        }
-        
-    </style>
+    <title>Chat - FindSell</title>
+    <link rel="stylesheet" href="talkStyle.css">
 </head>
 <body>
     <header class="header">
@@ -229,9 +24,9 @@
             </div>
 
             <div class="nav-buttons">
-                <div class="account-wrapper" style="position: relative;">
+                <div class="account-wrapper">
                     <button class="my-account-btn" id="account-btn">My Account</button>
-                    <div class="dropdown" style="display:none;">
+                    <div class="dropdown">
                         <a href="myaccount.html">My Account</a>
                         <a href="myproduct.html">My Products</a>
                         <a href="myfriend.html">My Friends</a>
@@ -244,35 +39,76 @@
     </header>
     
     <main class="main-content">
-      
-        
         <div class="chat-container">
             <div class="chat-box">
-                <div class="chat-header">Chat with <span id="u-n">User</span></div>
+                <div class="chat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="10" r="3"/>
+                        <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/>
+                    </svg>
+                    Chat with <span id="u-n">User</span>
+                </div>
                 <div class="chat-messages" id="chatMessages"></div>
                 <div class="chat-input">
-                    <input type="text" id="userInput" placeholder="Type a message...">
-                    <button id="sendMessage" class="my-account-btn">Send</button>
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="Type a message..." 
+                        onkeypress="if(event.key === 'Enter') document.getElementById('sendMessage').click()"
+                    >
+                    <button id="sendMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m22 2-7 20-4-9-9-4Z"/>
+                            <path d="M22 2 11 13"/>
+                        </svg>
+                        Send
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        let others = localStorage.getItem("selectedUser")
-        let other = JSON.parse(others)
-        let userId=  localStorage.getItem("usrid")
+        let others = localStorage.getItem("selectedUser");
+        let other = JSON.parse(others);
+        let userId = localStorage.getItem("usrid");
         let usrmail = localStorage.getItem("usremail");
-      
-        const API_URL = "https://jackie2-b185.restdb.io/rest/message";
-        const API_KEY = "67889bac188ac49ef5ec3e3b";
-   
-        const otherUserId = other.otherid; // Replace with actual target user ID
-        fetchMessages();
-    
-        document.getElementById("sendMessage").addEventListener("click", async function() {
-            let userMessage = document.getElementById("userInput").value;
-            if (userMessage.trim() === "") return;
+        
+        // Update user name in header
+        document.getElementById("u-n").textContent = other.othername || "User";
+        
+        // Account dropdown functionality
+        const accountBtn = document.getElementById('account-btn');
+        const dropdown = document.querySelector('.dropdown');
+        
+        accountBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target) && event.target !== accountBtn) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        const API_URL = "https://testa-cdb8.restdb.io/rest/message";
+        const API_KEY = "67aa072d020c065268e653c8";
+        const otherUserId = other.otherid;
+
+        // Auto-scroll to bottom of chat
+        function scrollToBottom() {
+            const chatMessages = document.getElementById("chatMessages");
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send message function
+        async function sendMessage() {
+            let userInput = document.getElementById("userInput");
+            let userMessage = userInput.value.trim();
+            
+            if (!userMessage) return;
             
             let chatBox = document.getElementById("chatMessages");
             let userBubble = document.createElement("div");
@@ -280,7 +116,8 @@
             userBubble.textContent = userMessage;
             chatBox.appendChild(userBubble);
             
-            document.getElementById("userInput").value = "";
+            userInput.value = "";
+            scrollToBottom();
             
             try {
                 await fetch(API_URL, {
@@ -299,8 +136,9 @@
             } catch (error) {
                 console.error("Failed to send message", error);
             }
-        });
+        }
 
+        // Fetch messages function
         async function fetchMessages() {
             try {
                 const response = await fetch(API_URL, {
@@ -316,20 +154,28 @@
                 chatBox.innerHTML = "";
                 
                 messages.forEach(msg => {
-                    if (msg.usrid === other.otherid && msg.posterid==userId) {
+                    if (msg.usrid === other.otherid && msg.posterid === userId) {
                         let msgBubble = document.createElement("div");
                         msgBubble.classList.add("message", msg.posterid === userId ? "user" : "bot");
                         msgBubble.textContent = msg.content;
                         chatBox.appendChild(msgBubble);
                     }
                 });
+                
+                scrollToBottom();
             } catch (error) {
                 console.error("Failed to fetch messages", error);
             }
         }
-       fetchMessages();
-    
+
+        // Event listeners
+        document.getElementById("sendMessage").addEventListener("click", sendMessage);
+        
+        // Initial fetch
+        fetchMessages();
+        
+        // Periodic refresh (every 5 seconds)
+        setInterval(fetchMessages, 5000);
     </script>
-    
 </body>
 </html>

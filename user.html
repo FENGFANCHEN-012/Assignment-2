@@ -281,35 +281,55 @@
                         test2account = "https://fedpart2-130c.restdb.io/rest/account"
                             test3  = "67a9a09c020c068f77e6537d"
                            const userID = localStorage.getItem("usrid")
-                           document.addEventListener("DOMContentLoaded", function () {
-                            const authContent = document.getElementsByClassName("auth-panel")[0];
-                            const sendRequestBtn = document.getElementById("add");
-                            if(friendlist.has(other.otherid)){
-                                 sendRequestBtn.style.display = 'none'
-                            }
-                          
-                                
-                                data.forEach(data=>{
-                                if(friendlist.has(data.usrid)){
-                                    sendRequestBtn.style.display='none'
+
+
+                           document.addEventListener("DOMContentLoaded", async function () {
+                            const response = await fetch("https://fedpart2-130c.restdb.io/rest/account", {
+                                method: "GET",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "x-apikey": "67a9a09c020c068f77e6537d",
+                                    "Cache-Control": "no-cache"
                                 }
-                            })} )
-                           const  testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
+                            });
+                        
+                            if (!response.ok) {
+                                console.error("Failed to fetch data");
+                                return;
+                            }
+                        
+                            const data = await response.json(); 
+                        
+                            data.forEach(user => {
+                                if (friendlist.has(user.usrid)) {
+                                    sendRequestBtn.style.display = 'none';
+                                }
+                            });
+                        });
+                           const  testmessage = "https://jackie2-b185.restdb.io/rest/message" //////////////
                            
+                           document.addEventListener("DOMContentLoaded", function () {
+                            const authContent = document.getElementById("login-panel"); 
+                            const sendRequestBtn = document.getElementById("add");
+                        
+                            if (!sendRequestBtn) {
+                                console.error("sendRequestBtn is not found");
+                                return;
+                            }
+                        
                             sendRequestBtn.addEventListener("click", function (event) {
-                                authContent.style.display = "block";
                                 event.stopPropagation();
+                                authContent.style.display = "block"; 
                             });
                         
-                          
                             authContent.addEventListener("click", function (event) {
-                                event.stopPropagation(); // prevent body click
+                                event.stopPropagation(); 
                             });
                         
-                            // press other place hide panel
                             document.body.addEventListener("click", function () {
-                                authContent.style.display = "none";
+                                authContent.style.display = "none"; 
                             });
+                        });
                               
                         
 
@@ -439,14 +459,14 @@
         document.getElementById("name-display").innerText = other.othername
         document.getElementById("email-display").innerText = other.otheremail
         document.getElementById("bio-display").innerText = other.otherbio
-        account = "https://jackm-ff5c.restdb.io/rest/account"
+     //   account = "https://jackm-ff5c.restdb.io/rest/account"
         testaccount = "https://assignmentfed-fb7a.restdb.io/rest/account"
          
-        commenturl = "https://jackm-ff5c.restdb.io/rest/usercomment"
+      //  commenturl = "https://jackm-ff5c.restdb.io/rest/usercomment"
         commenttesturl   = "https://assignmentfed-fb7a.restdb.io/rest/usercomment"
-        const producturl =  "https://jackm-ff5c.restdb.io/rest/product"
+       // const producturl =  "https://jackm-ff5c.restdb.io/rest/product"
         const testproducturl = "https://assignmentfed-fb7a.restdb.io/rest/product";
-        api = "678fa7439bd0c87432ac8bee"
+        api = "67889bac188ac49ef5ec3e3b"
          test = "67971683f9d2bb616f181e2b"
         test3  = "67a9a09c020c068f77e6537d"
        const APIKEY = api;

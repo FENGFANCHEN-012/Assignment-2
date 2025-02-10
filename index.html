@@ -41,16 +41,17 @@
             </div>
         </div>
       
+       
         <nav class="categories-nav">
             <div class="container">
                 <ul class="nav-list">
-                    <li><a href="#" class="nav-link">Saved</a></li>
-                    <li><a href="#" class="nav-link">Electronics</a></li>
-                    <li><a href="#" class="nav-link">Fashion</a></li>
-                    <li><a href="#" class="nav-link">Jewellery and Watches</a></li>
-                    <li><a href="#" class="nav-link">Toys</a></li>
-                    <li><a href="#" class="nav-link">Collectables</a></li>
-                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Saved">Saved</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Electronics">Electronics</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Fashion">Fashion</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Jewellery and Watches">Jewellery and Watches</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Toys">Toys</a></li>
+                    <li><a href="#" class="nav-link" data-tag="collectables">Collectables</a></li>
+                    <li><a href="#" class="nav-link" data-tag="Home">Home</a></li>
                 </ul>
             </div>
         </nav>
@@ -197,8 +198,8 @@
         });
 
         // Trusted sellers section
-        const APIKEY = '67a9a09c020c068f77e6537d';
-        const API_URL = "https://fedpart2-130c.restdb.io/rest/account";
+        const APIKEY = '67aa072d020c065268e653c8';
+        const API_URL = "https://testa-cdb8.restdb.io/rest/product";
         const sellersContainer = document.getElementById('seller');
         const scrollBtn = document.getElementById('but2');
         
@@ -275,6 +276,102 @@
             loadingAnimation.style.display = 'none';
             console.error('Error:', error);
             sellersContainer.innerHTML = '<p>Failed to load trusted sellers. Please try again later.</p>';
+        });
+        async function loadRecommendedProducts() {
+
+            try {
+                const response = await fetch(PRODUCT_API_URL, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", "x-apikey": api }
+                });
+    
+                const products = await response.json();
+                recommendedContainer.innerHTML = ""; 
+    
+                products.forEach(product => {
+                    const productCard = document.createElement("div");
+                    productCard.classList.add("product-card");
+    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image || 'default-image.jpg'}" alt="${product.name}" style="width: 100%; height: auto;">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="price">$${product.price || 'N/A'}</p>
+                        </div>
+                    `;
+                    function base64ToBlobUrl(base64, contentType = "image/png") {
+                        const byteCharacters = atob(base64);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: contentType });
+                        return URL.createObjectURL(blob);
+                    }
+                    const base64Image = product.url; 
+    const imageUrl = base64ToBlobUrl(base64Image, "image/png");
+                  
+                    productCard.addEventListener("click", () => {
+                        localStorage.setItem("product-name", product.name);
+                        localStorage.setItem("product-price", product.price);
+                        localStorage.setItem("product-description", product.Description);
+                        localStorage.setItem("product-brand", product.Brand);
+                        localStorage.setItem("product-image", imageUrl);
+                        localStorage.setItem("product-id", product.productID);
+                        localStorage.setItem("selectedProduct", JSON.stringify(product));
+                        window.location.href = "productdetail.html";
+    
+                    });
+                    
+                    recommendedContainer.appendChild(productCard);
+                });
+    
+            } catch (error) {
+                console.error("Failed to fetch recommended products", error);
+            }
+        }
+      loadRecommendedProducts();
+        document.addEventListener("DOMContentLoaded", function () {
+            const navLinks = document.querySelectorAll(".nav-link");
+        
+            navLinks.forEach(link => {
+                link.addEventListener("click", async function (event) {
+                    event.preventDefault(); 
+        
+                    const tag = this.getAttribute("data-tag"); 
+                    const PRODUCT_API_URL = "https://testa-cdb8.restdb.io/rest/product";
+                    
+                    try {
+                        const response = await fetch(PRODUCT_API_URL, {
+                            method: "GET",
+                            headers: { "Content-Type": "application/json", "x-apikey":api}
+                        });
+                        const products = await response.json();
+                        const filteredProducts = products.filter(product => product.tag === tag);
+        
+                        if (filteredProducts.length > 0) {
+                          
+                            const firstProduct = filteredProducts[0];
+                            localStorage.setItem("product-name", firstProduct.name);
+                            localStorage.setItem("product-price", firstProduct.price);
+                            localStorage.setItem("product-description", firstProduct.Description);
+                            localStorage.setItem("product-brand", firstProduct.Brand);
+                            localStorage.setItem("product-image", firstProduct.url);
+                            localStorage.setItem("product-id", firstProduct.productID);
+                            localStorage.setItem("selectedProduct", JSON.stringify(firstProduct));
+                            window.location.href = "productdetail.html";
+                        } else {
+                            alert("No products found in this category.");
+                        }
+                    } catch (error) {
+                        console.error("Failed to fetch products", error);
+                        alert("Failed to load products. Please try again later.");
+                    }
+                });
+            });
         });
     </script>
   </body>

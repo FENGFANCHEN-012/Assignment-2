@@ -41,8 +41,31 @@
                         </div>
                         <a href="product.html" class="btn-sell">Sell</a>
                     </div>
+                    <div id="message">
+                        <img src="—Pngtree—mail icon_5990813.png" style="width:5.5vw">
+                        
+                    </div>
+                    
+                    <div id="message-box" >
+                        <h3>Messages</h3>
+                        <div id="message-content">
+                         
+                        </div>
+                        <button id="close-message-box">Close</button>
+                    </div>
+<script>
+      
+    document.getElementById("message").addEventListener("click", function(){
+        document.getElementById("message-box").style.display='block'
+    loadMessages();
+     
+    });
+</script>
+                    
                 </div>
+                
             </div>
+          
         </div>
 
         <nav class="categories-nav">
@@ -116,13 +139,17 @@
 
     <script>
         // Initialize variables
+        const message = null
+        const testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
         const account = "https://jackm-ff5c.restdb.io/rest/account";
         const api = "678fa7439bd0c87432ac8bee";
+        const testapi = "67971683f9d2bb616f181e2b"
         const usrmail = localStorage.getItem("usremail");
         const idnum = localStorage.getItem("usrid");
         
         document.getElementById("usrem").innerHTML = usrmail;
 
+      
         // Account dropdown functionality
         const accountBtn = document.getElementById('account-btn');
         const dropdown = document.querySelector('.dropdown');
@@ -218,6 +245,99 @@
             });
         })
         .catch(error => console.error('Error:', error));
+  // user's message
+ 
+
+async function loadMessages() {
+    console.log("Loading messages..."); 
+   
+    try {
+        const response = await fetch(testmessage, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey":testapi ,
+                "Cache-Control": "no-cache",
+               
+            },
+        });
+
+        const data = await response.json();
+        
+        const messageContent = document.getElementById("message-content");
+        messageContent.innerHTML = ""; 
+
+        
+        const userId = localStorage.getItem("usrid");
+        let hasMessages = false;
+
+        data.forEach(msg => {
+            if (msg.usrid === userId) {
+                hasMessages = true;
+                const messageItem = document.createElement("div");
+                messageItem.classList.add("message-item");
+                messageItem.setAttribute('data-msg-id', msg._id);
+
+                if (msg.type === "Frequest") {
+                    // if it is friend request
+                    messageItem.innerHTML = `
+                        <p><strong>${msg.sender}</strong> sent you a friend request.</p>
+                        <button class="btn-accept" onclick="accept('${msg.posterid}')">Accept</button>
+                        <button class="btn-reject" onclick="reject('${msg.posterid}')">Reject</button>
+                    `;
+                   
+                } else if (msg.type === "msg") {
+                    // if it is normal message
+                    messageItem.innerHTML = `
+                        <p><strong>${msg.sender}:</strong> ${msg.content}</p>
+                    `;
+                }
+
+                messageContent.appendChild(messageItem);
+            }
+        });
+
+        if (!hasMessages) {
+            messageContent.innerHTML = "<p>No new messages.</p>";
+        }
+
+       
+        document.getElementById("message-box").style.display = "block";
+    } catch (error) {
+        alert("Error loading messages:", error);
+    }
+}
+
+
+document.getElementById("close-message-box").addEventListener("click", () => {
+    document.getElementById("message-box").style.display = "none";
+});
+let friendList = {
+
+}
+
+function accept(posterid){
+        friendList.add(posterid)
+        
+}
+function reject(posterID){
+    fetch(testmessage, {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            "x-apikey":testapi ,
+            "Cache-Control": "no-cache",
+          
+        },
+        body: JSON.stringify({
+           usrid : posterID,
+           posterid : idnum,
+           content :"reject your friend request" ,
+           type:"msg"
+        })
+      })
+
+}
     </script>
 
 </body>

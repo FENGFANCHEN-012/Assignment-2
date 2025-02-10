@@ -8,7 +8,25 @@
     <link rel="stylesheet" href="css.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="my.css">
+   
     <style>
+        /* don't delete this first style*/
+        .auth-panel {
+            
+            margin-right:30em;
+            margin-top:15em;
+            display: none;
+
+            position:fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 300px;
+        
+        }
         .product-image{
          width:50vw;
          height:40vw;
@@ -173,6 +191,7 @@
             display: none;
         }
     </style>
+    
 </head>
 <script>
       
@@ -240,29 +259,78 @@
                 <div class="product-content" style="align-items: center;justify-content:center;width:100%">
                     <img id="img" src="" >
                     <button id="add"> Add Friend</button>
+                    <div class="auth-panel" id="login-panel">
+                        <div class="auth-content">
+                            <h3>Send Friend Request</h3>
+                            <section style="display:flex">
+                               
+            
+                            </section>
+                            <h4>Description of Yourself</h4>
+                            <textarea placeholder="Hi! Nice To Meet You" id="self">
+
+                            </textarea>
+                            <button id="send">Send</button>
+                        </div>
+                    </div>
                     <script>
-                              document.getElementById("add").addEventListener("click",function(event){
-                                event.preventDefault();
-                                alert("Friend Request Sent")
+                           const userID = localStorage.getItem("usrid")
+                           document.addEventListener("DOMContentLoaded", function () {
+                            const authContent = document.getElementsByClassName("auth-panel")[0];
+                            const sendRequestBtn = document.getElementById("add");
+                           const  testmessage = "https://assignmentfed-fb7a.restdb.io/rest/message"
+                          
+                            sendRequestBtn.addEventListener("click", function (event) {
+                                authContent.style.display = "block";
+                                event.stopPropagation();
+                            });
+                        
+                          
+                            authContent.addEventListener("click", function (event) {
+                                event.stopPropagation(); // prevent body click
+                            });
+                        
+                            // press other place hide panel
+                            document.body.addEventListener("click", function () {
+                                authContent.style.display = "none";
+                            });
+                        });
+                        
+
+                              document.getElementById("send").addEventListener("click",function(event){
+                               try{
                                 const s1 = {
-                                    method: "GET",
+                                    method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",
                                         "x-apikey": APIKEY,
                                         "Cache-Control": "no-cache",
                                     },
                                     body: JSON.stringify({
-                                        usrid : userId,
+                                        usrid : other.otherid,
                                         type: "Frequest",
-                                      content: ""
+                                      content: document.getElementById("self").value,
+                                      posterid:userID
                                     }
                                     )
                                         
                                      
                                 };
-                                const msg = fetch("https://jackm-ff5c.restdb.io/rest/message",s1)
-
-                              })
+                                const msg = fetch(testmessage,s1)
+                                .then(response=>{
+                                    if(response.ok){
+                                        alert("Friend Request Sent")
+                                    }
+                                    if(!reponse.ok){
+                                        alert("fail to send friend Request, try again ")
+                                    }
+                                })
+                            }
+                            catch(error){
+                                alert("Friend Request fail")
+                            }
+                            
+                            })
                     </script>
                     
                     <div class="product-item" id='info' style="margin-bottom: 20px;">

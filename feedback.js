@@ -1,7 +1,6 @@
 // Constants
-const APIKEY = '678fa7439bd0c87432ac8bee';
-const FEEDBACK_API = 'https://jackm-ff5c.restdb.io/rest/feedback';
-const SUPPORT_STAFF_API = 'https://jackm-ff5c.restdb.io/rest/support-staff';
+const APIKEY = '67a9a09c020c068f77e6537d';
+const FEEDBACK_API = 'https://fedpart2-130c.restdb.io/rest/feedback';
 
 // DOM Elements
 const feedbackForm = document.getElementById('feedback-form');
@@ -16,14 +15,53 @@ const closeModalBtn = document.getElementById('close-modal');
 // State
 let currentFeedbackId = null;
 let currentRating = 0;
-const userId = localStorage.getItem('usrid');
-const userEmail = localStorage.getItem('usremail');
 
-// Display user email
-const userEmailElement = document.getElementById('usrem');
-if (userEmailElement) {
-    userEmailElement.textContent = userEmail || '';
-}
+// Submit Feedback
+feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const emailInput = document.getElementById('email');
+    
+    const feedback = {
+        user_id: 'anonymous',
+        user_email: emailInput.value,
+        category: document.getElementById('category').value,
+        priority: document.getElementById('priority').value,
+        subject: document.getElementById('subject').value,
+        description: document.getElementById('description').value,
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        support_staff_id: '',
+        rating: 0,
+        rating_comment: ''
+    };
+
+    try {
+        const response = await fetch(FEEDBACK_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': APIKEY,
+                'Cache-Control': 'no-cache'
+            },
+            body: JSON.stringify(feedback)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Server error:', errorData);
+            throw new Error('Failed to submit feedback');
+        }
+
+        const result = await response.json();
+        console.log('Success:', result);
+        alert('Feedback submitted successfully!');
+        feedbackForm.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to submit feedback. Please try again.');
+    }
+});
 
 // Tab Functionality
 tabButtons.forEach(button => {
@@ -43,74 +81,18 @@ tabButtons.forEach(button => {
     });
 });
 
-// Submit Feedback
-feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    console.log('Form submitted'); // Debug log
-
-    if (!userId || !userEmail) {
-        alert('Please log in to submit feedback');
-        return;
-    }
-
-    const feedback = {
-        user_id: userId,
-        user_email: userEmail,
-        category: document.getElementById('category').value,
-        priority: document.getElementById('priority').value,
-        subject: document.getElementById('subject').value,
-        description: document.getElementById('description').value,
-        status: 'pending',
-        created_at: new Date().toISOString(),
-        support_staff_id: null,
-        rating: null,
-        rating_comment: null
-    };
-
-    console.log('Feedback data:', feedback); // Debug log
-
-    try {
-        const response = await fetch(FEEDBACK_API, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-apikey': APIKEY,
-                'Cache-Control': 'no-cache'
-            },
-            body: JSON.stringify(feedback)
-        });
-
-        console.log('Response status:', response.status); // Debug log
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Server error:', errorData);
-            throw new Error('Failed to submit feedback');
-        }
-
-        const result = await response.json();
-        console.log('Success:', result); // Debug log
-
-        alert('Feedback submitted successfully!');
-        feedbackForm.reset();
-        
-        // Switch to history tab and refresh
-        document.querySelector('[data-tab="history"]').click();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to submit feedback. Please try again.');
-    }
-});
-
 // Load Feedback History
 async function loadFeedbackHistory() {
-    if (!userId) {
-        feedbackList.innerHTML = '<p>Please log in to view your feedback history</p>';
+    const emailInput = document.getElementById('email');
+    const userEmail = emailInput.value;
+
+    if (!userEmail) {
+        feedbackList.innerHTML = '<p>Please enter your email to view your feedback history</p>';
         return;
     }
 
     try {
-        const response = await fetch(`${FEEDBACK_API}?q={"user_id":"${userId}"}`, {
+        const response = await fetch(`${FEEDBACK_API}?q={"user_email":"${userEmail}"}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -161,7 +143,7 @@ function displayFeedbackHistory(feedbacks) {
     `).join('');
 }
 
-// Rating Functionality
+// Rating Modal Functionality
 function openRatingModal(feedbackId) {
     currentFeedbackId = feedbackId;
     currentRating = 0;
@@ -234,8 +216,3 @@ window.addEventListener('click', (e) => {
         ratingModal.style.display = 'none';
     }
 });
-
-// Initial load
-if (userId) {
-    loadFeedbackHistory();
-}
